@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst.c                                              :+:      :+:    :+:   */
+/*   lst1.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/30 13:58:31 by erahal            #+#    #+#             */
-/*   Updated: 2024/10/31 14:24:36 by erahal           ###   ########.fr       */
+/*   Created: 2024/10/31 14:24:55 by erahal            #+#    #+#             */
+/*   Updated: 2024/10/31 14:58:44 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void lst_free(t_lexer **lexer)
+void lst_freeenv(t_env **lexer)
 {
-	t_lexer *tmp;
+	t_env *tmp;
 	while ((*lexer) != NULL)
 	{
 		tmp = (*lexer)->next;
+		free((*lexer)->var_env);
 		free((*lexer));
 		(*lexer) = tmp;
 	}
 }
 
-t_lexer	*ft_lstlast(t_lexer *lst)
+t_env	*ft_lstlastenv(t_env *lst)
 {
 	while (lst != NULL)
 	{
@@ -32,37 +33,48 @@ t_lexer	*ft_lstlast(t_lexer *lst)
 		lst = lst->next;
 	}
 	return (NULL);
+
 }
 
 
-void	ft_lstadd_back(t_lexer **lst, t_lexer *new)
+void	ft_lstadd_backenv(t_env **lst, t_env *new)
 {
-	t_lexer	*tmp;
-	static int index = 1;
+	t_env	*tmp;
 
 	if (!new)
 		return ;
 	if (*lst == NULL)
 	{
 		(*lst) = new;
-		(*lst)->i = index++;
 		return ;
 	}
-	tmp = ft_lstlast(*lst);
+	tmp = ft_lstlastenv(*lst);
 	tmp->next = new;
-	new->i = index++;
 }
 
 
-t_lexer	*ft_lstnew(void *content)
+t_env	*ft_lstnewenv(void *content)
 {
-	t_lexer	*new;
+	t_env	*new;
+	char *s;
+	int i;
 
-	new = (t_lexer *)malloc(sizeof(t_lexer));
+	i = 0;
+	s = (char*)content;
+	new = (t_env *)malloc(sizeof(t_env));
 	if (!new)
 		return (NULL);
-	new->str = content;
+	while (s[i] != '=')
+		i++;
+	new->var_env = malloc(sizeof(char) * (i +1 ));
+	i = 0;
+	while (s[i] != '=')
+	{
+		new->var_env[i] = s[i];
+		i++;
+	}
+	new->var_env[i] = '\0';
+	new->str = s;
 	new->next = NULL;
 	return (new);
 }
-
