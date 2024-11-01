@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 10:41:15 by erahal            #+#    #+#             */
-/*   Updated: 2024/10/31 15:30:59 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/01 16:52:27 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int main(int ac, char **av, char **env)
 	lexer = NULL;
 	ev = NULL;
 	stock_env(env, &ev);
-	promt_start(&lexer);
+	promt_start(&lexer, ev);
 	lst_freeenv(&ev);
 	return (0);
 }

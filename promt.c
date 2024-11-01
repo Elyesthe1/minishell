@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   promt.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 11:34:59 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/01 15:53:09 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/01 16:52:54 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char *promt_config()
 	s = ft_strjoin(s, cwd, 1);
 	return (ft_strjoin(s, " ", 0));
 }
-void promt_start(t_lexer **lexer)
+void promt_start(t_lexer **lexer, t_env **env)
 {
 	char *line;
 	int i = 0;
