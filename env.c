@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/30 10:41:15 by erahal            #+#    #+#             */
-/*   Updated: 2024/10/31 15:30:59 by erahal           ###   ########.fr       */
+/*   Created: 2024/10/31 14:20:30 by erahal            #+#    #+#             */
+/*   Updated: 2024/10/31 14:31:32 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main(int ac, char **av, char **env)
+void stock_env(char **env, t_env **ev)
 {
-	t_lexer *lexer;
-	t_env *ev;
-	(void)av;
-	if (ac != 1)
+	int i;
+
+	i = 0;
+	while (env[i])
 	{
-		write(2, "no arguments are required\n", 27);
-		exit(1);
+		ft_lstadd_backenv(ev, ft_lstnewenv(env[i]));
+		i++;
 	}
-	lexer = NULL;
-	ev = NULL;
-	stock_env(env, &ev);
-	promt_start(&lexer);
-	lst_freeenv(&ev);
-	return (0);
 }
