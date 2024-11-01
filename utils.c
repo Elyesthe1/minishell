@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 11:40:18 by erahal            #+#    #+#             */
-/*   Updated: 2024/10/31 10:58:11 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/01 16:47:31 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ int ft_free(char *s)
 	free(s);
 	return (1);
 }
-int ft_strlen(char *s)
+int ft_strlen(const char *s)
 {
 	int i;
 
 	i = 0;
-	while (s[i])
+	while (s && s[i])
 		i++;
 	return(i);
 }
@@ -45,7 +45,7 @@ char	*ft_strdup(char *s)
 }
 
 
-char	*ft_strcpy(char *s1, char *s2, char *s3, int n)
+char	*ft_joinstrcpy(char *s1, char *s2, char *s3, int n)
 {
 	int	i;
 	int	j;
@@ -90,7 +90,7 @@ char	*ft_strjoin(char *s1, char *s2, int n)
 	str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1 + n));
 	if (!str)
 		return (NULL);
-	str = ft_strcpy(str, s1, s2, n);
+	str = ft_joinstrcpy(str, s1, s2, n);
 	if (n == 0)
 		free(s1);
 	return (str);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 15:10:02 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/01 16:12:03 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/01 16:50:26 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdbool.h>
+
 
 // 0 si pas un tockens 
 // < == 1
@@ -34,7 +36,8 @@ typedef struct s_tokens
 typedef struct s_env
 {
 	char			*str;
-	char			*var_env;
+	char			*name;
+	char			*value;
 	struct s_env	*next;
 }					t_env;
 
@@ -62,13 +65,11 @@ void lst_printf(t_lexer *lexer);
 int it_is_a_token(char c);
 t_lexer	*ft_lstnewtoken(int content);
 char	*ft_strdup(char *s);
-int ft_strlen(char *s);
 
 t_env				*ft_lstlastenv(t_env *lst);
 void				ft_lstadd_backenv(t_env **lst, t_env *new);
 t_env				*ft_lstnewenv(void *content);
 void				lst_freeenv(t_env **lexer);
-int lexer_config(t_lexer **lexer, char *line);
 int	*ft_strchr_tokens(char *str);
 int it_is_white_space(char c);
 void 	token_error(char *line, t_lexer **lexer, char *p);
@@ -79,9 +80,24 @@ int				lst_free(t_lexer **lexer);
 void				stock_env(char **env, t_env **ev);
 t_lexer				*ft_lstnew(void *content, int i);
 int				ft_lstadd_back(t_lexer **lst, t_lexer *new);
-void				promt_start(t_lexer **lexer);
 char				*ft_strjoin(char *s1, char *s2, int n);
 char				*ft_strdup(char *s);
 int					ft_free(char *s);
+void				lexer_config(t_lexer **lexer, char *line);
+int					ft_strlen(const char *s);
+int					ft_strncmp(const char *s1, const char *s2, size_t n);
+void				cmd_handler(char* cmd_name, t_env **env);
+void				built_exit(int status);
+void				built_pwd();
+void				built_env(t_env **env);
+void				built_echo(char *str, bool newline);
+void				built_unset(char *env_name, t_env **env);
+void				built_export(t_env **env);
+void				promt_start(t_lexer **lexer, t_env **env);
+int					ft_strcmp(const char *s1, const char *s2);
+char				*get_env_name(char *str);
+char				*get_env_value(char *str);
+char				*ft_joinstrcpy(char *s1, char *s2, char *s3, int n);
+char				*ft_strcpy(char *dest, char *src);
 
 #endif
