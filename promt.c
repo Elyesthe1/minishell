@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   promt.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 11:34:59 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/01 17:35:22 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/01 17:54:42 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void promt_start(t_lexer **lexer, t_env **env)
 		add_history(line);
 		lexer_config(lexer, line);
 		lst_printf(*lexer);
+		cmd_handler(line, env);
 		free(promt);
 		free(line);
 		lst_free(lexer);
