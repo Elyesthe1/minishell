@@ -6,7 +6,7 @@
 /*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 15:10:02 by erahal            #+#    #+#             */
-/*   Updated: 2024/10/31 15:33:25 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/01 11:41:57 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+// 0 si pas un tockens 
 // < == 1
 // > == 2
 // >> == 3
@@ -53,13 +54,14 @@ typedef struct s_simple_cmds
 	char                    *hd_file_name;
 	t_lexer                 *redirections;
 	struct s_simple_cmds	*next;
-	struct s_simple_cmds	*prev;
 }	t_simple;
 
 t_env				*ft_lstlastenv(t_env *lst);
 void				ft_lstadd_backenv(t_env **lst, t_env *new);
 t_env				*ft_lstnewenv(void *content);
 void				lst_freeenv(t_env **lexer);
+void lexer_config(t_lexer **lexer, char *line);
+int	*ft_strchr_tokens(char *str);
 
 void				lst_free(t_lexer **lexer);
 char				**ft_split(char *s, char c);

@@ -6,11 +6,32 @@
 /*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 14:09:07 by erahal            #+#    #+#             */
-/*   Updated: 2024/10/31 14:09:52 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/01 11:45:02 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int it_is_white_space(char c)
+
+// int	ft_strchr_tokens(char *str)
+// {
+// 	int		i;
+
+// 	i = 0;
+// 	if (!str)
+// 		return (0);
+// 	while (str[i])
+// 	{
+// 		if (str[i] == '<' || str[i] == '>' || str[i] == '|')
+// 			return (1);
+// 		i++;
+// 	}
+// 	if (str[i] == '<' || str[i] == '>' || str[i] == '|')
+// 		return (1);
+// 	else
+// 		return (0);
+// }
 
 int    ft_split_len(char const *s, char c)
 {
@@ -60,17 +81,13 @@ void    ft_free_split(char **split)
     free(split);
 }
 
-char    **ft_split(char *s, char c)
+char    **ft_split(char *s, char c, t_lexer **lexer)
 {
-    char    **strs;
     size_t    i;
     size_t    pos;
 
-    strs = malloc(sizeof(char *) * (ft_split_len(s, c) + 1));
     i = 0;
     pos = 0;
-    if (!strs)
-        return (NULL);
     while (s[i])
     {
         if (ft_strlen_delim(&s[i], c) > 0)

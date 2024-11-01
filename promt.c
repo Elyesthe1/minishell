@@ -6,7 +6,7 @@
 /*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 11:34:59 by erahal            #+#    #+#             */
-/*   Updated: 2024/10/31 14:07:06 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/01 11:41:47 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,18 @@ char *promt_config()
 void promt_start(t_lexer **lexer)
 {
 	char *config_promt;
+	char *line;
 	int i = 0;
 	while (1)
 	{
 		if (i == 4)
 			break;
 		config_promt = promt_config();
-		ft_lstadd_back(lexer, ft_lstnew(readline(config_promt)));
+		line = readline(config_promt);
+		// ft_lstadd_back(lexer, ft_lstnew(readline(config_promt)));
+		lexer_config(lexer, line);
 		free(config_promt);
+		free(line);
 		if (i++ == 4)
 			break;	
 	}
