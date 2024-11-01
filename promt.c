@@ -6,7 +6,7 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 11:34:59 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/01 16:52:54 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/01 17:10:48 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,22 @@ char *promt_config()
 }
 void promt_start(t_lexer **lexer, t_env **env)
 {
+	char *config_promt;
 	char *line;
 	int i = 0;
-	char *promt;
 	while (1)
 	{
-		promt = promt_config();
-		line = readline(promt);
-		lexer_config(lexer, line);
-		lst_printf(*lexer);
-		free(promt);
-		free(line);
-		lst_free(lexer);
-		if (i++ == 4)
+		if (i == 4)
 			break;
+		config_promt = promt_config();
+		line = readline(config_promt);
+		printf("line: %s\n", line);
+		cmd_handler(line, env);
+		// ft_lstadd_back(lexer, ft_lstnew(readline(config_promt)));
+		free(config_promt);
+		free(line);
+		if (i++ == 4)
+			break;	
 	}
+	lst_free(lexer);
  }

@@ -6,7 +6,7 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 15:10:02 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/01 16:50:26 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/01 17:02:37 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int				ft_lstadd_back(t_lexer **lst, t_lexer *new);
 char				*ft_strjoin(char *s1, char *s2, int n);
 char				*ft_strdup(char *s);
 int					ft_free(char *s);
-void				lexer_config(t_lexer **lexer, char *line);
+int					lexer_config(t_lexer **lexer, char *line);
 int					ft_strlen(const char *s);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 void				cmd_handler(char* cmd_name, t_env **env);
