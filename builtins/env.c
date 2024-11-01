@@ -6,103 +6,39 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 14:41:40 by tovetouc          #+#    #+#             */
-/*   Updated: 2024/10/31 15:19:29 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/01 16:54:09 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "../minishell.h"
 
-size_t	ft_strlen(const char *s)
+char	*env_lst_to_str(t_env **env)
 {
-	size_t	i;
-
-	i = 0;
-	if (!s)
-		return (i);
-	while (s[i])
-	{
-		++i;
-	}
-	return (i);
-}
-
-void	*ft_memset(void *b, int c, size_t len)
-{
-	size_t			i;
-
-	i = 0;
-	while (i < len)
-	{
-		((unsigned char *) b)[i] = (unsigned char) c;
-		++i;
-	}
-	return (b);
-}
-
-void	*ft_calloc(size_t count, size_t size)
-{
-	void	*mem;
-
-	if (count != 0 && (count * size) / count != size)
-		return (NULL);
-	mem = malloc(size * count);
-	if (!mem)
-		return (NULL);
-	ft_memset(mem, 0, size * count);
-	return (mem);
-}
-
-char	*ft_strjoin(char *s1, const char *s2)
-{
+	t_env	*env_node;
 	char	*str;
-	size_t	i;
-	size_t	j;
 
-	if (!s1 && !s2)
-		return ((char *) ft_calloc(1, sizeof(char)));
-	i = 0;
-	j = 0;
-	str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 2));
+	str = NULL;
+	env_node = *env;
+	while (env_node && env_node->next)
+	{
+		str = ft_strjoin(str, env_node->str, 0);
+		if (!str)
+			return (NULL);
+		str = ft_strjoin(str, "\n", 0);
+		if (!str)
+			return (NULL);
+		env_node = env_node->next;
+	}
 	if (!str)
-		return (free(s1), NULL);
-	while (s1 && s1[i])
-	{
-		str[i] = s1[i];
-		++i;
-	}
-	str[i++] = '\n';
-	while (s2 && s2[j])
-	{
-		str[i + j] = s2[j];
-		++j;
-	}
-	str[i + j] = '\0';
-	free(s1);
+		return (NULL);
 	return (str);
 }
 
-char	*built_env(char **envp)
+void	built_env(t_env **env)
 {
-	int		i;
 	char	*str;
-	
-	i = 0;
-	str = NULL;
-	while (envp[i])
-	{
-		str = ft_strjoin(str, envp[i]);
-		++i;
-	}
-	printf(str);
+
+	str = env_lst_to_str(env);
+	printf("%s", str);
 	free(str);
 }
-
-// int	main(int argc, char **argv, char **envp)
-// {
-// 	char	*str;
-
-// 	str = env(envp);
-// 	printf("%s\n", str);
-// 	free(str);
-// }
