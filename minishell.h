@@ -6,7 +6,7 @@
 /*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 15:10:02 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/01 11:41:57 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/01 16:12:03 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,29 @@ typedef struct s_simple_cmds
 	struct s_simple_cmds	*next;
 }	t_simple;
 
+void lst_printf(t_lexer *lexer);
+
+//
+int it_is_a_token(char c);
+t_lexer	*ft_lstnewtoken(int content);
+char	*ft_strdup(char *s);
+int ft_strlen(char *s);
+
 t_env				*ft_lstlastenv(t_env *lst);
 void				ft_lstadd_backenv(t_env **lst, t_env *new);
 t_env				*ft_lstnewenv(void *content);
 void				lst_freeenv(t_env **lexer);
-void lexer_config(t_lexer **lexer, char *line);
+int lexer_config(t_lexer **lexer, char *line);
 int	*ft_strchr_tokens(char *str);
+int it_is_white_space(char c);
+void 	token_error(char *line, t_lexer **lexer, char *p);
+int it_is_valid_token(char *s);
 
-void				lst_free(t_lexer **lexer);
-char				**ft_split(char *s, char c);
+int				lst_free(t_lexer **lexer);
+// char				**ft_split(char *s, char c);
 void				stock_env(char **env, t_env **ev);
-t_lexer				*ft_lstnew(void *content);
-void				ft_lstadd_back(t_lexer **lst, t_lexer *new);
+t_lexer				*ft_lstnew(void *content, int i);
+int				ft_lstadd_back(t_lexer **lst, t_lexer *new);
 void				promt_start(t_lexer **lexer);
 char				*ft_strjoin(char *s1, char *s2, int n);
 char				*ft_strdup(char *s);

@@ -1,13 +1,16 @@
 SRCS = main.c\
 	   promt.c\
 	   utils.c\
+	   utils1.c\
 	   lst.c\
 	   lst1.c\
 	   env.c\
+	   parser.c\
+	   parse_tocken.c\
 
 CC = cc
 RM = rm -f
-FLAGS = -Wall  -Wextra -g  -fsanitize=address  #-Werror
+FLAGS = -Wall  -Wextra -g  #-fsanitize=address  #-Werror
 NAME = minishell
 OBJS = $(SRCS:.c=.o)
 
