@@ -6,24 +6,18 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 11:51:35 by tovetouc          #+#    #+#             */
-/*   Updated: 2024/10/31 15:20:02 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/01 16:55:20 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include "unistd.h"
 
 // TODO: CHANGE THIS LATER TO TAKE INTO ACCOUNT CD
-char	*built_pwd()
+void	built_pwd()
 {
-	printf("%s\n", getcwd(NULL, 0));
-}
+	char	*cwd;
 
-// int	main(void)
-// {
-// 	char	*str;
-	
-// 	str = pwd();
-// 	printf("%s\n", str);
-// 	return (0);
-// }
+	cwd = getcwd(NULL, 0);
+	printf("%s\n", cwd);
+	free(cwd);
+}
