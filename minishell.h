@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 15:10:02 by erahal            #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2024/11/01 17:13:07 by erahal           ###   ########.fr       */
+=======
 /*   Updated: 2024/11/01 17:02:37 by tovetouc         ###   ########.fr       */
+>>>>>>> 95d67e54b9c070708fb8c6457eca95a729ed1dcf
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +22,6 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdbool.h>
-
 
 // 0 si pas un tockens 
 // < == 1
@@ -27,6 +29,13 @@
 // >> == 3
 // << == 4
 // | == 5
+
+// int signal;
+
+typedef struct s_signal
+{
+	void *sig_handler;
+}t_signal;
 
 typedef struct s_tokens
 {
@@ -65,6 +74,7 @@ void lst_printf(t_lexer *lexer);
 int it_is_a_token(char c);
 t_lexer	*ft_lstnewtoken(int content);
 char	*ft_strdup(char *s);
+int ft_strlen(char *s);
 
 t_env				*ft_lstlastenv(t_env *lst);
 void				ft_lstadd_backenv(t_env **lst, t_env *new);

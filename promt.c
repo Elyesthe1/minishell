@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   promt.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 11:34:59 by erahal            #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2024/11/01 17:19:52 by erahal           ###   ########.fr       */
+=======
 /*   Updated: 2024/11/01 17:10:48 by tovetouc         ###   ########.fr       */
+>>>>>>> 95d67e54b9c070708fb8c6457eca95a729ed1dcf
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +48,19 @@ void promt_start(t_lexer **lexer, t_env **env)
 	int i = 0;
 	while (1)
 	{
+<<<<<<< HEAD
+		promt = promt_config();
+		line = readline(promt);
+		add_history(line);
+		lexer_config(lexer, line);
+		lst_printf(*lexer);
+		free(promt);
+		free(line);
+		lst_free(lexer);
+		if (i++ == 4)
+=======
 		if (i == 4)
+>>>>>>> 95d67e54b9c070708fb8c6457eca95a729ed1dcf
 			break;
 		config_promt = promt_config();
 		line = readline(config_promt);

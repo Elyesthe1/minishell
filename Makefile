@@ -7,6 +7,9 @@ SRCS = main.c\
 	   env.c\
 	   parser.c\
 	   parse_tocken.c\
+<<<<<<< HEAD
+	   signal.c\
+=======
 	   builtins/echo.c\
 	   builtins/env.c\
 	   builtins/exit.c\
@@ -16,6 +19,7 @@ SRCS = main.c\
 	   commands/handler.c\
 	   str/cmp.c\
 	   str/cpy.c
+>>>>>>> 95d67e54b9c070708fb8c6457eca95a729ed1dcf
 
 CC = cc
 RM = rm -f

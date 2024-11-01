@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 10:41:15 by erahal            #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2024/11/01 17:19:27 by erahal           ###   ########.fr       */
+=======
 /*   Updated: 2024/11/01 17:10:59 by tovetouc         ###   ########.fr       */
+>>>>>>> 95d67e54b9c070708fb8c6457eca95a729ed1dcf
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +28,7 @@ int main(int ac, char **av, char **env)
 	}
 	lexer = NULL;
 	ev = NULL;
+	set_signal_action();
 	stock_env(env, &ev);
 	promt_start(&lexer, &ev);
 	lst_freeenv(&ev);
