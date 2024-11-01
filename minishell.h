@@ -6,11 +6,7 @@
 /*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 15:10:02 by erahal            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/11/01 17:13:07 by erahal           ###   ########.fr       */
-=======
-/*   Updated: 2024/11/01 17:02:37 by tovetouc         ###   ########.fr       */
->>>>>>> 95d67e54b9c070708fb8c6457eca95a729ed1dcf
+/*   Updated: 2024/11/01 17:36:01 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +18,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <signal.h>
+# include <stdbool.h>
 
 // 0 si pas un tockens 
 // < == 1
@@ -74,8 +72,6 @@ void lst_printf(t_lexer *lexer);
 int it_is_a_token(char c);
 t_lexer	*ft_lstnewtoken(int content);
 char	*ft_strdup(char *s);
-int ft_strlen(char *s);
-
 t_env				*ft_lstlastenv(t_env *lst);
 void				ft_lstadd_backenv(t_env **lst, t_env *new);
 t_env				*ft_lstnewenv(void *content);
@@ -84,6 +80,7 @@ int	*ft_strchr_tokens(char *str);
 int it_is_white_space(char c);
 void 	token_error(char *line, t_lexer **lexer, char *p);
 int it_is_valid_token(char *s);
+void set_signal_action(void);
 
 int				lst_free(t_lexer **lexer);
 // char				**ft_split(char *s, char c);

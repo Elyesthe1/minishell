@@ -6,11 +6,7 @@
 /*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 11:34:59 by erahal            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/11/01 17:19:52 by erahal           ###   ########.fr       */
-=======
-/*   Updated: 2024/11/01 17:10:48 by tovetouc         ###   ########.fr       */
->>>>>>> 95d67e54b9c070708fb8c6457eca95a729ed1dcf
+/*   Updated: 2024/11/01 17:35:22 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +39,11 @@ char *promt_config()
 }
 void promt_start(t_lexer **lexer, t_env **env)
 {
-	char *config_promt;
 	char *line;
 	int i = 0;
+	char *promt;
 	while (1)
 	{
-<<<<<<< HEAD
 		promt = promt_config();
 		line = readline(promt);
 		add_history(line);
@@ -58,19 +53,6 @@ void promt_start(t_lexer **lexer, t_env **env)
 		free(line);
 		lst_free(lexer);
 		if (i++ == 4)
-=======
-		if (i == 4)
->>>>>>> 95d67e54b9c070708fb8c6457eca95a729ed1dcf
 			break;
-		config_promt = promt_config();
-		line = readline(config_promt);
-		printf("line: %s\n", line);
-		cmd_handler(line, env);
-		// ft_lstadd_back(lexer, ft_lstnew(readline(config_promt)));
-		free(config_promt);
-		free(line);
-		if (i++ == 4)
-			break;	
 	}
-	lst_free(lexer);
  }

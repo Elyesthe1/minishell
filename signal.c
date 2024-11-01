@@ -6,7 +6,7 @@
 /*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 16:42:06 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/01 17:09:27 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/01 17:38:13 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void set_signal_action(void)
 {
  	t_signal act;
 
- 	bzero(&act, sizeof(act));
  	act.sig_handler = &signal_handler_quit;
  	sigaction(SIGINT, &act, NULL);
 }
