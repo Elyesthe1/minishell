@@ -6,7 +6,7 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 11:49:35 by tovetouc          #+#    #+#             */
-/*   Updated: 2024/11/01 17:09:29 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/04 17:39:16 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void execute_builtin(char *cmd_name, t_env **env)
 	else if (ft_strcmp(cmd_name, "echo") == 0)
 		built_echo("echo", true);
 	else if (ft_strcmp(cmd_name, "unset") == 0)
-		built_unset(NULL, env);
+		built_unset("USER", env);
 	else if (ft_strcmp(cmd_name, "export") == 0)
 		built_export(env);
 }

@@ -6,7 +6,7 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 14:41:40 by tovetouc          #+#    #+#             */
-/*   Updated: 2024/11/01 17:06:03 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/04 16:57:34 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ char	*env_lst_to_str(t_env **env)
 
 	str = NULL;
 	env_node = *env;
-	while (env_node && env_node->next)
+	while (env_node)
 	{
 		str = ft_strjoin(str, env_node->str, 0);
+		// printf("ENV %s\n", env_node->str);
 		if (!str)
 			return (NULL);
 		str = ft_strjoin(str, "\n", 0);

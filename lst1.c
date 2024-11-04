@@ -6,7 +6,7 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 14:24:55 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/01 16:51:05 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/04 17:41:23 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void lst_freeenv(t_env **lexer)
 	while ((*lexer) != NULL)
 	{
 		tmp = (*lexer)->next;
+		free((*lexer)->str);
 		free((*lexer)->name);
 		free((*lexer)->value);
 		free((*lexer));
@@ -62,9 +63,14 @@ t_env	*ft_lstnewenv(void *content)
 	new = (t_env *)malloc(sizeof(t_env));
 	if (!new)
 		return (NULL);
+	new->str = ft_strdup(s);
+	if (!new->str)
+	{
+		free(new);
+		return (NULL);
+	}
 	new->name = get_env_name(s);
 	new->value = get_env_value(s);
-	new->str = s;
 	new->next = NULL;
 	return (new);
 }
@@ -111,5 +117,19 @@ char	*get_env_value(char *str)
 	}
 	value[j] = '\0';
 	return (value);
+}
+
+bool	exists_in_env(char *env_name, t_env **env)
+{
+	t_env	*env_node;
+
+	env_node = *env;
+	while (env_node)
+	{
+		if (ft_strcmp(env_node->name, env_name) == 0) // MODIFY LATER TO ACCEPT ENV NAMEs
+		 	return (true);
+		env_node = env_node->next;
+	}
+	return (false);
 }
 

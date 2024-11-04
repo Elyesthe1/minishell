@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 14:20:30 by erahal            #+#    #+#             */
-/*   Updated: 2024/10/31 14:31:32 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/04 17:15:37 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void stock_env(char **env, t_env **ev)
+void stock_env(char **env_str, t_env **env)
 {
 	int i;
 
 	i = 0;
-	while (env[i])
+	while (env_str[i])
 	{
-		ft_lstadd_backenv(ev, ft_lstnewenv(env[i]));
+		ft_lstadd_backenv(env, ft_lstnewenv(env_str[i]));
 		i++;
 	}
 }

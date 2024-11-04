@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 15:10:02 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/01 17:36:01 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/04 17:20:29 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void set_signal_action(void);
 
 int				lst_free(t_lexer **lexer);
 // char				**ft_split(char *s, char c);
-void				stock_env(char **env, t_env **ev);
+void				stock_env(char **env_str, t_env **env);
 t_lexer				*ft_lstnew(void *content, int i);
 int				ft_lstadd_back(t_lexer **lst, t_lexer *new);
 char				*ft_strjoin(char *s1, char *s2, int n);
@@ -106,5 +106,7 @@ char				*get_env_name(char *str);
 char				*get_env_value(char *str);
 char				*ft_joinstrcpy(char *s1, char *s2, char *s3, int n);
 char				*ft_strcpy(char *dest, char *src);
+char				*env_lst_to_str(t_env **env);
+bool				exists_in_env(char *env_name, t_env **env);
 
 #endif

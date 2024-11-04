@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 16:42:06 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/01 17:38:13 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/04 16:13:50 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,5 @@ void signal_handler_quit(int signal)
 
 void set_signal_action(void)
 {
- 	t_signal act;
-
- 	act.sig_handler = &signal_handler_quit;
- 	sigaction(SIGINT, &act, NULL);
+ 	return ;
 }
