@@ -6,7 +6,7 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 11:49:35 by tovetouc          #+#    #+#             */
-/*   Updated: 2024/11/04 17:39:16 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/04 18:25:36 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int is_builtin(char *cmd_name)
 		return (true);
 	else if (ft_strcmp(cmd_name, "export") == 0)
 		return (true);
+	else if (ft_strcmp(cmd_name, "cd") == 0)
+		return (true);
 	return (false);
 }
 
@@ -43,6 +45,8 @@ void execute_builtin(char *cmd_name, t_env **env)
 		built_unset("USER", env);
 	else if (ft_strcmp(cmd_name, "export") == 0)
 		built_export(env);
+	else if (ft_strcmp(cmd_name, "cd") == 0)
+		built_cd(env);
 }
 
 void cmd_handler(char* cmd_name, t_env **env)

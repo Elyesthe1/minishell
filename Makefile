@@ -13,6 +13,7 @@ SRCS = main.c\
 	   builtins/export.c\
 	   builtins/pwd.c\
 	   builtins/unset.c\
+	   builtins/cd.c\
 	   commands/handler.c\
 	   str/cmp.c\
 	   str/cpy.c\

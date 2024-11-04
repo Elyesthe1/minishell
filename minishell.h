@@ -6,7 +6,7 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 15:10:02 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/04 17:20:29 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/04 18:25:53 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,6 @@ char				*ft_joinstrcpy(char *s1, char *s2, char *s3, int n);
 char				*ft_strcpy(char *dest, char *src);
 char				*env_lst_to_str(t_env **env);
 bool				exists_in_env(char *env_name, t_env **env);
+void				built_cd(t_env **env);
 
 #endif
