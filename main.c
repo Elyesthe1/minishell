@@ -6,7 +6,7 @@
 /*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 10:41:15 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/01 17:31:44 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/04 15:43:24 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int main(int ac, char **av, char **env)
 	}
 	lexer = NULL;
 	ev = NULL;
-	set_signal_action();
+	// set_signal_action();
 	stock_env(env, &ev);
 	promt_start(&lexer, &ev);
 	lst_freeenv(&ev);

@@ -1,39 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   write_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/01 16:42:06 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/04 15:33:59 by erahal           ###   ########.fr       */
+/*   Created: 2024/11/04 17:53:30 by erahal            #+#    #+#             */
+/*   Updated: 2024/11/04 17:58:21 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-void	ctrl_D(char *promt, char *line)
-{
-	free(promt);
-	free(line);
-	rl_clear_history();
-	printf("exit\n");
-	exit(0);
-}
 
-void signal_handler(int signal)
+int token_print_error()
 {
-	if (signal == SIGINT)
-	{
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0); 
-   		rl_redisplay();
-	}
-
-}
-
-void set_signal_action(void)
-{
-	signal(SIGINT, &signal_handler);
-	signal(SIGQUIT, SIG_IGN); // SIG_DFL avant de execve
+	write(2,"bash: syntax error near unexpected token\n", 42);
+	return (1);
 }

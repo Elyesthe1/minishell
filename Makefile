@@ -17,11 +17,13 @@ SRCS = main.c\
 	   str/cmp.c\
 	   str/cpy.c\
 	   signal.c\
+	   parse_qote.c\
+	   write_error.c\
 
 
 CC = cc
 RM = rm -f
-FLAGS = -Wall  -Wextra -g  -fsanitize=address  #-Werror
+FLAGS = -Wall  -Wextra -g  #-fsanitize=address  #-Werror
 NAME = minishell
 OBJS = $(SRCS:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 15:10:02 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/01 17:36:01 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/04 18:00:51 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <unistd.h>
 # include <signal.h>
 # include <stdbool.h>
+#include <strings.h>
+
 
 // 0 si pas un tockens 
 // < == 1
@@ -30,10 +32,6 @@
 
 // int signal;
 
-typedef struct s_signal
-{
-	void *sig_handler;
-}t_signal;
 
 typedef struct s_tokens
 {
@@ -56,7 +54,7 @@ typedef struct s_lexer
 	struct s_lexer	*next;
 }					t_lexer;
 
-typedef struct s_simple_cmds
+typedef struct s_parser
 {
 	char                    **str;
 	// int                     (*builtin)(t_tools *, struct s_simple_cmds *);
@@ -64,11 +62,21 @@ typedef struct s_simple_cmds
 	char                    *hd_file_name;
 	t_lexer                 *redirections;
 	struct s_simple_cmds	*next;
-}	t_simple;
+}	t_parser;
 
 void lst_printf(t_lexer *lexer);
 
 //
+int quote(char *loc, char **ligne);
+int i_am_in_qote(int *qote);
+int quote_checker1(char *line, int qote[2]);
+int 	quote_checker(char *line);
+int token_print_error();
+
+void greed_line(int token, int *i);
+
+void	ctrl_D(char *promt, char *line);
+void    free_promt(char *line, char *promt, t_lexer **lexer);
 int it_is_a_token(char c);
 t_lexer	*ft_lstnewtoken(int content);
 char	*ft_strdup(char *s);
