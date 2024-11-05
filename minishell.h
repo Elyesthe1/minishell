@@ -6,7 +6,7 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 15:10:02 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/04 18:25:53 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/05 16:43:48 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <unistd.h>
 # include <signal.h>
 # include <stdbool.h>
+# include <string.h>
+# include <errno.h>
 
 // 0 si pas un tockens 
 // < == 1
@@ -46,7 +48,7 @@ typedef struct s_env
 	char			*name;
 	char			*value;
 	struct s_env	*next;
-}					t_env;
+}	t_env;
 
 typedef struct s_lexer
 {
@@ -54,17 +56,26 @@ typedef struct s_lexer
 	t_tokens		token;
 	int				i;
 	struct s_lexer	*next;
-}					t_lexer;
+}	t_lexer;
 
-typedef struct s_simple_cmds
+typedef struct s_outfile
 {
-	char                    **str;
-	// int                     (*builtin)(t_tools *, struct s_simple_cmds *);
-	int                     num_redirections;
-	char                    *hd_file_name;
-	t_lexer                 *redirections;
-	struct s_simple_cmds	*next;
-}	t_simple;
+	char		**outfile;
+	t_tokens 	flag;
+}	t_outfile;
+
+typedef struct s_infile
+{
+	char	**infile;
+}	t_infile;
+
+typedef struct s_parser
+{
+	char			**str;
+	t_infile		infile;
+	t_outfile		outfile;
+	struct s_parser	*next;
+}	t_parser;
 
 void lst_printf(t_lexer *lexer);
 
@@ -107,7 +118,10 @@ char				*get_env_value(char *str);
 char				*ft_joinstrcpy(char *s1, char *s2, char *s3, int n);
 char				*ft_strcpy(char *dest, char *src);
 char				*env_lst_to_str(t_env **env);
-bool				exists_in_env(char *env_name, t_env **env);
-void				built_cd(t_env **env);
+bool				exists_in_env(t_env **env, char *env_name);
+void				built_cd(t_env **env, char *directory_path);
+void				add_to_env(t_env **env, char *env_name, char *env_value);
+void				change_env_value(t_env **env, char *env_name, char *env_value);
+t_env				*get_env_node(t_env **env, char *env_name);
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 11:49:35 by tovetouc          #+#    #+#             */
-/*   Updated: 2024/11/04 18:25:36 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/05 16:56:41 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int is_builtin(char *cmd_name)
+int	is_builtin(char *cmd_name)
 {
 	if (ft_strcmp(cmd_name, "exit") == 0)
 		return (true);
@@ -31,7 +31,7 @@ int is_builtin(char *cmd_name)
 	return (false);
 }
 
-void execute_builtin(char *cmd_name, t_env **env)
+void	execute_builtin(char *cmd_name, t_env **env)
 {
 	if (ft_strcmp(cmd_name, "exit") == 0)
 		built_exit(0);
@@ -46,15 +46,15 @@ void execute_builtin(char *cmd_name, t_env **env)
 	else if (ft_strcmp(cmd_name, "export") == 0)
 		built_export(env);
 	else if (ft_strcmp(cmd_name, "cd") == 0)
-		built_cd(env);
+		built_cd(env, "-");
 }
 
-void cmd_handler(char* cmd_name, t_env **env)
+void	cmd_handler(char *cmd_name, t_env **env)
 {
 	if (!is_builtin(cmd_name))
 	{
 		printf("not implemented yet\n");
-		return;
+		return ;
 	}
 	execute_builtin(cmd_name, env);
 }

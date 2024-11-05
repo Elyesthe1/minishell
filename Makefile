@@ -3,8 +3,8 @@ SRCS = main.c\
 	   utils.c\
 	   utils1.c\
 	   lst.c\
-	   lst1.c\
-	   env.c\
+	   env/env1.c\
+	   env/env2.c\
 	   parser.c\
 	   parse_tocken.c\
 	   builtins/echo.c\

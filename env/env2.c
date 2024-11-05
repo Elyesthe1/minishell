@@ -1,79 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst1.c                                             :+:      :+:    :+:   */
+/*   env2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/31 14:24:55 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/04 17:41:23 by tovetouc         ###   ########.fr       */
+/*   Created: 2024/11/05 17:15:44 by tovetouc          #+#    #+#             */
+/*   Updated: 2024/11/05 17:15:46 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-void lst_freeenv(t_env **lexer)
-{
-	t_env *tmp;
-	while ((*lexer) != NULL)
-	{
-		tmp = (*lexer)->next;
-		free((*lexer)->str);
-		free((*lexer)->name);
-		free((*lexer)->value);
-		free((*lexer));
-		(*lexer) = tmp;
-	}
-}
-
-t_env	*ft_lstlastenv(t_env *lst)
-{
-	while (lst != NULL)
-	{
-		if (lst->next == NULL)
-			return (lst);
-		lst = lst->next;
-	}
-	return (NULL);
-
-}
-
-void	ft_lstadd_backenv(t_env **lst, t_env *new)
-{
-	t_env	*tmp;
-
-	if (!new)
-		return ;
-	if (*lst == NULL)
-	{
-		(*lst) = new;
-		return ;
-	}
-	tmp = ft_lstlastenv(*lst);
-	tmp->next = new;
-}
-
-
-t_env	*ft_lstnewenv(void *content)
-{
-	t_env	*new;
-	char *s;
-
-	s = (char*)content;
-	new = (t_env *)malloc(sizeof(t_env));
-	if (!new)
-		return (NULL);
-	new->str = ft_strdup(s);
-	if (!new->str)
-	{
-		free(new);
-		return (NULL);
-	}
-	new->name = get_env_name(s);
-	new->value = get_env_value(s);
-	new->next = NULL;
-	return (new);
-}
+#include "../minishell.h"
 
 char	*get_env_name(char *str)
 {
@@ -104,7 +41,7 @@ char	*get_env_value(char *str)
 
 	i = 0;
 	j = 0;
-	while(str[i] && str[i] != '=')
+	while (str[i] && str[i] != '=')
 		++i;
 	++i;
 	value = malloc(sizeof(char) * (ft_strlen(&str[i]) + 1));
@@ -119,17 +56,30 @@ char	*get_env_value(char *str)
 	return (value);
 }
 
-bool	exists_in_env(char *env_name, t_env **env)
+bool	exists_in_env(t_env **env, char *env_name)
 {
 	t_env	*env_node;
 
 	env_node = *env;
 	while (env_node)
 	{
-		if (ft_strcmp(env_node->name, env_name) == 0) // MODIFY LATER TO ACCEPT ENV NAMEs
-		 	return (true);
+		if (ft_strcmp(env_node->name, env_name) == 0)
+			return (true);
 		env_node = env_node->next;
 	}
 	return (false);
 }
 
+t_env	*get_env_node(t_env **env, char *env_name)
+{
+	t_env	*env_node;
+
+	env_node = *env;
+	while (env_node)
+	{
+		if (ft_strcmp(env_node->name, env_name) == 0)
+			return (env_node);
+		env_node = env_node->next;
+	}
+	return (NULL);
+}
