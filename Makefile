@@ -1,12 +1,12 @@
 SRCS = main.c\
-	   promt.c\
+	   prompt.c\
 	   utils.c\
 	   utils1.c\
 	   lst.c\
 	   lst1.c\
 	   env.c\
 	   parser.c\
-	   parse_tocken.c\
+	   parse_token.c\
 	   builtins/echo.c\
 	   builtins/env.c\
 	   builtins/exit.c\
@@ -17,13 +17,15 @@ SRCS = main.c\
 	   str/cmp.c\
 	   str/cpy.c\
 	   signal.c\
-	   parse_qote.c\
+	   parse_quote.c\
 	   write_error.c\
+	   utils2.c\
+	   lst2.c\
 
 
 CC = cc
 RM = rm -f
-FLAGS = -Wall  -Wextra -g  #-fsanitize=address  #-Werror
+FLAGS = -Wall  -Wextra -g  -fsanitize=address  #-Werror
 NAME = minishell
 OBJS = $(SRCS:.c=.o)
 

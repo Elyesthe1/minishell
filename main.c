@@ -1,21 +1,12 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/30 10:41:15 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/04 15:43:24 by erahal           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+
 
 #include "minishell.h"
 
-int main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **env)
 {
-	t_lexer *lexer;
-	t_env *ev;
+	t_lexer	*lexer;
+	t_env	*ev;
+
 	(void)av;
 	if (ac != 1)
 	{
@@ -24,9 +15,9 @@ int main(int ac, char **av, char **env)
 	}
 	lexer = NULL;
 	ev = NULL;
-	// set_signal_action();
+	set_signal_action();
 	stock_env(env, &ev);
-	promt_start(&lexer, &ev);
+	prompt_start(&lexer, &ev);
 	lst_freeenv(&ev);
 	return (0);
 }

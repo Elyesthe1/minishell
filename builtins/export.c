@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 14:46:38 by tovetouc          #+#    #+#             */
-/*   Updated: 2024/11/01 16:53:39 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/05 11:40:52 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*env_to_export_fmt(t_env **env)
 		ft_strcpy(&str[ft_strlen(str)], env_node->value);
 		ft_strcpy(&str[ft_strlen(str)], "\"\n");
 		// printf("%s \n", str);
-		export_str = ft_strjoin(export_str, str, 0);
+		export_str = ft_strjoin(export_str, str);
 		if (!export_str)
 			return (free(str),  NULL);
 		free(str);

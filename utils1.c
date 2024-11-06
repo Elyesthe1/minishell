@@ -1,55 +1,84 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utils1.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/31 14:09:07 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/04 11:48:15 by erahal           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+
 
 #include "minishell.h"
 
-void    free_promt(char *line, char *promt, t_lexer **lexer)
+int	in_quote(int *quote)
 {
-    free(promt);
-    free(line);
-    lst_free(lexer);
+	if (quote[0] == 1 && quote[1] == 1)
+		return (1);
+	if (quote[0] == 0 && quote[1] == 1)
+		return (1);
+	if (quote[0] == 1 && quote[1] == 0)
+		return (1);
+	return (0);
 }
 
-
-void lst_printf(t_lexer *lexer)
+int	text_parse_quote1(t_lexer **lexer, char **s, int *j, int quote[2])
 {
-    while (lexer)
-    {
-        printf("mot = %s token = %d index == %d\n", lexer->str, lexer->token.tocken, lexer->i);
-        lexer = lexer->next;
-    }
-}
-int    ft_split_len(char const *s, char c)
-{
-    size_t    i;
-    int        count;
-    int        is_delimiter;
-
-    i = 0;
-    count = 0;
-    is_delimiter = 1;
-    while (s[i])
-    {
-        if (is_delimiter && s[i] != c)
-        {
-            ++count;
-            is_delimiter = !is_delimiter;
-        }
-        else if (!is_delimiter && s[i] == c)
-        {
-            is_delimiter = !is_delimiter;
-        }
-        ++i;
-    }
-    return (count);
+	if ((*s)[quote[2]] == '\'' && quote[0] == 0 && quote[1] == 0)
+	{
+		quote[0] = 1;
+		quote[2] += 1;
+	}
+	else if ((*s)[quote[2]] == '\'' && quote[0] == 1 && quote[1] == 0)
+	{
+		quote[0] = 0;
+		(*lexer)->str[*j] = (*s)[quote[2]];
+		quote[2] += 1;
+	}
+	else if ((*s)[quote[2]] == '\"' && quote[0] == 0 && quote[1] == 0)
+	{
+		quote[1] = 1;
+		quote[2] += 1;
+	}
+	else if ((*s)[quote[2]] == '\"' && quote[0] == 0 && quote[1] == 1)
+	{
+		quote[1] = 0;
+		(*lexer)->str[*j] = (*s)[quote[2]];
+		quote[2] += 1;
+	}
+	else
+		return (0);
+	return (1);
 }
 
+void	text_parse_quote(t_lexer **lexer, char *s)
+{
+	int	j;
+	int	status;
+	int	quote[3];
+
+	quote[2] = 0;
+	j = 0;
+	quote[0] = 0;
+	quote[1] = 0;
+	while (s[quote[2]])
+	{
+		status = 0;
+		status = text_parse_quote1(lexer, &s, &j, quote);
+		if (status == 0)
+		{
+			(*lexer)->str[j] = s[quote[2]];
+			quote[2]++;
+			j++;
+		}
+	}
+	(*lexer)->str[j] = '\0';
+}
+
+void	free_prompt(char *line, char *prompt, t_lexer **lexer)
+{
+	free(prompt);
+	free(line);
+	lst_free(lexer);
+}
+
+void	lst_printf(t_lexer *lexer)
+{
+	while (lexer)
+	{
+		printf("mot = %stoken = %d index == %d\n", lexer->str,
+			lexer->token.token, lexer->i);
+		lexer = lexer->next;
+	}
+}
