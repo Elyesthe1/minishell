@@ -2,26 +2,6 @@
 
 #include "minishell.h"
 
-char	*get_env_name(char *str)
-{
-	int		i;
-	char	*name;
-
-	i = 0;
-	while (str[i] && str[i] != '=')
-		++i;
-	name = malloc(sizeof(char) * (i + 1));
-	if (!name)
-		return (NULL);
-	i = 0;
-	while (str[i] && str[i] != '=')
-	{
-		name[i] = str[i];
-		++i;
-	}
-	name[i] = '\0';
-	return (name);
-}
 
 static char	*ft_strcpy_to_join(char *s1, char *s2, char *s3)
 {
