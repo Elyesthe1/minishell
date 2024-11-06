@@ -10,7 +10,8 @@
 # include <unistd.h>
 # include <signal.h>
 # include <stdbool.h>
-#include <strings.h>
+# include <string.h>
+# include <errno.h>
 
 
 // 0 si pas un tokens 
@@ -34,7 +35,7 @@ typedef struct s_env
 	char			*name;
 	char			*value;
 	struct s_env	*next;
-}					t_env;
+}	t_env;
 
 typedef struct s_lexer
 {
@@ -121,5 +122,11 @@ char				*get_env_name(char *str);
 char				*get_env_value(char *str);
 char				*ft_joinstrcpy(char *s1, char *s2, char *s3, int n);
 char				*ft_strcpy(char *dest, char *src);
+char				*env_lst_to_str(t_env **env);
+bool				exists_in_env(t_env **env, char *env_name);
+void				built_cd(t_env **env, char *directory_path);
+void				add_to_env(t_env **env, char *env_name, char *env_value);
+void				change_env_value(t_env **env, char *env_name, char *env_value);
+t_env				*get_env_node(t_env **env, char *env_name);
 
 #endif
