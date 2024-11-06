@@ -1,29 +1,29 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/01 16:42:06 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/01 17:38:13 by erahal           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+
 
 #include "minishell.h"
 
-void signal_handler_quit(int signal)
+void	ctrl_d(char *prompt, char *line)
 {
-	write(1, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0); // Remplacer la ligne actuelle
-    rl_redisplay(); // Mettre à jour l'affichage
+	free(prompt);
+	free(line);
+	rl_clear_history();
+	printf("exit\n");
+	exit(0);
 }
 
-void set_signal_action(void)
+void	signal_handler(int signal)
 {
- 	t_signal act;
+	if (signal == SIGINT)
+	{
+		write(1, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+}
 
- 	act.sig_handler = &signal_handler_quit;
- 	sigaction(SIGINT, &act, NULL);
+void	set_signal_action(void)
+{
+	signal(SIGINT, &signal_handler);
+	signal(SIGQUIT, SIG_IGN);
 }

@@ -6,7 +6,7 @@
 /*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 11:34:59 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/01 17:35:22 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/04 18:04:17 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ char *promt_config()
 
 	i = 0;
 	user = getenv("USER");
-	if (user == NULL)
-		return ("minishell");
+	if (user == NULL || !user)
+		return (ft_strdup("minishell"));
 	session = getenv("SESSION_MANAGER");
-	if (session == NULL)
-		return ("minishell");
+	if (session == NULL || !session)
+		return (ft_strdup("minishell"));
 	while (*(session - 1) != '/')
 		session++;	
 	while (session[i] != '.')
@@ -40,19 +40,18 @@ char *promt_config()
 void promt_start(t_lexer **lexer, t_env **env)
 {
 	char *line;
-	int i = 0;
 	char *promt;
+	// t_parser *parser;
 	while (1)
 	{
 		promt = promt_config();
 		line = readline(promt);
+		if (line == NULL)
+			ctrl_D(promt, line);
 		add_history(line);
 		lexer_config(lexer, line);
 		lst_printf(*lexer);
-		free(promt);
-		free(line);
-		lst_free(lexer);
-		if (i++ == 4)
-			break;
+		free_promt(promt, line, lexer);
 	}
+	rl_clear_history();
  }
