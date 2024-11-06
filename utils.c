@@ -1,29 +1,21 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/30 11:40:18 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/01 16:47:31 by tovetouc         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+
 
 #include "minishell.h"
-int ft_free(char *s)
+
+int	ft_free(char *s)
 {
 	free(s);
 	return (1);
 }
-int ft_strlen(const char *s)
+
+int	ft_strlen(const char *s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s && s[i])
 		i++;
-	return(i);
+	return (i);
 }
 
 char	*ft_strdup(char *s)
@@ -43,7 +35,6 @@ char	*ft_strdup(char *s)
 	dup[i] = '\0';
 	return (dup);
 }
-
 
 char	*ft_joinstrcpy(char *s1, char *s2, char *s3, int n)
 {
@@ -73,7 +64,7 @@ char	*ft_joinstrcpy(char *s1, char *s2, char *s3, int n)
 	return (s1);
 }
 
-char	*ft_strjoin(char *s1, char *s2, int n)
+char	*ft_strjoin_prompt(char *s1, char *s2, int n)
 {
 	char	*str;
 	int		i;

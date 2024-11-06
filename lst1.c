@@ -1,20 +1,11 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lst1.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/31 14:24:55 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/01 16:51:05 by tovetouc         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+
 
 #include "minishell.h"
 
-void lst_freeenv(t_env **lexer)
+void	lst_freeenv(t_env **lexer)
 {
-	t_env *tmp;
+	t_env	*tmp;
+
 	while ((*lexer) != NULL)
 	{
 		tmp = (*lexer)->next;
@@ -34,7 +25,6 @@ t_env	*ft_lstlastenv(t_env *lst)
 		lst = lst->next;
 	}
 	return (NULL);
-
 }
 
 void	ft_lstadd_backenv(t_env **lst, t_env *new)
@@ -52,13 +42,12 @@ void	ft_lstadd_backenv(t_env **lst, t_env *new)
 	tmp->next = new;
 }
 
-
 t_env	*ft_lstnewenv(void *content)
 {
 	t_env	*new;
-	char *s;
+	char	*s;
 
-	s = (char*)content;
+	s = (char *)content;
 	new = (t_env *)malloc(sizeof(t_env));
 	if (!new)
 		return (NULL);
@@ -69,27 +58,6 @@ t_env	*ft_lstnewenv(void *content)
 	return (new);
 }
 
-char	*get_env_name(char *str)
-{
-	int		i;
-	char	*name;
-
-	i = 0;
-	while (str[i] && str[i] != '=')
-		++i;
-	name = malloc(sizeof(char) * (i + 1));
-	if (!name)
-		return (NULL);
-	i = 0;
-	while (str[i] && str[i] != '=')
-	{
-		name[i] = str[i];
-		++i;
-	}
-	name[i] = '\0';
-	return (name);
-}
-
 char	*get_env_value(char *str)
 {
 	int		i;
@@ -98,7 +66,7 @@ char	*get_env_value(char *str)
 
 	i = 0;
 	j = 0;
-	while(str[i] && str[i] != '=')
+	while (str[i] && str[i] != '=')
 		++i;
 	++i;
 	value = malloc(sizeof(char) * (ft_strlen(&str[i]) + 1));
@@ -112,4 +80,3 @@ char	*get_env_value(char *str)
 	value[j] = '\0';
 	return (value);
 }
-

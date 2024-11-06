@@ -1,14 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/29 15:10:02 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/01 17:36:01 by erahal           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -20,24 +10,22 @@
 # include <unistd.h>
 # include <signal.h>
 # include <stdbool.h>
+#include <strings.h>
 
-// 0 si pas un tockens 
-// < == 1
-// > == 2
-// >> == 3
-// << == 4
+
+// 0 si pas un tokens 
+// < == 1 infile
+// > == 2 outfile
+// >> == 3 outfile
+// << == 4 infile
 // | == 5
 
 // int signal;
 
-typedef struct s_signal
-{
-	void *sig_handler;
-}t_signal;
 
 typedef struct s_tokens
 {
-	int		tocken;
+	int		token;
 }					t_tokens;
 
 typedef struct s_env
@@ -55,42 +43,69 @@ typedef struct s_lexer
 	int				i;
 	struct s_lexer	*next;
 }					t_lexer;
+typedef struct s_outfile
+{
+	char	**outfile;
+	t_tokens flag;
+}t_outfile;
 
-typedef struct s_simple_cmds
+typedef struct s_infile
+{
+	char	**infile;
+}t_infile;
+
+typedef struct s_parser
 {
 	char                    **str;
-	// int                     (*builtin)(t_tools *, struct s_simple_cmds *);
-	int                     num_redirections;
-	char                    *hd_file_name;
-	t_lexer                 *redirections;
-	struct s_simple_cmds	*next;
-}	t_simple;
+	t_infile				infile;
+	t_outfile 				outfile;
+	struct s_parser	*next;
+}	t_parser;
 
 void lst_printf(t_lexer *lexer);
 
 //
-int it_is_a_token(char c);
-t_lexer	*ft_lstnewtoken(int content);
+void	ft_lstadd_backcmd(t_parser **lst, t_parser *new);
+t_parser	*ft_lstnewcmd(t_lexer *lexer);
+
+
+int quote(char *loc, char **ligne);
+int in_quote(int *quote);
+int quote_checker1(char *line, int quote[2]);
+int 	quote_checker(char *line);
+int token_print_error();
+int ft_strlen_quote_parse(char *s);
+char	*ft_strtrim(char const *s1, char const *set);
+void text_parse_quote(t_lexer **lexer, char *s);
+char	*get_env_name(char *str);
+
+void greed_line(int token, int *i);
+
+void	ctrl_d(char *prompt, char *line);
+void    free_prompt(char *line, char *prompt, t_lexer **lexer);
+int is_token(char c);
+t_lexer	*ft_lstnewt(int content);
 char	*ft_strdup(char *s);
 t_env				*ft_lstlastenv(t_env *lst);
 void				ft_lstadd_backenv(t_env **lst, t_env *new);
 t_env				*ft_lstnewenv(void *content);
 void				lst_freeenv(t_env **lexer);
 int	*ft_strchr_tokens(char *str);
-int it_is_white_space(char c);
+int is_ws(char c);
 void 	token_error(char *line, t_lexer **lexer, char *p);
-int it_is_valid_token(char *s);
+int is_valid_token(char *s);
 void set_signal_action(void);
+char	*ft_strjoin(char *s1, char *s2);
 
 int				lst_free(t_lexer **lexer);
 // char				**ft_split(char *s, char c);
 void				stock_env(char **env, t_env **ev);
-t_lexer				*ft_lstnew(void *content, int i);
+t_lexer	*ft_lstnew(void *content);
 int				ft_lstadd_back(t_lexer **lst, t_lexer *new);
-char				*ft_strjoin(char *s1, char *s2, int n);
+char	*ft_strjoin_prompt(char *s1, char *s2, int n);
 char				*ft_strdup(char *s);
 int					ft_free(char *s);
-int					lexer_config(t_lexer **lexer, char *line);
+int					lexer_config(t_lexer **lexer, char *line, t_parser **parser);
 int					ft_strlen(const char *s);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 void				cmd_handler(char* cmd_name, t_env **env);
@@ -100,7 +115,7 @@ void				built_env(t_env **env);
 void				built_echo(char *str, bool newline);
 void				built_unset(char *env_name, t_env **env);
 void				built_export(t_env **env);
-void				promt_start(t_lexer **lexer, t_env **env);
+void				prompt_start(t_lexer **lexer, t_env **env);
 int					ft_strcmp(const char *s1, const char *s2);
 char				*get_env_name(char *str);
 char				*get_env_value(char *str);
