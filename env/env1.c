@@ -1,6 +1,16 @@
+#include "../minishell.h"
 
+void	stock_env(char **env_str, t_env **env)
+{
+	int	i;
 
-#include "minishell.h"
+	i = 0;
+	while (env_str[i])
+	{
+		ft_lstadd_backenv(env, ft_lstnewenv(env_str[i]));
+		i++;
+	}
+}
 
 void	lst_freeenv(t_env **lexer)
 {
@@ -9,6 +19,7 @@ void	lst_freeenv(t_env **lexer)
 	while ((*lexer) != NULL)
 	{
 		tmp = (*lexer)->next;
+		free((*lexer)->str);
 		free((*lexer)->name);
 		free((*lexer)->value);
 		free((*lexer));
@@ -47,36 +58,18 @@ t_env	*ft_lstnewenv(void *content)
 	t_env	*new;
 	char	*s;
 
-	s = (char *)content;
-	new = (t_env *)malloc(sizeof(t_env));
+	s = (char *) content;
+	new = (t_env *) malloc(sizeof(t_env));
 	if (!new)
 		return (NULL);
+	new->str = ft_strdup(s);
+	if (!new->str)
+	{
+		free(new);
+		return (NULL);
+	}
 	new->name = get_env_name(s);
 	new->value = get_env_value(s);
-	new->str = s;
 	new->next = NULL;
 	return (new);
-}
-
-char	*get_env_value(char *str)
-{
-	int		i;
-	int		j;
-	char	*value;
-
-	i = 0;
-	j = 0;
-	while (str[i] && str[i] != '=')
-		++i;
-	++i;
-	value = malloc(sizeof(char) * (ft_strlen(&str[i]) + 1));
-	if (!value)
-		return (NULL);
-	while (str[i + j])
-	{
-		value[j] = str[i + j];
-		++j;
-	}
-	value[j] = '\0';
-	return (value);
 }

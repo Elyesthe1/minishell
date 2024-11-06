@@ -3,8 +3,8 @@ SRCS = main.c\
 	   utils.c\
 	   utils1.c\
 	   lst.c\
-	   lst1.c\
-	   env.c\
+	   env/env1.c\
+	   env/env2.c\
 	   parser.c\
 	   parse_token.c\
 	   builtins/echo.c\
@@ -13,6 +13,7 @@ SRCS = main.c\
 	   builtins/export.c\
 	   builtins/pwd.c\
 	   builtins/unset.c\
+	   builtins/cd.c\
 	   commands/handler.c\
 	   str/cmp.c\
 	   str/cpy.c\
@@ -25,7 +26,7 @@ SRCS = main.c\
 
 CC = cc
 RM = rm -f
-FLAGS = -Wall  -Wextra -g  -fsanitize=address  #-Werror
+FLAGS = -Wall  -Wextra -g -fsanitize=address #-Werror
 NAME = minishell
 OBJS = $(SRCS:.c=.o)
 

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/31 14:41:40 by tovetouc          #+#    #+#             */
-/*   Updated: 2024/11/05 16:54:02 by erahal           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../minishell.h"
 
 char	*env_lst_to_str(t_env **env)
@@ -19,7 +7,7 @@ char	*env_lst_to_str(t_env **env)
 
 	str = NULL;
 	env_node = *env;
-	while (env_node && env_node->next)
+	while (env_node)
 	{
 		str = ft_strjoin(str, env_node->str);
 		if (!str)

@@ -1,18 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   handler.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/01 11:49:35 by tovetouc          #+#    #+#             */
-/*   Updated: 2024/11/01 17:09:29 by tovetouc         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../minishell.h"
 
-int is_builtin(char *cmd_name)
+int	is_builtin(char *cmd_name)
 {
 	if (ft_strcmp(cmd_name, "exit") == 0)
 		return (true);
@@ -26,10 +14,12 @@ int is_builtin(char *cmd_name)
 		return (true);
 	else if (ft_strcmp(cmd_name, "export") == 0)
 		return (true);
+	else if (ft_strcmp(cmd_name, "cd") == 0)
+		return (true);
 	return (false);
 }
 
-void execute_builtin(char *cmd_name, t_env **env)
+void	execute_builtin(char *cmd_name, t_env **env)
 {
 	if (ft_strcmp(cmd_name, "exit") == 0)
 		built_exit(0);
@@ -40,17 +30,19 @@ void execute_builtin(char *cmd_name, t_env **env)
 	else if (ft_strcmp(cmd_name, "echo") == 0)
 		built_echo("echo", true);
 	else if (ft_strcmp(cmd_name, "unset") == 0)
-		built_unset(NULL, env);
+		built_unset("USER", env);
 	else if (ft_strcmp(cmd_name, "export") == 0)
 		built_export(env);
+	else if (ft_strcmp(cmd_name, "cd") == 0)
+		built_cd(env, "-");
 }
 
-void cmd_handler(char* cmd_name, t_env **env)
+void	cmd_handler(char *cmd_name, t_env **env)
 {
 	if (!is_builtin(cmd_name))
 	{
 		printf("not implemented yet\n");
-		return;
+		return ;
 	}
 	execute_builtin(cmd_name, env);
 }
