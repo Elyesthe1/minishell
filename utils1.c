@@ -66,19 +66,45 @@ void	text_parse_quote(t_lexer **lexer, char *s)
 	(*lexer)->str[j] = '\0';
 }
 
-void	free_prompt(char *line, char *prompt, t_lexer **lexer)
+void	free_all(char *line, char *prompt, t_lexer **lexer, t_parser **parser)
 {
 	free(prompt);
 	free(line);
 	lst_free(lexer);
+	lst_free_parser(parser);
 }
 
-void	lst_printf(t_lexer *lexer)
+void	lst_printf(t_lexer *lexer, t_parser *parser)
 {
+	int i = 0;
 	while (lexer)
 	{
-		printf("mot = %stoken = %d index == %d\n", lexer->str,
+		printf("mot = %s token = %d index == %d\n", lexer->str,
 			lexer->token.token, lexer->i);
 		lexer = lexer->next;
+	}
+	printf("\n");
+	while (parser)
+	{
+		i = 0;
+		while (parser && parser->str && parser->str[i])
+		{
+			printf("%s\n", parser->str[i]);
+			i++;
+		}
+		i = 0;
+		while ( parser->infile.infile != NULL && parser->infile.infile[i])
+		{
+			printf("infile == %s\n", parser->infile.infile[i]);
+			i++;
+		}
+		i = 0;
+		while ( parser->outfile.outfile != NULL && parser->outfile.outfile[i])
+		{
+			printf("outfile == %s %d\n", parser->outfile.outfile[i], parser->outfile.flag[i]);
+			i++;
+		}
+		printf("NEXT\n");
+		parser = parser->next;
 	}
 }

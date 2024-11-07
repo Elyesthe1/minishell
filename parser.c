@@ -3,10 +3,20 @@
 
 void parser_config(t_lexer **lexer, t_parser **parser)
 {
-	int i;
+	t_lexer *temp;
 
-	i = 0;
-
+	temp = (*lexer);
+	ft_lstadd_backcmd(parser, ft_lstnewcmd(*lexer));
+	while ((*lexer))
+	{
+		if ((*lexer) && (*lexer)->token.token == 5)
+		{
+			(*lexer) = (*lexer)->next;
+			ft_lstadd_backcmd(parser, ft_lstnewcmd(*lexer));
+		}
+		(*lexer) = (*lexer)->next;
+	}
+	(*lexer) = temp;
 }
 
 void	its_a_word(t_lexer **lexer, char *l, int *j, int q[2])

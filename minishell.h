@@ -47,12 +47,13 @@ typedef struct s_lexer
 typedef struct s_outfile
 {
 	char	**outfile;
-	t_tokens flag;
+	int *flag;
 }t_outfile;
 
 typedef struct s_infile
 {
 	char	**infile;
+	int		*flag;
 }t_infile;
 
 typedef struct s_parser
@@ -63,7 +64,7 @@ typedef struct s_parser
 	struct s_parser	*next;
 }	t_parser;
 
-void lst_printf(t_lexer *lexer);
+void lst_printf(t_lexer *lexer, t_parser *parser);
 
 //
 void	ft_lstadd_backcmd(t_parser **lst, t_parser *new);
@@ -79,11 +80,12 @@ int ft_strlen_quote_parse(char *s);
 char	*ft_strtrim(char const *s1, char const *set);
 void text_parse_quote(t_lexer **lexer, char *s);
 char	*get_env_name(char *str);
+void lst_free_parser(t_parser **parser);
 
 void greed_line(int token, int *i);
 
 void	ctrl_d(char *prompt, char *line);
-void    free_prompt(char *line, char *prompt, t_lexer **lexer);
+void    free_all(char *line, char *prompt, t_lexer **lexer, t_parser **parser);
 int is_token(char c);
 t_lexer	*ft_lstnewt(int content);
 char	*ft_strdup(char *s);
