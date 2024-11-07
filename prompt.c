@@ -1,22 +1,22 @@
 
 #include "minishell.h"
 
-void	var_replace(char **line, t_env **env)
-{
-	int i;
-	int quote[2];
+// void	var_replace(char **line, t_env **env)
+// {
+// 	int i;
+// 	int quote[2];
 
-	i =0;
-	quote[0] = 0;
-	quote[1] = 0;
-	while (line[i]  && ((is_ws((*line)[i]) == 0 && is_token((*line)[i]) == 0) || in_quote(quote)))
-	{
-		while((line)[i] && line[i] != '$')
-		{
+// 	i =0;
+// 	quote[0] = 0;
+// 	quote[1] = 0;
+// 	while (line[i]  && ((is_ws((*line)[i]) == 0 && is_token((*line)[i]) == 0) || in_quote(quote)))
+// 	{
+// 		while((line)[i] && line[i] != '$')
+// 		{
 
-		}
-	}
-}
+// 		}
+// 	}
+// }
 
 char	*prompt_config(void)
 {

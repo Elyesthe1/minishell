@@ -62,7 +62,10 @@ void	text_parse_quote(t_lexer **lexer, char *s)
 			quote[2]++;
 			j++;
 		}
-	}
+	}char *valueenv(char *s, t_env *env)
+{
+	
+}
 	(*lexer)->str[j] = '\0';
 }
 

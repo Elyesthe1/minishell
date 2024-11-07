@@ -1,9 +1,5 @@
 
 #include "minishell.h"
-char *valueenv(char *s, t_env *env)
-{
-	
-}
 
 
 static char	*ft_strcpy_to_join(char *s1, char *s2, char *s3)
