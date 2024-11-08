@@ -56,7 +56,10 @@ t_parser	*ft_lstnewcmd(t_lexer *lexer)
 void	parser_config(t_lexer **lexer, t_parser **parser)
 {
 	t_lexer	*temp;
-
+	if (!(*lexer))
+		return ;
+	if ((*lexer)->token.token == 5 && token_print_error(1))
+		return;
 	temp = (*lexer);
 	ft_lstadd_backcmd(parser, ft_lstnewcmd(*lexer));
 	while ((*lexer))
@@ -115,7 +118,7 @@ int	lexer_config(t_lexer **lexer, char *line, t_parser **parser)
 	{
 		if (is_token(line[i]) && in_quote(quote) == 0)
 		{
-			if (is_valid_token(line + i) < 0 && token_print_error())
+			if (is_valid_token(line + i) < 0 && token_print_error(0))
 				return (1);
 			token = ft_lstadd_back(lexer, ft_lstnewt(is_valid_token(line + i)));
 			greed_line(token, &i);

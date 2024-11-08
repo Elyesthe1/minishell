@@ -10,7 +10,7 @@ char	*get_directory_path(t_env **env, char *directory_path)
 			printf("cd: HOME not set\n");
 			return (NULL);
 		}
-		directory_path = get_env_node(env, "HOME")->value;
+		directory_path = get_env_node(env, "HOME", 1)->value;
 	}
 	else if (ft_strcmp(directory_path, "-") == 0)
 	{
@@ -19,7 +19,7 @@ char	*get_directory_path(t_env **env, char *directory_path)
 			printf("cd: OLDPWD not set\n");
 			return (NULL);
 		}
-		directory_path = get_env_node(env, "OLDPWD")->value;
+		directory_path = get_env_node(env, "OLDPWD", 1)->value;
 		printf("%s\n", directory_path);
 	}
 	return (directory_path);

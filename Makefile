@@ -19,10 +19,11 @@ SRCS = main.c\
 	   str/cpy.c\
 	   signal.c\
 	   parse_quote.c\
-	   write_error.c\
+	   utils3.c\
 	   utils2.c\
 	   lst2.c\
 	   lst1.c\
+	   utils4.c\
 
 
 CC = cc

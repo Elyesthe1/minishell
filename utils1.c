@@ -5,7 +5,7 @@ int	in_quote(int *quote)
 	if (quote[0] == 1 && quote[1] == 1)
 		return (1);
 	if (quote[0] == 0 && quote[1] == 1)
-		return (1);
+		return (2);
 	if (quote[0] == 1 && quote[1] == 0)
 		return (1);
 	return (0);
@@ -125,7 +125,7 @@ void	lst_printf(t_lexer *lexer, t_parser *parser)
 		while (parser && parser->infile.infile != NULL
 			&& parser->infile.infile[i])
 		{
-			printf("infile == %s\n", parser->infile.infile[i]);
+			printf("infile == %s %d\n", parser->infile.infile[i], parser->infile.flag[i]);
 			i++;
 		}
 		i = 0;

@@ -55,6 +55,7 @@ static char	*ft_strcpy_to_join(char *s1, char *s2, char *s3)
 		i++;
 	}
 	s1[i] = '\0';
+	free(s2);
 	return (s1);
 }
 
@@ -69,9 +70,9 @@ char	*ft_strjoin(char *s1, char *s2)
 	if (!s1 && !s2)
 		return (ft_strdup(""));
 	if (!s1)
-		return (ft_strdup(s2));
+		return (s2);
 	if (!s2)
-		return (ft_strdup(s1));
+		return (s1);
 	str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!str)
 		return (NULL);
