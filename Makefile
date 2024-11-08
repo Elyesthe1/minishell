@@ -22,6 +22,7 @@ SRCS = main.c\
 	   write_error.c\
 	   utils2.c\
 	   lst2.c\
+	   lst1.c\
 
 
 CC = cc

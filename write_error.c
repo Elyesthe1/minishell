@@ -1,5 +1,3 @@
-
-
 #include "minishell.h"
 
 int	token_print_error(void)

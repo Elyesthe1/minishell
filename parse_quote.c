@@ -1,4 +1,3 @@
-
 #include "minishell.h"
 
 int	ft_strlen_quote_parse1(char *s, int quote[2], int *i)

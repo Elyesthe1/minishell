@@ -1,5 +1,3 @@
-
-
 #include "minishell.h"
 
 int	ft_free(char *s)

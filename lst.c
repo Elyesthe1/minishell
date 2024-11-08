@@ -1,5 +1,3 @@
-
-
 #include "minishell.h"
 
 t_lexer	*ft_lstnewt(int content)

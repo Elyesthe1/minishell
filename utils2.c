@@ -1,6 +1,40 @@
-
 #include "minishell.h"
 
+void	free_free(char **s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		free(s[i]);
+		i++;
+	}
+	free(s);
+}
+
+void	alloc(t_parser **parser, int infile, int outfile, t_lexer *lexer)
+{
+	(*parser)->infile.infile = malloc(sizeof(char *) * (infile + 1));
+	(*parser)->outfile.outfile = malloc(sizeof(char *) * (outfile + 1));
+	(*parser)->outfile.flag = malloc(sizeof(int) * outfile);
+	(*parser)->infile.flag = malloc(sizeof(int) * infile);
+	fill2(lexer, parser);
+}
+
+void	how_much_cmd1(t_lexer **lexer, int *i, int n)
+{
+	if (n == 0)
+	{
+		*i += 1;
+		(*lexer) = (*lexer)->next;
+	}
+	else
+	{
+		*i += 1;
+		(*lexer) = (*lexer)->next->next;
+	}
+}
 
 static char	*ft_strcpy_to_join(char *s1, char *s2, char *s3)
 {

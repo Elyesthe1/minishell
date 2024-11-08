@@ -1,4 +1,3 @@
-
 #include "minishell.h"
 
 void	stock_env(char **env, t_env **ev)

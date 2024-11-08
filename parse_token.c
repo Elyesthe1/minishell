@@ -1,5 +1,3 @@
-
-
 #include "minishell.h"
 
 void	greed_line(int token, int *i)
@@ -27,9 +25,10 @@ int	is_ws(char c)
 		return (1);
 	return (0);
 }
-int is_valid_token1(char *s)
+
+int	is_valid_token1(char *s)
 {
-	int i;	
+	int	i;
 
 	i = 0;
 	while (s[i] && is_ws(s[i]))
@@ -60,7 +59,7 @@ int	is_valid_token(char *s)
 			return (-1);
 		if (token == 1 || is_valid_token1(s + 2) != 0)
 			return (4);
-		if (token == 2 || is_valid_token1(s + 2)!= 0)
+		if (token == 2 || is_valid_token1(s + 2) != 0)
 			return (3);
 	}
 	return (-2);
