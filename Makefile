@@ -28,7 +28,7 @@ SRCS = main.c\
 
 CC = cc
 RM = rm -f
-FLAGS = -Wall  -Wextra -g -fsanitize=address #-Werror
+FLAGS = -Wall  -Wextra -g #-fsanitize=address #-Werror
 NAME = minishell
 OBJS = $(SRCS:.c=.o)
 

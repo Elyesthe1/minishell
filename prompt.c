@@ -28,19 +28,26 @@ int bigline(char *line, t_env **env)
 	{
 		if (line[j] == '$')
 		{
-			node = get_env_node(env, var_name(ft_strdup(line + j +1)), 0);
+			j++;
+			node = get_env_node(env, var_name(ft_strdup(line + j)), 0);
 			if (node)
 				i += ft_strlen(node->str);
+			if (ft_isdigit(line[j]))
+				j++;
+			else 
+				while (line[j] && (ft_isalnum(line[j]) || line[j] == '_'))
+					j++;
 		}
-		j++;
+		else
+			j++;
 	}
+	free(line);
 	return (i);
 }
 void remp(char **s, int *j, int *i, char *line, t_env **env)
 {
 	t_env *node;
 	int a;
-	int p;
 
 	a = 0;
 	(*i) += 1;
@@ -62,7 +69,6 @@ void remp(char **s, int *j, int *i, char *line, t_env **env)
 char 	*var_replace(char **line, t_env **env)
 {
 	int		quote[2];
-	t_env	*node;
 	char 	*s;
 	int j;
 	int		i;
@@ -98,6 +104,7 @@ char 	*var_replace(char **line, t_env **env)
 		}
 	}
 	s[j] = '\0';
+	free(*line);
 	return (s);
 }
 
