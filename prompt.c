@@ -1,4 +1,3 @@
-
 #include "minishell.h"
 
 char	*prompt_config(void)
@@ -33,6 +32,7 @@ void	prompt_start(t_lexer **lexer, t_env **env)
 	char		*prompt;
 	t_parser	*parser;
 
+	parser = NULL;
 	while (1)
 	{
 		prompt = prompt_config();
@@ -40,9 +40,10 @@ void	prompt_start(t_lexer **lexer, t_env **env)
 		if (line == NULL)
 			ctrl_d(prompt, line);
 		add_history(line);
+		// var_replace(&line, env);
 		lexer_config(lexer, line, &parser);
-		lst_printf(*lexer);
-		free_prompt(prompt, line, lexer);
+		lst_printf(*lexer, parser);
+		free_all(prompt, line, lexer, &parser);
 	}
 	rl_clear_history();
 }

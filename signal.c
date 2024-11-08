@@ -1,5 +1,3 @@
-
-
 #include "minishell.h"
 
 void	ctrl_d(char *prompt, char *line)

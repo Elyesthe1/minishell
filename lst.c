@@ -1,5 +1,3 @@
-
-
 #include "minishell.h"
 
 t_lexer	*ft_lstnewt(int content)
@@ -56,7 +54,7 @@ int	ft_lstadd_back(t_lexer **lst, t_lexer *new)
 	tmp = ft_lstlast(*lst);
 	tmp->next = new;
 	new->i = index++;
-	return ((*lst)->token.token);
+	return (new->token.token);
 }
 
 t_lexer	*ft_lstnew(void *content)
