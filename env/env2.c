@@ -71,3 +71,14 @@ t_env	*get_env_node(t_env **env, char *env_name)
 	}
 	return (NULL);
 }
+
+char		**get_env_path(t_env *env)
+{
+	t_env	*path_node;
+
+	if (!env || !exists_in_env(&env, "PATH"))
+		return (NULL);
+	
+	path_node = get_env_node(&env, "PATH");
+	return (ft_split(path_node->value, ':'));
+}

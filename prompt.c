@@ -43,6 +43,7 @@ void	prompt_start(t_lexer **lexer, t_env **env)
 		// var_replace(&line, env);
 		lexer_config(lexer, line, &parser);
 		lst_printf(*lexer, parser);
+		executor(env, parser);
 		free_all(prompt, line, lexer, &parser);
 	}
 	rl_clear_history();

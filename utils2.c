@@ -19,6 +19,8 @@ void	alloc(t_parser **parser, int infile, int outfile, t_lexer *lexer)
 	(*parser)->outfile.outfile = malloc(sizeof(char *) * (outfile + 1));
 	(*parser)->outfile.flag = malloc(sizeof(int) * outfile);
 	(*parser)->infile.flag = malloc(sizeof(int) * infile);
+	(*parser)->infile.fd = NULL;
+	(*parser)->outfile.fd = NULL;
 	fill2(lexer, parser);
 }
 

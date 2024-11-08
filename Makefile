@@ -23,6 +23,11 @@ SRCS = main.c\
 	   utils2.c\
 	   lst2.c\
 	   lst1.c\
+	   commands/executor.c\
+	   commands/cmd_utils.c\
+	   str/split.c\
+	   mem.c\
+	   env/env3.c
 
 
 CC = cc
