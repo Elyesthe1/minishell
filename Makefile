@@ -23,7 +23,7 @@ SRCS = main.c\
 	   utils2.c\
 	   lst2.c\
 	   lst1.c\
-	   utils4.c\
+	   expander.c\
 
 
 CC = cc

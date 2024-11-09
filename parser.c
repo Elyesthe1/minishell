@@ -56,10 +56,11 @@ t_parser	*ft_lstnewcmd(t_lexer *lexer)
 void	parser_config(t_lexer **lexer, t_parser **parser)
 {
 	t_lexer	*temp;
+
 	if (!(*lexer))
 		return ;
 	if ((*lexer)->token.token == 5 && token_print_error(1))
-		return;
+		return ;
 	temp = (*lexer);
 	ft_lstadd_backcmd(parser, ft_lstnewcmd(*lexer));
 	while ((*lexer))

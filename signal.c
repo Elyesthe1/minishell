@@ -22,6 +22,6 @@ void	signal_handler(int signal)
 
 void	set_signal_action(void)
 {
-	// signal(SIGINT, &signal_handler);
+	signal(SIGINT, &signal_handler);
 	signal(SIGQUIT, SIG_IGN);
 }

@@ -69,11 +69,12 @@ t_parser			*ft_lstnewcmd(t_lexer *lexer);
 int	ft_isalnum(int n);
 void				alloc(t_parser **parser, int infile, int outfile,
 						t_lexer *lexer);
-	int	ft_isdigit(int n);
-char    **ft_split(char const *s, char c);
-void	*ft_calloc(size_t nb, size_t size);
-void	*ft_memcpy(void *dest, const void *src, size_t n);
-void	ft_bzero(void *s1, size_t n);
+char	*var_name(char *line);
+int bigline(char *line, t_env **env);
+void remp(char **s, int index[2], char *line, t_env **env);
+void var_replace2(int index[2], char **s, char **line);
+void var_replace1(int quote[2], int i);
+int	ft_isdigit(int n);
 void				lst_free_parser(t_parser **parser);
 t_parser			*ft_lstlastcmd(t_parser *lst);
 void				alloc1(t_lexer *lexer, t_parser **parser);
