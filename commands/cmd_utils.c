@@ -56,16 +56,17 @@ char	*get_command_path(char *command_name, t_env *env)
 	return (command_path);
 }
 
-void	replace_command_name_by_path(char **str, t_env *env)
+int	replace_command_name_by_path(char **str, t_env *env)
 {
 	char *command_path;
 
 	command_path = get_command_path(*str, env);
 	if (!command_path)
 	{
-		perror("malloc failed");
-		exit(1);
+		printf("%s: command not found\n", *str);
+		return (-1);
 	}
 	free(*str);
 	*str = command_path;
+	return (0);
 }

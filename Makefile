@@ -27,7 +27,9 @@ SRCS = main.c\
 	   commands/cmd_utils.c\
 	   str/split.c\
 	   mem.c\
-	   env/env3.c
+	   env/env3.c\
+	   commands/pids.c\
+	   commands/here_doc.c
 
 
 CC = cc

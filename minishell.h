@@ -20,7 +20,7 @@
 // >> == 3 outfile
 // << == 4 infile
 // | == 5
-
+extern int	status_code;
 // int signal;
 
 typedef struct s_tokens
@@ -65,6 +65,12 @@ typedef struct s_parser
 	struct s_parser	*next;
 }					t_parser;
 
+typedef struct s_pids
+{
+	pid_t			pid;
+	struct s_pids	*next;
+}	t_pids;
+ 
 void				lst_printf(t_lexer *lexer, t_parser *parser);
 //
 void				ft_lstadd_backcmd(t_parser **lst, t_parser *new);
@@ -146,8 +152,12 @@ char				**get_env_path(t_env *env);
 void				*ft_calloc(size_t count, size_t size);
 void				*ft_memcpy(void *dst, const void *src, size_t n);
 void				*ft_memset(void *b, int c, size_t len);
-void				replace_command_name_by_path(char **str, t_env *env);
 char				**convert_env_to_envp(t_env *env);
 int					get_env_size(t_env *env);
+int					replace_command_name_by_path(char **str, t_env *env);
+void				add_pid(t_pids **pids, pid_t pid);
+void				free_all_pids(t_pids **pids);
+void				wait_all_pids(t_pids *pids);
+int					here_doc(char *limiter);
 
 #endif
