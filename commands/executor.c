@@ -48,24 +48,36 @@ int	access_all_infile(t_infile *infile)
 
 int create_outfile(t_outfile *outfile)
 {
+	int	i;
+	int	tmp_fd;
+
 	if (!outfile->outfile[0])
 		return (0);
 	printf("outfile present\n");
 	outfile->fd = malloc(sizeof(int));
 	if (!outfile->fd)
 		return (-1);
-	printf("outfile flags: %d\n", *outfile->flag);
-	if (*outfile->flag == 2)
-		*outfile->fd = open(outfile->outfile[0], O_TRUNC | O_APPEND | O_WRONLY | O_CREAT, 0644); 
-	else if (*outfile->flag == 3)
-		*outfile->fd = open(outfile->outfile[0], O_APPEND | O_WRONLY | O_CREAT, 0644); 
-	if (*outfile->fd == -1)
+	
+	i = 0;
+	while (outfile->outfile[i])
 	{
-		perror(outfile->outfile[0]);
-		free(outfile->fd);
-		return (-1);
+		if (outfile->flag[i] == 2)
+			tmp_fd = open(outfile->outfile[i], O_TRUNC | O_APPEND | O_WRONLY | O_CREAT, 0644); 
+		else if (outfile->flag[i] == 3)
+			tmp_fd = open(outfile->outfile[i], O_APPEND | O_WRONLY | O_CREAT, 0644);
+		if (tmp_fd == -1)
+		{
+			perror(outfile->outfile[i]);
+			free(outfile->fd);
+			return (-1);
+		}
+		if (outfile->outfile[i + 1])
+			close(tmp_fd);
+		else
+			*outfile->fd = tmp_fd;
+		++i;
 	}
-	printf("oufile OK fd = %d\n", *outfile->fd);
+	printf("oufile OK name = %s - fd = %d\n", outfile->outfile[i - 1], *outfile->fd);
 	return (0);
 }
 // pid == -1 = fail
