@@ -21,6 +21,7 @@ int	is_builtin(char *cmd_name)
 
 void	execute_builtin(char *cmd_name, t_env **env)
 {
+	printf("executing builtin - %s\n", cmd_name);
 	if (ft_strcmp(cmd_name, "exit") == 0)
 		built_exit(0);
 	else if (ft_strcmp(cmd_name, "pwd") == 0)

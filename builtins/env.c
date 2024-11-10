@@ -9,10 +9,10 @@ char	*env_lst_to_str(t_env **env)
 	env_node = *env;
 	while (env_node)
 	{
-		str = ft_strjoin(str, env_node->str);
+		str = ft_strjoin_free(str, env_node->str);
 		if (!str)
 			return (NULL);
-		str = ft_strjoin(str, "\n");
+		str = ft_strjoin_free(str, "\n");
 		if (!str)
 			return (NULL);
 		env_node = env_node->next;

@@ -64,6 +64,7 @@ int	replace_command_name_by_path(char **str, t_env *env)
 	if (!command_path)
 	{
 		printf("%s: command not found\n", *str);
+		exit(1);
 		return (-1);
 	}
 	free(*str);

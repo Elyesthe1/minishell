@@ -110,6 +110,20 @@ int create_outfile(t_outfile *outfile)
 	printf("oufile OK name = %s - fd = %d\n", outfile->outfile[i - 1], *outfile->fd);
 	return (0);
 }
+
+void	dup2_fd(int *in, int *out)
+{
+	if (in)
+	{
+		dup2(*in, STDIN_FILENO);
+		close(*in);
+	}
+	if (out)
+	{
+		dup2(*out, STDOUT_FILENO);
+		close(*out);
+	}
+}
 // pid == -1 = fail
 // pid == 0 = child process
 // else pid = parent process
@@ -121,29 +135,12 @@ int execute_command(t_env **env, t_parser **parser, t_pids **pids)
 	printf("executing command %s\n", (*parser)->str[0]);
 	pid = fork();
 	if (pid == -1)
-	{
-		perror("fork");
-		exit(1);
-	}
-
+		return (perror("fork"), 1);
 	if (pid == 0)
 	{
-		envp = convert_env_to_envp(*env);
-		if (replace_command_name_by_path(&(*parser)->str[0], *env) == -1)
-		{
-			ft_free_split(envp);
-			exit(0);
-		}
-		if ((*parser)->infile.fd)
-		{
-			dup2(*(*parser)->infile.fd, STDIN_FILENO);
-			close(*(*parser)->infile.fd);
-		}
-		if ((*parser)->outfile.fd)
-		{
-			dup2(*(*parser)->outfile.fd, STDOUT_FILENO);
-			close(*(*parser)->outfile.fd);
-		}
+		if (!is_builtin((*parser)->str[0]))
+			replace_command_name_by_path(&(*parser)->str[0], *env);
+		dup2_fd((*parser)->infile.fd, (*parser)->outfile.fd);
 		if ((*parser)->next)
 		{
 			if ((*parser)->next->infile.fd)
@@ -151,7 +148,13 @@ int execute_command(t_env **env, t_parser **parser, t_pids **pids)
 			if ((*parser)->next->outfile.fd)
 				close(*(*parser)->next->outfile.fd);
 		}
-		execve((*parser)->str[0], (*parser)->str, envp);
+		if (!is_builtin((*parser)->str[0]))
+		{
+			envp = convert_env_to_envp(*env);
+			execve((*parser)->str[0], (*parser)->str, envp);
+		}
+		else
+			execute_builtin((*parser)->str[0], env);
 		exit(0);
 	} else {
 		if ((*parser)->infile.fd)
