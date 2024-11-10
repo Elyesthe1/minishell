@@ -13,6 +13,7 @@
 # include <fcntl.h>
 # include <stddef.h>
 # include <sys/wait.h>
+# include <limits.h>
 
 // 0 si pas un tokens
 // < == 1 infile
@@ -159,5 +160,6 @@ void				add_pid(t_pids **pids, pid_t pid);
 void				free_all_pids(t_pids **pids);
 void				wait_all_pids(t_pids *pids);
 int					here_doc(char *limiter);
+char				*ft_strjoin_free(char *s1, char const *s2);
 
 #endif

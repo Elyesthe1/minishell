@@ -1,48 +1,78 @@
 #include "../minishell.h"
 
 // CHECK IF ALL INFILE EXISTS AND THEN USE HERE_DOC
+// int	access_all_infile(t_infile *infile)
+// {
+// 	int	i;
+
+// 	if (!infile->infile[0])
+// 		return (0);
+
+// 	printf("infile present\n");
+// 	i = 0;
+// 	while (infile->infile[i])
+// 	{
+// 		if (infile->flag[i] == 4)
+// 		{
+// 			++i;
+// 			continue;
+// 		}
+// 		printf("testing access for infile %s\n", infile->infile[i]);
+// 		if (access(infile->infile[i], R_OK) == -1)
+// 		{
+// 			perror(infile->infile[i]);
+// 			return (-1);
+// 		}
+// 		++i;
+// 	}
+// 	--i;
+// 	infile->fd = malloc(sizeof(int));
+// 	if (!infile->fd)
+// 		return (-1);
+// 	printf("infile flag %d\n", *infile->flag);
+// 	if (*infile->flag == 1)
+// 		*infile->fd = open(infile->infile[i], O_RDONLY);
+// 	else if (*infile->flag == 4)
+// 		*infile->fd = here_doc(infile->infile[0]);
+// 	printf("file fd should be: %d\n", *infile->fd);
+// 	if (*infile->fd == -1)
+// 	{
+// 		perror(infile->infile[i]);
+// 		free(infile->fd);
+// 		infile->fd = NULL;
+// 		return (-1);
+// 	}
+// 	printf("infile OK fd = %d\n", *infile->fd);
+// 	return (0);
+// }
+
 int	access_all_infile(t_infile *infile)
 {
 	int	i;
+	int	tmp_fd;
 
 	if (!infile->infile[0])
 		return (0);
-
 	printf("infile present\n");
 	i = 0;
 	while (infile->infile[i])
 	{
 		if (infile->flag[i] == 4)
-		{
-			++i;
-			continue;
-		}
-		printf("testing access for infile %s\n", infile->infile[i]);
-		if (access(infile->infile[i], R_OK) == -1)
-		{
-			perror(infile->infile[i]);
-			return (-1);
-		}
+			tmp_fd = here_doc(infile->infile[i]);
+		else if (infile->flag[i] == 1)
+			tmp_fd = open(infile->infile[i], O_RDONLY);
+
+		if (tmp_fd == -1)
+			return (perror(infile->infile[i]), -1);
+		if (infile->infile[i + 1])
+			close(tmp_fd);
 		++i;
 	}
-	--i;
 	infile->fd = malloc(sizeof(int));
 	if (!infile->fd)
-		return (-1);
-	printf("infile flag %d\n", *infile->flag);
-	if (*infile->flag == 1)
-		*infile->fd = open(infile->infile[i], O_RDONLY);
-	else if (*infile->flag == 4)
-		*infile->fd = here_doc(infile->infile[0]);
-	printf("file fd should be: %d\n", *infile->fd);
-	if (*infile->fd == -1)
-	{
-		perror(infile->infile[i]);
-		free(infile->fd);
-		infile->fd = NULL;
-		return (-1);
-	}
-	printf("infile OK fd = %d\n", *infile->fd);
+		return (close(tmp_fd), -1);
+	*infile->fd = tmp_fd;
+	printf("infile OK name = %s - fd = %d\n", infile->infile[i - 1], *infile->fd);
 	return (0);
 }
 
