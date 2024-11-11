@@ -154,7 +154,7 @@ int execute_command(t_env **env, t_parser **parser, t_pids **pids)
 			execve((*parser)->str[0], (*parser)->str, envp);
 		}
 		else
-			execute_builtin((*parser)->str[0], env);
+			execute_builtin((*parser)->str[0], (*parser)->str++, env);
 		exit(0);
 	} else {
 		if ((*parser)->infile.fd)

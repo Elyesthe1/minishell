@@ -162,6 +162,5 @@ void				wait_all_pids(t_pids *pids);
 int					here_doc(char *limiter);
 char				*ft_strjoin_free(char *s1, char const *s2);
 int					is_builtin(char *cmd_name);
-void				execute_builtin(char *cmd_name, t_env **env);
-
+void				execute_builtin(char *cmd_name, char **args, t_env **env);
 #endif

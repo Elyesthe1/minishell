@@ -19,7 +19,7 @@ int	is_builtin(char *cmd_name)
 	return (false);
 }
 
-void	execute_builtin(char *cmd_name, t_env **env)
+void	execute_builtin(char *cmd_name, char **args, t_env **env)
 {
 	printf("executing builtin - %s\n", cmd_name);
 	if (ft_strcmp(cmd_name, "exit") == 0)
@@ -29,7 +29,7 @@ void	execute_builtin(char *cmd_name, t_env **env)
 	else if (ft_strcmp(cmd_name, "env") == 0)
 		built_env(env);
 	else if (ft_strcmp(cmd_name, "echo") == 0)
-		built_echo("echo", true);
+		built_echo("echo", args);
 	else if (ft_strcmp(cmd_name, "unset") == 0)
 		built_unset("USER", env);
 	else if (ft_strcmp(cmd_name, "export") == 0)
