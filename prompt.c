@@ -1,5 +1,8 @@
 #include "minishell.h"
 
+
+extern int	status_code;
+
 char	*expander(char **line, t_env **env)
 {
 	int		quote[2];
@@ -71,6 +74,8 @@ void	prompt_start(t_lexer **lexer, t_env **env)
 		line = expander(&line, env);
 		lexer_config(lexer, line, &parser);
 		lst_printf(*lexer, parser);
+		executor(env, parser);
+		printf("last status_code: %d\n", WEXITSTATUS(status_code));
 		free_all(prompt, line, lexer, &parser);
 	}
 	rl_clear_history();

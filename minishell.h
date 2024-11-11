@@ -10,6 +10,10 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include <fcntl.h>
+# include <stddef.h>
+# include <sys/wait.h>
+# include <limits.h>
 
 // 0 si pas un tokens
 // < == 1 infile
@@ -17,6 +21,9 @@
 // >> == 3 outfile
 // << == 4 infile
 // | == 5
+
+extern int	status_code;
+// int signal;
 // CTRL-C == 0
 // CTRL-D == 1
 // CTRL-\ == 2
@@ -44,12 +51,14 @@ typedef struct s_outfile
 {
 	char			**outfile;
 	int				*flag;
+	int				*fd;
 }					t_outfile;
 
 typedef struct s_infile
 {
 	char			**infile;
 	int				*flag;
+	int				*fd;
 }					t_infile;
 
 typedef struct s_parser
@@ -60,6 +69,12 @@ typedef struct s_parser
 	struct s_parser	*next;
 }					t_parser;
 
+typedef struct s_pids
+{
+	pid_t			pid;
+	struct s_pids	*next;
+}	t_pids;
+ 
 void				lst_printf(t_lexer *lexer, t_parser *parser);
 //
 void				ft_lstadd_backcmd(t_parser **lst, t_parser *new);
@@ -140,5 +155,26 @@ void				built_cd(t_env **env, char *directory_path);
 void				add_to_env(t_env **env, char *env_name, char *env_value);
 void				change_env_value(t_env **env, char *env_name,
 						char *env_value);
-t_env	*get_env_node(t_env **env, char *env_name, int n);
+t_env				*get_env_node(t_env **env, char *env_name);
+int					executor(t_env **env, t_parser *parser);
+char				*get_command_path(char *command_name, t_env *env);
+char				*construct_command_path(char *path, char *command_name);
+char				**ft_split(char const *s, char c);
+void				ft_free_split(char **split);
+char				**get_env_path(t_env *env);
+void				*ft_calloc(size_t count, size_t size);
+void				*ft_memcpy(void *dst, const void *src, size_t n);
+void				*ft_memset(void *b, int c, size_t len);
+char				**convert_env_to_envp(t_env *env);
+int					get_env_size(t_env *env);
+int					replace_command_name_by_path(char **str, t_env *env);
+void				add_pid(t_pids **pids, pid_t pid);
+void				free_all_pids(t_pids **pids);
+void				wait_all_pids(t_pids *pids);
+int					here_doc(char *limiter);
+char				*ft_strjoin_free(char *s1, char const *s2);
+int					is_builtin(char *cmd_name);
+void				execute_builtin(char *cmd_name, char **args, t_env **env);
+t_env       *get_env_node(t_env **env, char *env_name, int n);
+
 #endif

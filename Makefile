@@ -23,8 +23,15 @@ SRCS = main.c\
 	   utils2.c\
 	   lst2.c\
 	   lst1.c\
-	   expander.c\
-
+     feature/tourpal
+	   commands/executor.c\
+	   commands/cmd_utils.c\
+	   str/split.c\
+	   mem.c\
+	   env/env3.c\
+	   commands/pids.c\
+	   commands/here_doc.c
+	   expander.c
 
 CC = cc
 RM = rm -f

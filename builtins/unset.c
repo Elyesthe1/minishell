@@ -16,7 +16,7 @@ void	remove_from_env(char *env_name, t_env **env)
 
 	prev_node = NULL;
 	env_node = *env;
-	while (env_node && env_node->next && ft_strcmp(env_node->name, "USER") != 0)
+	while (env_node && env_node->next && ft_strcmp(env_node->name, env_name) != 0)
 	{
 		prev_node = env_node;
 		env_node = env_node->next;
