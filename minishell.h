@@ -140,7 +140,7 @@ void				cmd_handler(char *cmd_name, t_env **env);
 void				built_exit(int status);
 void				built_pwd(void);
 void				built_env(t_env **env);
-void				built_echo(char *str, bool newline);
+void				built_echo(char *str, char **args);
 void				built_unset(char *env_name, t_env **env);
 void				built_export(t_env **env);
 void				prompt_start(t_lexer **lexer, t_env **env);
@@ -155,7 +155,6 @@ void				built_cd(t_env **env, char *directory_path);
 void				add_to_env(t_env **env, char *env_name, char *env_value);
 void				change_env_value(t_env **env, char *env_name,
 						char *env_value);
-t_env				*get_env_node(t_env **env, char *env_name);
 int					executor(t_env **env, t_parser *parser);
 char				*get_command_path(char *command_name, t_env *env);
 char				*construct_command_path(char *path, char *command_name);
