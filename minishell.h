@@ -21,8 +21,12 @@
 // >> == 3 outfile
 // << == 4 infile
 // | == 5
+
 extern int	status_code;
 // int signal;
+// CTRL-C == 0
+// CTRL-D == 1
+// CTRL-\ == 2
 
 typedef struct s_tokens
 {
@@ -41,7 +45,6 @@ typedef struct s_lexer
 {
 	char			*str;
 	t_tokens		token;
-	int				i;
 	struct s_lexer	*next;
 }					t_lexer;
 typedef struct s_outfile
@@ -76,9 +79,17 @@ void				lst_printf(t_lexer *lexer, t_parser *parser);
 //
 void				ft_lstadd_backcmd(t_parser **lst, t_parser *new);
 t_parser			*ft_lstnewcmd(t_lexer *lexer);
-
+int	ft_isalnum(int n);
 void				alloc(t_parser **parser, int infile, int outfile,
 						t_lexer *lexer);
+int valid_dollar(char c);
+
+char	*var_name(char *line);
+int bigline(char *line, t_env **env);
+void remp(char **s, int index[2], char *line, t_env **env);
+void var_replace2(int index[2], char **s, char **line);
+void var_replace1(int quote[2], int i);
+int	ft_isdigit(int n);
 void				lst_free_parser(t_parser **parser);
 t_parser			*ft_lstlastcmd(t_parser *lst);
 void				alloc1(t_lexer *lexer, t_parser **parser);
@@ -89,7 +100,7 @@ int					quote(char *loc, char **ligne);
 int					in_quote(int *quote);
 int					quote_checker1(char *line, int quote[2]);
 int					quote_checker(char *line);
-int					token_print_error(void);
+int					token_print_error(int n);
 int					ft_strlen_quote_parse(char *s);
 char				*ft_strtrim(char const *s1, char const *set);
 void				text_parse_quote(t_lexer **lexer, char *s);
@@ -101,6 +112,7 @@ void				ctrl_d(char *prompt, char *line);
 void				free_all(char *line, char *prompt, t_lexer **lexer,
 						t_parser **parser);
 int					is_token(char c);
+
 t_lexer				*ft_lstnewt(int content);
 char				*ft_strdup(char *s);
 t_env				*ft_lstlastenv(t_env *lst);
@@ -163,4 +175,6 @@ int					here_doc(char *limiter);
 char				*ft_strjoin_free(char *s1, char const *s2);
 int					is_builtin(char *cmd_name);
 void				execute_builtin(char *cmd_name, char **args, t_env **env);
+t_env       *get_env_node(t_env **env, char *env_name, int n);
+
 #endif

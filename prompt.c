@@ -1,6 +1,35 @@
 #include "minishell.h"
 
-extern int	status_code; 
+
+extern int	status_code;
+
+char	*expander(char **line, t_env **env)
+{
+	int		quote[2];
+	char	*s;
+	int		index[2];
+
+	index[0] = 0;
+	index[1] = 0;
+	quote[0] = 0;
+	quote[1] = 0;
+	s = malloc(sizeof(char) * (bigline(ft_strdup((*line)), env) + 1));
+	while ((*line)[index[0]])
+	{
+		if ((*line)[index[0]] == '\'' && quote[1] == 0)
+			var_replace1(quote, 0);
+		if ((*line)[index[0]] == '\"' && quote[0] == 0)
+			var_replace1(quote, 1);
+		if ((*line)[index[0]] == '$' && valid_dollar((*line)[index[0] + 1])
+			&& in_quote(quote) != 1)
+			remp(&s, index, *line, env);
+		else
+			var_replace2(index, &s, line);
+	}
+	s[index[1]] = '\0';
+	free(*line);
+	return (s);
+}
 
 char	*prompt_config(void)
 {
@@ -13,10 +42,10 @@ char	*prompt_config(void)
 	i = 0;
 	user = getenv("USER");
 	if (user == NULL || !user)
-		return (ft_strdup("minishell"));
+		return (ft_strdup("minishell> "));
 	session = getenv("SESSION_MANAGER");
 	if (session == NULL || !session)
-		return (ft_strdup("minishell"));
+		return (ft_strdup("minishell> "));
 	while (*session && *(session - 1) != '/')
 		session++;
 	while (*session && session[i] != '.')
@@ -42,7 +71,7 @@ void	prompt_start(t_lexer **lexer, t_env **env)
 		if (line == NULL)
 			ctrl_d(prompt, line);
 		add_history(line);
-		// var_replace(&line, env);
+		line = expander(&line, env);
 		lexer_config(lexer, line, &parser);
 		lst_printf(*lexer, parser);
 		executor(env, parser);

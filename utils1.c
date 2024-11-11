@@ -5,7 +5,7 @@ int	in_quote(int *quote)
 	if (quote[0] == 1 && quote[1] == 1)
 		return (1);
 	if (quote[0] == 0 && quote[1] == 1)
-		return (1);
+		return (2);
 	if (quote[0] == 1 && quote[1] == 0)
 		return (1);
 	return (0);
@@ -108,8 +108,8 @@ void	lst_printf(t_lexer *lexer, t_parser *parser)
 	i = 0;
 	while (lexer)
 	{
-		printf("mot = %s token = %d index == %d\n", lexer->str,
-			lexer->token.token, lexer->i);
+		printf("mot = %s token = %d\n", lexer->str,
+			lexer->token.token);
 		lexer = lexer->next;
 	}
 	printf("\n");

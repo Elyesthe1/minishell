@@ -58,17 +58,19 @@ bool	exists_in_env(t_env **env, char *env_name)
 	return (false);
 }
 
-t_env	*get_env_node(t_env **env, char *env_name)
+t_env	*get_env_node(t_env **env, char *env_name, int n)
 {
 	t_env	*env_node;
 
 	env_node = *env;
 	while (env_node)
 	{
-		if (ft_strcmp(env_node->name, env_name) == 0)
+		if (ft_strcmp(env_node->name, env_name) == 0 && n == 0 && ft_free(env_name))
 			return (env_node);
 		env_node = env_node->next;
 	}
+	if (n == 0)
+		free(env_name);
 	return (NULL);
 }
 
