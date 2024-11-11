@@ -1,5 +1,28 @@
 #include "minishell.h"
 
+void	last_status(char **s, int index[2])
+{
+	int		a;
+	char	*itoa;
+
+	a = 0;
+	itoa = ft_itoa(status_code);
+	while (itoa[a])
+	{
+		(*s)[index[1]] = itoa[a];
+		a++;
+		index[1]++;
+	}
+	free(itoa);
+	index[0]++;
+}
+
+int	free_zero(char *l)
+{
+	free(l);
+	return (0);
+}
+
 static int	ft_sizelen(int n)
 {
 	int	count;
@@ -56,4 +79,3 @@ char	*ft_itoa(int n)
 	}
 	return (ft_remp(size, n, str));
 }
-

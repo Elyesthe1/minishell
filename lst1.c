@@ -29,3 +29,16 @@ t_parser	*ft_lstlastcmd(t_parser *lst)
 	}
 	return (NULL);
 }
+
+void	free_free(char **s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		free(s[i]);
+		i++;
+	}
+	free(s);
+}

@@ -18,17 +18,6 @@ char	*var_name(char *line)
 	return (line);
 }
 
-int	exit_status(void)
-{
-	char	*itoa;
-	int		i;
-
-	itoa = ft_itoa(status_code);
-	i = ft_strlen(itoa);
-	free(itoa);
-	return (i);
-}
-
 int	bigline(char *l, t_env **env)
 {
 	int		i[2];
@@ -36,10 +25,11 @@ int	bigline(char *l, t_env **env)
 
 	i[1] = 0;
 	i[0] = ft_strlen(l);
-	while ( *l && l[i[1]])
+	while (*l && l[i[1]])
 	{
-		if (l[i[1]++] == '$')
+		if (l[i[1]] == '$')
 		{
+			i[1]++;
 			node = get_env_node(env, var_name(ft_strdup(l + i[1])), 0);
 			if (node)
 				i[0] += ft_strlen(node->str);
@@ -54,26 +44,8 @@ int	bigline(char *l, t_env **env)
 		else if (l[i[1]])
 			i[1]++;
 	}
-	free(l);
-	return (i[0]);
+	return (i[0] + free_zero(l));
 }
-
-void last_status(char **s, int index[2])
-{
-	int a;
-	char *itoa;
-
-	a = 0;
-	itoa = ft_itoa(status_code);
-	while (itoa[a])
-	{
-		(*s)[index[1]] = itoa[a];
-		a++;
-		index[1]++;
-	}
-	free(itoa);
-	index[0]++;
-} 
 
 void	remp(char **s, int index[2], char *line, t_env **env)
 {
@@ -97,7 +69,7 @@ void	remp(char **s, int index[2], char *line, t_env **env)
 	if (line[index[0]] == '?')
 	{
 		last_status(s, index);
-		return;
+		return ;
 	}
 	while (line[index[0]] && (ft_isalnum(line[index[0]])
 			|| line[index[0]] == '_'))
@@ -106,7 +78,9 @@ void	remp(char **s, int index[2], char *line, t_env **env)
 
 void	var_replace2(int index[2], char **s, char **line, int *heredoc)
 {
-	int static z = 0;
+	int static	z;
+
+	z = 0;
 	(*s)[index[1]] = (*line)[index[0]];
 	index[0]++;
 	index[1]++;

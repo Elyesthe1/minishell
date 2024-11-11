@@ -83,6 +83,9 @@ int	ft_isalnum(int n);
 void				alloc(t_parser **parser, int infile, int outfile,
 						t_lexer *lexer);
 int valid_dollar(char c);
+int free_zero(char *l);
+void last_status(char **s, int index[2]);
+int	exit_status(void);
 
 char	*var_name(char *line);
 int bigline(char *line, t_env **env);

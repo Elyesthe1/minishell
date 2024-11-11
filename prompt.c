@@ -1,9 +1,8 @@
 #include "minishell.h"
 
-
 extern int	status_code;
 
-void init(int index[2], int quote[2], int *heredoc)
+void	init(int index[2], int quote[2], int *heredoc)
 {
 	index[0] = 0;
 	index[1] = 0;
@@ -14,7 +13,7 @@ void init(int index[2], int quote[2], int *heredoc)
 char	*expander(char **line, t_env **env)
 {
 	int		quote[2];
-	int heredoc;
+	int		heredoc;
 	char	*s;
 	int		index[2];
 
@@ -26,7 +25,8 @@ char	*expander(char **line, t_env **env)
 			var_replace1(quote, 0);
 		if ((*line)[index[0]] == '\"' && quote[0] == 0)
 			var_replace1(quote, 1);
-		if ((*line)[index[0]] == '<' && is_valid_token(&(*line)[index[0]]) == 4 && !in_quote(quote))
+		if ((*line)[index[0]] == '<' && is_valid_token(&(*line)[index[0]]) == 4
+			&& !in_quote(quote))
 			heredoc = 1;
 		if ((*line)[index[0]] == '$' && valid_dollar((*line)[index[0] + 1])
 			&& in_quote(quote) != 1 && !heredoc)

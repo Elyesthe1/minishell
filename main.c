@@ -1,6 +1,7 @@
 #include "minishell.h"
 
 int	status_code;
+
 int	main(int ac, char **av, char **env)
 {
 	t_lexer	*lexer;

@@ -25,9 +25,20 @@ int	token_print_error(int i)
 	return (1);
 }
 
-int valid_dollar(char c)
+int	valid_dollar(char c)
 {
 	if (ft_isalnum(c) || c == '_' || c == '?')
 		return (1);
 	return (0);
+}
+
+int	exit_status(void)
+{
+	char	*itoa;
+	int		i;
+
+	itoa = ft_itoa(status_code);
+	i = ft_strlen(itoa);
+	free(itoa);
+	return (i);
 }

@@ -1,18 +1,5 @@
 #include "minishell.h"
 
-void	free_free(char **s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		free(s[i]);
-		i++;
-	}
-	free(s);
-}
-
 void	alloc(t_parser **parser, int infile, int outfile, t_lexer *lexer)
 {
 	(*parser)->infile.infile = malloc(sizeof(char *) * (infile + 1));
