@@ -21,7 +21,6 @@
 // CTRL-D == 1
 // CTRL-\ == 2
 
-// apla numeric + underscore  sauf si commence par num
 typedef struct s_tokens
 {
 	int				token;
@@ -39,7 +38,6 @@ typedef struct s_lexer
 {
 	char			*str;
 	t_tokens		token;
-	int				i;
 	struct s_lexer	*next;
 }					t_lexer;
 typedef struct s_outfile
@@ -69,6 +67,8 @@ t_parser			*ft_lstnewcmd(t_lexer *lexer);
 int	ft_isalnum(int n);
 void				alloc(t_parser **parser, int infile, int outfile,
 						t_lexer *lexer);
+int valid_dollar(char c);
+
 char	*var_name(char *line);
 int bigline(char *line, t_env **env);
 void remp(char **s, int index[2], char *line, t_env **env);

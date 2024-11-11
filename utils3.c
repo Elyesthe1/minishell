@@ -24,3 +24,10 @@ int	token_print_error(int i)
 		write(2, "bash: syntax error near unexpected token \\`|\'", 46);
 	return (1);
 }
+
+int valid_dollar(char c)
+{
+	if (ft_isalnum(c) || c == '_')
+		return (1);
+	return (0);
+}

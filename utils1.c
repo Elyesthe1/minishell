@@ -108,8 +108,8 @@ void	lst_printf(t_lexer *lexer, t_parser *parser)
 	i = 0;
 	while (lexer)
 	{
-		printf("mot = %s token = %d index == %d\n", lexer->str,
-			lexer->token.token, lexer->i);
+		printf("mot = %s token = %d\n", lexer->str,
+			lexer->token.token);
 		lexer = lexer->next;
 	}
 	printf("\n");

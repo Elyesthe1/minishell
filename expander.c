@@ -26,9 +26,8 @@ int	bigline(char *line, t_env **env)
 	i = ft_strlen(line);
 	while (line[j])
 	{
-		if (line[j] == '$')
+		if (line[j++] == '$')
 		{
-			j++;
 			node = get_env_node(env, var_name(ft_strdup(line + j)), 0);
 			if (node)
 				i += ft_strlen(node->str);
