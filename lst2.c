@@ -63,7 +63,7 @@ void	fill(t_parser **new, t_lexer *lexer, int size)
 	while (i < size - 1)
 	{
 		j = 0;
-		if (i < size - 1 && lexer->token.token != 0)
+		while (i < size - 1 && lexer->token.token != 0)
 			lexer = lexer->next->next;
 		while (lexer->str[j])
 		{
