@@ -1,30 +1,36 @@
 #include "../minishell.h"
 
+int print_error()
+{
+	write(2, "error: warning: here-document stoped\n", 38);
+	return (1);
+}
+
+int here_doc1(char *line, int pipe[2])
+{
+	free(line);
+	close(pipe[1]);
+	return (pipe[0]);
+}
+
 int	here_doc(char *limiter, t_env **env)
 {
 	char	*line;
 	int		hd_pipes[2];
-	char *history;
-	char *temp;
 
 	line = NULL;
-	history = NULL;
 	pipe(hd_pipes);
 	while (true)
 	{
 		free(line);
 		line = readline("> ");
-		temp = ft_strdup(line);
+		if (line == NULL && print_error())
+			break;
 		if (ft_strcmp(line, limiter) == 0)
 			break ;
-		temp = ft_strjoin_free(temp, "\n");
 		line = ft_strjoin_free(line, "\n");
 		line = expander(&line, env);
-		history = ft_strjoin(history, temp);
 		write(hd_pipes[1], line, ft_strlen(line));
 	}
-	add_history(history);
-	free(line);
-	close(hd_pipes[1]);
-	return (hd_pipes[0]);
+	return (here_doc1(line, hd_pipes));
 }

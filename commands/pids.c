@@ -27,7 +27,6 @@ void	wait_all_pids(t_pids *pids)
 {
 	while (pids)
 	{
-		printf("waiting for pid %d\n", pids->pid);
 		if (pids->next)
 			waitpid(pids->pid, NULL, 0);
 		else

@@ -3,6 +3,14 @@
 
 extern int	status_code;
 
+void init(int index[2], int quote[2], int *heredoc)
+{
+	index[0] = 0;
+	index[1] = 0;
+	quote[0] = 0;
+	quote[1] = 0;
+	*heredoc = 0;
+}
 char	*expander(char **line, t_env **env)
 {
 	int		quote[2];
@@ -10,11 +18,7 @@ char	*expander(char **line, t_env **env)
 	char	*s;
 	int		index[2];
 
-	index[0] = 0;
-	index[1] = 0;
-	quote[0] = 0;
-	quote[1] = 0;
-	heredoc = 0;
+	init(index, quote, &heredoc);
 	s = malloc(sizeof(char) * (bigline(ft_strdup((*line)), env) + 1));
 	while ((*line)[index[0]])
 	{
@@ -77,9 +81,8 @@ void	prompt_start(t_lexer **lexer, t_env **env)
 		add_history(line);
 		line = expander(&line, env);
 		lexer_config(lexer, line, &parser);
-		lst_printf(*lexer, parser);
+		// lst_printf(*lexer, parser);
 		executor(env, parser);
-		printf("last status_code: %d\n", WEXITSTATUS(status_code));
 		free_all(prompt, line, lexer, &parser);
 	}
 	rl_clear_history();

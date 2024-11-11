@@ -36,7 +36,7 @@ int	bigline(char *l, t_env **env)
 
 	i[1] = 0;
 	i[0] = ft_strlen(l);
-	while (l[i[1]])
+	while ( *l && l[i[1]])
 	{
 		if (l[i[1]++] == '$')
 		{
@@ -51,7 +51,7 @@ int	bigline(char *l, t_env **env)
 				while (l[i[1]] && (ft_isalnum(l[i[1]]) || l[i[1]] == '_'))
 					i[1]++;
 		}
-		else
+		else if (l[i[1]])
 			i[1]++;
 	}
 	free(l);

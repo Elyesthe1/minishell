@@ -53,7 +53,6 @@ int	access_all_infile(t_infile *infile, t_env **env)
 
 	if (!infile->infile[0])
 		return (0);
-	printf("infile present\n");
 	i = 0;
 	while (infile->infile[i])
 	{
@@ -72,7 +71,6 @@ int	access_all_infile(t_infile *infile, t_env **env)
 	if (!infile->fd)
 		return (close(tmp_fd), -1);
 	*infile->fd = tmp_fd;
-	printf("infile OK name = %s - fd = %d\n", infile->infile[i - 1], *infile->fd);
 	return (0);
 }
 
@@ -83,7 +81,6 @@ int create_outfile(t_outfile *outfile)
 
 	if (!outfile->outfile[0])
 		return (0);
-	printf("outfile present\n");
 	outfile->fd = malloc(sizeof(int));
 	if (!outfile->fd)
 		return (-1);
@@ -107,7 +104,6 @@ int create_outfile(t_outfile *outfile)
 			*outfile->fd = tmp_fd;
 		++i;
 	}
-	printf("oufile OK name = %s - fd = %d\n", outfile->outfile[i - 1], *outfile->fd);
 	return (0);
 }
 
@@ -131,8 +127,9 @@ int execute_command(t_env **env, t_parser **parser, t_pids **pids)
 {
 	pid_t	pid;
 	char	**envp;
-
-	printf("executing command %s\n", (*parser)->str[0]);
+	
+	if (!(*parser)->str[0])
+		return (-1);
 	pid = fork();
 	if (pid == -1)
 		return (perror("fork"), 1);
@@ -169,7 +166,6 @@ int execute_command(t_env **env, t_parser **parser, t_pids **pids)
 			free((*parser)->outfile.fd);
 			(*parser)->outfile.fd = NULL;
 		}
-		printf("pid: %d\n", pid);
 		add_pid(pids, pid);
 		return (0);
 	}
@@ -187,7 +183,6 @@ int	executor(t_env **env, t_parser *parser)
 	pids = NULL;
 	while (parser)
 	{
-		printf("starting execution of command: %s\n", parser->str[0]);
 		if (access_all_infile(&parser->infile, env) == -1 || create_outfile(&parser->outfile) == -1)
 		{
 			if (parser->infile.fd)
@@ -195,7 +190,6 @@ int	executor(t_env **env, t_parser *parser)
 				free(parser->infile.fd);
 				parser->infile.fd = NULL;
 			}
-			printf("skipping parser cmd\n");
 			parser = parser->next;
 			continue;
 		}
@@ -212,6 +206,5 @@ int	executor(t_env **env, t_parser *parser)
 	}
 	wait_all_pids(pids);
 	free_all_pids(&pids);
-	printf("finished executor\n");
 	return (0);
 }
