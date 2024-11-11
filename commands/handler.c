@@ -38,12 +38,12 @@ void	execute_builtin(char *cmd_name, char **args, t_env **env)
 		built_cd(env, "-");
 }
 
-void	cmd_handler(char *cmd_name, t_env **env)
-{
-	if (!is_builtin(cmd_name))
-	{
-		printf("not implemented yet\n");
-		return ;
-	}
-	execute_builtin(cmd_name, env);
-}
+// void	cmd_handler(char *cmd_name, t_env **env)
+// {
+// 	if (!is_builtin(cmd_name))
+// 	{
+// 		printf("not implemented yet\n");
+// 		return ;
+// 	}
+// 	execute_builtin(cmd_name, env, env);
+// }

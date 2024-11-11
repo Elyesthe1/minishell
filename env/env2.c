@@ -81,6 +81,6 @@ char		**get_env_path(t_env *env)
 	if (!env || !exists_in_env(&env, "PATH"))
 		return (NULL);
 	
-	path_node = get_env_node(&env, "PATH");
+	path_node = get_env_node(&env, "PATH", 1);
 	return (ft_split(path_node->value, ':'));
 }
