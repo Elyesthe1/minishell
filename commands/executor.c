@@ -46,7 +46,7 @@
 // 	return (0);
 // }
 
-int	access_all_infile(t_infile *infile)
+int	access_all_infile(t_infile *infile, t_env **env)
 {
 	int	i;
 	int	tmp_fd;
@@ -58,7 +58,7 @@ int	access_all_infile(t_infile *infile)
 	while (infile->infile[i])
 	{
 		if (infile->flag[i] == 4)
-			tmp_fd = here_doc(infile->infile[i]);
+			tmp_fd = here_doc(infile->infile[i], env);
 		else if (infile->flag[i] == 1)
 			tmp_fd = open(infile->infile[i], O_RDONLY);
 
@@ -188,7 +188,7 @@ int	executor(t_env **env, t_parser *parser)
 	while (parser)
 	{
 		printf("starting execution of command: %s\n", parser->str[0]);
-		if (access_all_infile(&parser->infile) == -1 || create_outfile(&parser->outfile) == -1)
+		if (access_all_infile(&parser->infile, env) == -1 || create_outfile(&parser->outfile) == -1)
 		{
 			if (parser->infile.fd)
 			{

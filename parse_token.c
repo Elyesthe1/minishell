@@ -53,6 +53,7 @@ int	is_valid_token(char *s)
 	}
 	if (is_token(s[1]) == 0 && is_valid_token1(s + 1) == 0)
 		return (token);
+	printf("DEBUG == %s\n", s );
 	if (token == is_token(s[1]))
 	{
 		if (is_token(s[2]) != 0 || is_valid_token1(s + 2) != 0)

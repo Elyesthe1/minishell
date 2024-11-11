@@ -27,7 +27,7 @@ int	token_print_error(int i)
 
 int valid_dollar(char c)
 {
-	if (ft_isalnum(c) || c == '_')
+	if (ft_isalnum(c) || c == '_' || c == '?')
 		return (1);
 	return (0);
 }

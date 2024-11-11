@@ -87,7 +87,7 @@ int valid_dollar(char c);
 char	*var_name(char *line);
 int bigline(char *line, t_env **env);
 void remp(char **s, int index[2], char *line, t_env **env);
-void var_replace2(int index[2], char **s, char **line);
+void var_replace2(int index[2], char **s, char **line, int *heredoc);
 void var_replace1(int quote[2], int i);
 int	ft_isdigit(int n);
 void				lst_free_parser(t_parser **parser);
@@ -112,6 +112,7 @@ void				ctrl_d(char *prompt, char *line);
 void				free_all(char *line, char *prompt, t_lexer **lexer,
 						t_parser **parser);
 int					is_token(char c);
+char	*expander(char **line, t_env **env);
 
 t_lexer				*ft_lstnewt(int content);
 char				*ft_strdup(char *s);
@@ -170,10 +171,12 @@ int					replace_command_name_by_path(char **str, t_env *env);
 void				add_pid(t_pids **pids, pid_t pid);
 void				free_all_pids(t_pids **pids);
 void				wait_all_pids(t_pids *pids);
-int					here_doc(char *limiter);
+int					here_doc(char *limiter, t_env **env);
 char				*ft_strjoin_free(char *s1, char const *s2);
 int					is_builtin(char *cmd_name);
 void				execute_builtin(char *cmd_name, char **args, t_env **env);
 t_env       *get_env_node(t_env **env, char *env_name, int n);
+char	*ft_itoa(int n);
+
 
 #endif

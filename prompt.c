@@ -6,6 +6,7 @@ extern int	status_code;
 char	*expander(char **line, t_env **env)
 {
 	int		quote[2];
+	int heredoc;
 	char	*s;
 	int		index[2];
 
@@ -13,6 +14,7 @@ char	*expander(char **line, t_env **env)
 	index[1] = 0;
 	quote[0] = 0;
 	quote[1] = 0;
+	heredoc = 0;
 	s = malloc(sizeof(char) * (bigline(ft_strdup((*line)), env) + 1));
 	while ((*line)[index[0]])
 	{
@@ -20,11 +22,13 @@ char	*expander(char **line, t_env **env)
 			var_replace1(quote, 0);
 		if ((*line)[index[0]] == '\"' && quote[0] == 0)
 			var_replace1(quote, 1);
+		if ((*line)[index[0]] == '<' && is_valid_token(&(*line)[index[0]]) == 4 && !in_quote(quote))
+			heredoc = 1;
 		if ((*line)[index[0]] == '$' && valid_dollar((*line)[index[0] + 1])
-			&& in_quote(quote) != 1)
+			&& in_quote(quote) != 1 && !heredoc)
 			remp(&s, index, *line, env);
 		else
-			var_replace2(index, &s, line);
+			var_replace2(index, &s, line, &heredoc);
 	}
 	s[index[1]] = '\0';
 	free(*line);
