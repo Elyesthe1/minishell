@@ -9,7 +9,7 @@ void	free_env_node(t_env *env_node)
 }
 
 // MODIFY LATER TO ACCEPT ENV NAME
-void	remove_from_env(char *env_name, t_env **env)
+void	remove_from_env(t_env **env, char *env_name)
 {
 	t_env	*prev_node;
 	t_env	*env_node;
@@ -31,10 +31,21 @@ void	remove_from_env(char *env_name, t_env **env)
 	free_env_node(env_node);
 }
 
-void	built_unset(char *env_name, t_env **env)
+int	built_unset(char **args, t_env **env)
 {
-	if (!exists_in_env(env, env_name))
-		return ;
-	printf("in env\n");
-	remove_from_env(NULL, env);
+	int	i;
+
+	i = 1;
+	while (args && args[i])
+	{
+		if (!exists_in_env(env, args[i]))
+		{
+			++i;
+			continue ;
+		}
+		printf("in env: %s\n", args[i]);
+		remove_from_env(env, args[i]);
+		++i;
+	}
+	return (0);
 }

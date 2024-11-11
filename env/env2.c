@@ -65,8 +65,12 @@ t_env	*get_env_node(t_env **env, char *env_name, int n)
 	env_node = *env;
 	while (env_node)
 	{
-		if (ft_strcmp(env_node->name, env_name) == 0 && n == 0 && ft_free(env_name))
+		if (ft_strcmp(env_node->name, env_name) == 0)
+		{
+			if (n == 0)
+				ft_free(env_name);
 			return (env_node);
+		}
 		env_node = env_node->next;
 	}
 	if (n == 0)
@@ -82,5 +86,7 @@ char		**get_env_path(t_env *env)
 		return (NULL);
 	
 	path_node = get_env_node(&env, "PATH", 1);
+	if (!path_node)
+		return (NULL);
 	return (ft_split(path_node->value, ':'));
 }

@@ -132,7 +132,26 @@ int execute_command(t_env **env, t_parser **parser, t_pids **pids)
 	pid_t	pid;
 	char	**envp;
 
+	if (!(*parser)->str[0])
+		return (-1);
 	printf("executing command %s\n", (*parser)->str[0]);
+	if (execute_outside_fork((*parser)->str[0], (*parser)->str))
+	{
+		if ((*parser)->infile.fd)
+		{
+			close(*(*parser)->infile.fd);
+			free((*parser)->infile.fd);
+			(*parser)->infile.fd = NULL;
+		}
+		if ((*parser)->outfile.fd)
+		{
+			close(*(*parser)->outfile.fd);
+			free((*parser)->outfile.fd);
+			(*parser)->outfile.fd = NULL;
+		}
+		printf("executing outside fork\n");
+		return (execute_builtin((*parser)->str[0], (*parser)->str, env));
+	}
 	pid = fork();
 	if (pid == -1)
 		return (perror("fork"), 1);
@@ -154,7 +173,7 @@ int execute_command(t_env **env, t_parser **parser, t_pids **pids)
 			execve((*parser)->str[0], (*parser)->str, envp);
 		}
 		else
-			execute_builtin((*parser)->str[0], (*parser)->str++, env);
+			execute_builtin((*parser)->str[0], (*parser)->str, env);
 		exit(0);
 	} else {
 		if ((*parser)->infile.fd)

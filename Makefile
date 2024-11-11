@@ -31,10 +31,12 @@ SRCS = main.c\
 	   commands/pids.c\
 	   commands/here_doc.c\
 	   expander.c\
+	   ft_atoi.c\
+	   str/put.c
 
 CC = cc
 RM = rm -f
-FLAGS = -Wall  -Wextra -g #-fsanitize=address #-Werror
+FLAGS = -Wall  -Wextra -g -fsanitize=address #-Werror
 NAME = minishell
 OBJS = $(SRCS:.c=.o)
 

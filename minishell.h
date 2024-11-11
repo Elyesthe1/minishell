@@ -137,12 +137,12 @@ int					lexer_config(t_lexer **lexer, char *line,
 int					ft_strlen(const char *s);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 void				cmd_handler(char *cmd_name, t_env **env);
-void				built_exit(int status);
+int					built_exit(char **args);
 void				built_pwd(void);
 void				built_env(t_env **env);
-void				built_echo(char *str, char **args);
-void				built_unset(char *env_name, t_env **env);
-void				built_export(t_env **env);
+int					built_echo(char **args);
+int					built_unset(char **args, t_env **env);
+void				built_export(char **args, t_env **env);
 void				prompt_start(t_lexer **lexer, t_env **env);
 int					ft_strcmp(const char *s1, const char *s2);
 char				*get_env_name(char *str);
@@ -151,7 +151,7 @@ char				*ft_joinstrcpy(char *s1, char *s2, char *s3, int n);
 char				*ft_strcpy(char *dest, char *src);
 char				*env_lst_to_str(t_env **env);
 bool				exists_in_env(t_env **env, char *env_name);
-void				built_cd(t_env **env, char *directory_path);
+int					built_cd(char **args, t_env **env);
 void				add_to_env(t_env **env, char *env_name, char *env_value);
 void				change_env_value(t_env **env, char *env_name,
 						char *env_value);
@@ -173,7 +173,13 @@ void				wait_all_pids(t_pids *pids);
 int					here_doc(char *limiter);
 char				*ft_strjoin_free(char *s1, char const *s2);
 int					is_builtin(char *cmd_name);
-void				execute_builtin(char *cmd_name, char **args, t_env **env);
-t_env       *get_env_node(t_env **env, char *env_name, int n);
+int					execute_builtin(char *cmd_name, char **args, t_env **env);
+t_env       		*get_env_node(t_env **env, char *env_name, int n);
+int					execute_outside_fork(char *cmd_name, char **args);
+int					ft_isint(char *str);
+int					ft_atoi(const char *str);
+void				ft_putchar_fd(char c, int fd);
+void				ft_putstr_fd(char *s, int fd);
+int					args_size(char **args);
 
 #endif

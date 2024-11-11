@@ -71,11 +71,11 @@ void	prompt_start(t_lexer **lexer, t_env **env)
 		if (line == NULL)
 			ctrl_d(prompt, line);
 		add_history(line);
-		line = expander(&line, env);
+		// line = expander(&line, env);
 		lexer_config(lexer, line, &parser);
 		lst_printf(*lexer, parser);
 		executor(env, parser);
-		printf("last status_code: %d\n", WEXITSTATUS(status_code));
+		fprintf(stderr, "last status_code: %d\n", WEXITSTATUS(status_code));
 		free_all(prompt, line, lexer, &parser);
 	}
 	rl_clear_history();

@@ -5,7 +5,7 @@ void	ctrl_d(char *prompt, char *line)
 	free(prompt);
 	free(line);
 	rl_clear_history();
-	printf("exit\n");
+	fprintf(stderr, "exit\n");
 	exit(0);
 }
 

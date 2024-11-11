@@ -37,7 +37,7 @@ char	*env_to_export_fmt(t_env **env)
 		ft_strcpy(&str[ft_strlen(str)], env_node->value);
 		ft_strcpy(&str[ft_strlen(str)], "\"\n");
 		// printf("%s \n", str);
-		export_str = ft_strjoin(export_str, str);
+		export_str = ft_strjoin_free(export_str, str);
 		if (!export_str)
 			return (free(str), NULL);
 		free(str);
@@ -97,16 +97,26 @@ void	change_env_value(t_env **env, char *env_name, char *env_value)
 // str = env_to_export_fmt(env);
 // printf("%s", str);
 // free(str);
-void	built_export(t_env **env)
+void	built_export(char **args, t_env **env)
 {
-	if (!exists_in_env(env, "TEST"))
+	char	*str;
+	
+	if (!args[1])
 	{
-		printf("ADD_TO_ENV\n");
+		str = env_to_export_fmt(env);
+		printf("%s", str);
+		free(str);
+		return ;
+	}
+	// split by = and do things
+	if (!exists_in_env(env, args[1]))
+	{
+		fprintf(stderr, "ADD_TO_ENV\n");
 		add_to_env(env, "TEST", "TEST123");
 	}
 	else
 	{
-		printf("CHANGE_ENV_VALUE\n");
+		fprintf(stderr, "CHANGE_ENV_VALUE\n");
 		change_env_value(env, "TEST", "XDCHANGED");
 	}
 }
