@@ -1,6 +1,18 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/12 18:55:56 by erahal            #+#    #+#             */
+/*   Updated: 2024/11/12 18:55:57 by erahal           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
+
+int	g_status_code;
 
 int	main(int ac, char **av, char **env)
 {
@@ -8,6 +20,7 @@ int	main(int ac, char **av, char **env)
 	t_env	*ev;
 
 	(void)av;
+	g_status_code = 0;
 	if (ac != 1)
 	{
 		write(2, "no arguments are required\n", 27);
@@ -15,8 +28,8 @@ int	main(int ac, char **av, char **env)
 	}
 	lexer = NULL;
 	ev = NULL;
-	set_signal_action();
 	stock_env(env, &ev);
+	set_signal_action();
 	prompt_start(&lexer, &ev);
 	lst_freeenv(&ev);
 	return (0);

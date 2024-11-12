@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_token.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/12 18:56:09 by erahal            #+#    #+#             */
+/*   Updated: 2024/11/12 18:56:10 by erahal           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -28,6 +38,20 @@ int	is_ws(char c)
 	return (0);
 }
 
+int	is_valid_token1(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] && is_ws(s[i]))
+		i++;
+	if (s[i] == '\0')
+		return (2);
+	if (is_token(s[i]) != 0)
+		return (-1);
+	return (0);
+}
+
 int	is_valid_token(char *s)
 {
 	int	token;
@@ -35,19 +59,19 @@ int	is_valid_token(char *s)
 	token = is_token(s[0]);
 	if (token == 5)
 	{
-		if (is_token(s[1]) != 0)
+		if (is_token(s[1]) != 0 || is_valid_token1(s + 1) != 0)
 			return (-5);
 		return (5);
 	}
-	if (is_token(s[1]) == 0)
+	if (is_token(s[1]) == 0 && is_valid_token1(s + 1) == 0)
 		return (token);
 	if (token == is_token(s[1]))
 	{
-		if (is_token(s[2]) != 0)
+		if (is_token(s[2]) != 0 || is_valid_token1(s + 2) != 0)
 			return (-1);
-		if (token == 1)
+		if (token == 1 || is_valid_token1(s + 2) != 0)
 			return (4);
-		if (token == 2)
+		if (token == 2 || is_valid_token1(s + 2) != 0)
 			return (3);
 	}
 	return (-2);

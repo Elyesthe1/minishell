@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unset.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/12 18:53:53 by erahal            #+#    #+#             */
+/*   Updated: 2024/11/12 18:53:58 by erahal           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	free_env_node(t_env *env_node)
@@ -8,15 +20,15 @@ void	free_env_node(t_env *env_node)
 	free(env_node);
 }
 
-// MODIFY LATER TO ACCEPT ENV NAME
-void	remove_from_env(char *env_name, t_env **env)
+void	remove_from_env(t_env **env, char *env_name)
 {
 	t_env	*prev_node;
 	t_env	*env_node;
 
 	prev_node = NULL;
 	env_node = *env;
-	while (env_node && env_node->next && ft_strcmp(env_node->name, "USER") != 0)
+	while (env_node && env_node->next && ft_strcmp(env_node->name,
+			env_name) != 0)
 	{
 		prev_node = env_node;
 		env_node = env_node->next;
@@ -31,10 +43,20 @@ void	remove_from_env(char *env_name, t_env **env)
 	free_env_node(env_node);
 }
 
-void	built_unset(char *env_name, t_env **env)
+int	built_unset(char **args, t_env **env)
 {
-	if (!exists_in_env(env, env_name))
-		return ;
-	printf("in env\n");
-	remove_from_env(NULL, env);
+	int	i;
+
+	i = 1;
+	while (args && args[i])
+	{
+		if (!exists_in_env(env, args[i]))
+		{
+			++i;
+			continue ;
+		}
+		remove_from_env(env, args[i]);
+		++i;
+	}
+	return (0);
 }

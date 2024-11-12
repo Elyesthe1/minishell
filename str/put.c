@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   put.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/12 18:55:35 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/12 18:55:36 by erahal           ###   ########.fr       */
+/*   Created: 2024/11/12 18:55:10 by erahal            #+#    #+#             */
+/*   Updated: 2024/11/12 18:55:11 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-void	stock_env(char **env, t_env **ev)
+void	ft_putchar_fd(char c, int fd)
 {
-	int	i;
+	write(fd, &c, 1);
+}
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	size_t	i;
 
 	i = 0;
-	while (env[i])
+	if (!s)
+		return ;
+	while (s[i])
 	{
-		ft_lstadd_backenv(ev, ft_lstnewenv(env[i]));
-		i++;
+		ft_putchar_fd(s[i], fd);
+		++i;
 	}
 }

@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   chr.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/12 18:55:35 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/12 18:55:36 by erahal           ###   ########.fr       */
+/*   Created: 2024/11/12 18:55:05 by erahal            #+#    #+#             */
+/*   Updated: 2024/11/12 18:55:06 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-void	stock_env(char **env, t_env **ev)
+char	*ft_strchr(const char *s, int c)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	while (env[i])
-	{
-		ft_lstadd_backenv(ev, ft_lstnewenv(env[i]));
-		i++;
-	}
+	while (s[i] && s[i] != (char) c)
+		++i;
+	if (s[i] == (char) c)
+		return ((char *) &s[i]);
+	return (NULL);
 }

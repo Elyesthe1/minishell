@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lst.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/12 18:55:45 by erahal            #+#    #+#             */
+/*   Updated: 2024/11/12 18:55:46 by erahal           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -43,20 +53,17 @@ t_lexer	*ft_lstlast(t_lexer *lst)
 int	ft_lstadd_back(t_lexer **lst, t_lexer *new)
 {
 	t_lexer		*tmp;
-	static int	index = 1;
 
 	if (!new)
 		return (-1);
 	if (*lst == NULL)
 	{
 		(*lst) = new;
-		(*lst)->i = index++;
 		return ((*lst)->token.token);
 	}
 	tmp = ft_lstlast(*lst);
 	tmp->next = new;
-	new->i = index++;
-	return ((*lst)->token.token);
+	return (new->token.token);
 }
 
 t_lexer	*ft_lstnew(void *content)

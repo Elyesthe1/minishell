@@ -19,14 +19,28 @@ SRCS = main.c\
 	   str/cpy.c\
 	   signal.c\
 	   parse_quote.c\
-	   write_error.c\
+	   utils3.c\
 	   utils2.c\
 	   lst2.c\
-
+	   lst1.c\
+	   commands/executor.c\
+	   commands/cmd_utils.c\
+	   commands/executor_utils.c\
+	   str/split.c\
+	   str/put.c\
+	   str/chr.c\
+	   ft_atoi.c\
+	   mem.c\
+	   env/env3.c\
+	   commands/pids.c\
+	   commands/here_doc.c\
+	   builtins/export_utils.c\
+	   expander.c\
+	   utils4.c\
 
 CC = cc
 RM = rm -f
-FLAGS = -Wall  -Wextra -g -fsanitize=address #-Werror
+FLAGS = -Wall  -Wextra -g #-fsanitize=address #-Werror
 NAME = minishell
 OBJS = $(SRCS:.c=.o)
 

@@ -1,8 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   echo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/12 18:53:43 by erahal            #+#    #+#             */
+/*   Updated: 2024/11/12 18:53:44 by erahal           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-void	built_echo(char *str, bool newline)
+int	built_echo(char **args)
 {
-	printf("%s", str);
+	int	i;
+	int	newline;
+
+	i = 1;
+	newline = 1;
+	if (args && args[i] && ft_strcmp(args[i], "-n") == 0)
+	{
+		newline = 0;
+		++i;
+	}
+	while (args && args[i])
+	{
+		ft_putstr_fd(args[i], STDOUT_FILENO);
+		if (args[i + 1])
+			ft_putstr_fd(" ", STDOUT_FILENO);
+		++i;
+	}
 	if (newline)
-		printf("\n");
+		ft_putstr_fd("\n", STDOUT_FILENO);
+	return (0);
 }
