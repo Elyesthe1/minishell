@@ -22,7 +22,7 @@
 // << == 4 infile
 // | == 5
 
-extern int	status_code;
+extern int	g_status_code;
 // int signal;
 // CTRL-C == 0
 // CTRL-D == 1
@@ -75,6 +75,11 @@ typedef struct s_pids
 	struct s_pids	*next;
 }	t_pids;
  
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10	
+# endif 
+
+
 void				lst_printf(t_lexer *lexer, t_parser *parser);
 //
 void				ft_lstadd_backcmd(t_parser **lst, t_parser *new);
@@ -83,11 +88,15 @@ int	ft_isalnum(int n);
 void				alloc(t_parser **parser, int infile, int outfile,
 						t_lexer *lexer);
 int valid_dollar(char c);
+int free_zero(char *l);
+void last_status(char **s, int index[2]);
+int	exit_status(void);
+void	remove_from_env(char *env_name, t_env **env);
 
 char	*var_name(char *line);
 int bigline(char *line, t_env **env);
 void remp(char **s, int index[2], char *line, t_env **env);
-void var_replace2(int index[2], char **s, char **line);
+void var_replace2(int index[2], char **s, char **line, int *heredoc);
 void var_replace1(int quote[2], int i);
 int	ft_isdigit(int n);
 void				lst_free_parser(t_parser **parser);
@@ -112,6 +121,7 @@ void				ctrl_d(char *prompt, char *line);
 void				free_all(char *line, char *prompt, t_lexer **lexer,
 						t_parser **parser);
 int					is_token(char c);
+char	*expander(char **line, t_env **env);
 
 t_lexer				*ft_lstnewt(int content);
 char				*ft_strdup(char *s);
@@ -123,7 +133,8 @@ int					*ft_strchr_tokens(char *str);
 int					is_ws(char c);
 void				token_error(char *line, t_lexer **lexer, char *p);
 int					is_valid_token(char *s);
-void				set_signal_action(void);
+void	set_signal_action();
+void	signal_handler(int signal);
 char				*ft_strjoin(char *s1, char *s2);
 int					lst_free(t_lexer **lexer);
 void				stock_env(char **env, t_env **ev);
@@ -170,10 +181,22 @@ int					replace_command_name_by_path(char **str, t_env *env);
 void				add_pid(t_pids **pids, pid_t pid);
 void				free_all_pids(t_pids **pids);
 void				wait_all_pids(t_pids *pids);
-int					here_doc(char *limiter);
+int					here_doc(char *limiter, t_env **env, char *line);
 char				*ft_strjoin_free(char *s1, char const *s2);
 int					is_builtin(char *cmd_name);
 void				execute_builtin(char *cmd_name, char **args, t_env **env);
 t_env       *get_env_node(t_env **env, char *env_name, int n);
+char	*ft_itoa(int n);
+char	*ft_strchr(char *str, int c);
+char	*get_next_line(int fd);
+void	ft_bzero(void *s1, size_t n);
+char	*ft_strncpy(char *str, char *s2, char c);
+char	*ft_strdup(char *s);
+int	ft_free_line(char *s);
+char	*ft_strcpyv2(char *s1, char *s2, char *s3);
+char	*ft_strjoin_line(char *s1, char *s2);
+char	*ft_split_line(char *tab, char c);
+
+
 
 #endif

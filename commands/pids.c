@@ -27,11 +27,10 @@ void	wait_all_pids(t_pids *pids)
 {
 	while (pids)
 	{
-		printf("waiting for pid %d\n", pids->pid);
 		if (pids->next)
 			waitpid(pids->pid, NULL, 0);
 		else
-			waitpid(pids->pid, &status_code, 0);
+			waitpid(pids->pid, &g_status_code, 0);
 		pids = pids->next;
 	}
 }

@@ -114,13 +114,13 @@ int	lexer_config(t_lexer **lexer, char *line, t_parser **parser)
 	quote[0] = 0;
 	quote[1] = 0;
 	if (quote_checker(line) == 1)
-		return (2);
+		return (-1);
 	while (line && line[i])
 	{
 		if (is_token(line[i]) && in_quote(quote) == 0)
 		{
 			if (is_valid_token(line + i) < 0 && token_print_error(0))
-				return (1);
+				return (-1);
 			token = ft_lstadd_back(lexer, ft_lstnewt(is_valid_token(line + i)));
 			greed_line(token, &i);
 		}
@@ -130,5 +130,5 @@ int	lexer_config(t_lexer **lexer, char *line, t_parser **parser)
 			i++;
 	}
 	parser_config(lexer, parser);
-	return (0);
+	return (1);
 }

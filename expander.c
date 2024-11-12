@@ -1,5 +1,7 @@
 #include "minishell.h"
 
+extern int	g_status_code;
+
 char	*var_name(char *line)
 {
 	int	i;
@@ -16,32 +18,33 @@ char	*var_name(char *line)
 	return (line);
 }
 
-int	bigline(char *line, t_env **env)
+int	bigline(char *l, t_env **env)
 {
-	int		i;
-	int		j;
+	int		i[2];
 	t_env	*node;
 
-	j = 0;
-	i = ft_strlen(line);
-	while (line[j])
+	i[1] = 0;
+	i[0] = ft_strlen(l);
+	while (*l && l[i[1]])
 	{
-		if (line[j++] == '$')
+		if (l[i[1]] == '$')
 		{
-			node = get_env_node(env, var_name(ft_strdup(line + j)), 0);
+			i[1]++;
+			node = get_env_node(env, var_name(ft_strdup(l + i[1])), 0);
 			if (node)
-				i += ft_strlen(node->str);
-			if (ft_isdigit(line[j]))
-				j++;
+				i[0] += ft_strlen(node->str);
+			if (l[i[1]] == '?')
+				i[0] += exit_status();
+			if (ft_isdigit(l[i[1]]))
+				i[1]++;
 			else
-				while (line[j] && (ft_isalnum(line[j]) || line[j] == '_'))
-					j++;
+				while (l[i[1]] && (ft_isalnum(l[i[1]]) || l[i[1]] == '_'))
+					i[1]++;
 		}
-		else
-			j++;
+		else if (l[i[1]])
+			i[1]++;
 	}
-	free(line);
-	return (i);
+	return (i[0] + free_zero(l));
 }
 
 void	remp(char **s, int index[2], char *line, t_env **env)
@@ -63,16 +66,31 @@ void	remp(char **s, int index[2], char *line, t_env **env)
 		index[0]++;
 		return ;
 	}
+	if (line[index[0]] == '?')
+	{
+		last_status(s, index);
+		return ;
+	}
 	while (line[index[0]] && (ft_isalnum(line[index[0]])
 			|| line[index[0]] == '_'))
 		index[0]++;
 }
 
-void	var_replace2(int index[2], char **s, char **line)
+void	var_replace2(int index[2], char **s, char **line, int *heredoc)
 {
+	int static	z;
+
+	z = 0;
 	(*s)[index[1]] = (*line)[index[0]];
 	index[0]++;
 	index[1]++;
+	if (is_ws((*s)[index[1]]) && z == 1)
+	{
+		*heredoc = 0;
+		z = 0;
+	}
+	if (!is_ws((*s)[index[1]]))
+		z = 1;
 }
 
 void	var_replace1(int quote[2], int i)
