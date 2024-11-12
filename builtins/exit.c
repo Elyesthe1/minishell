@@ -4,10 +4,9 @@ int	built_exit(char **args)
 {
 	int	i;
 
-	i  = 1;
+	i = 1;
 	if (!args || (args && !args[1]))
 		return (0);
-	
 	if (!ft_isint(args[1]))
 	{
 		ft_putstr_fd("exit: ", STDERR_FILENO);
@@ -20,6 +19,5 @@ int	built_exit(char **args)
 		ft_putstr_fd("exit: too many arguments\n", STDERR_FILENO);
 		return (-1);
 	}
-	printf("exit should be: %d\n", ft_atoi(args[1]));
 	return (ft_atoi(args[1]));
 }

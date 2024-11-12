@@ -108,8 +108,7 @@ void	lst_printf(t_lexer *lexer, t_parser *parser)
 	i = 0;
 	while (lexer)
 	{
-		printf("mot = %s token = %d\n", lexer->str,
-			lexer->token.token);
+		printf("mot = %s token = %d\n", lexer->str, lexer->token.token);
 		lexer = lexer->next;
 	}
 	printf("\n");
@@ -125,7 +124,8 @@ void	lst_printf(t_lexer *lexer, t_parser *parser)
 		while (parser && parser->infile.infile != NULL
 			&& parser->infile.infile[i])
 		{
-			printf("infile == %s %d\n", parser->infile.infile[i], parser->infile.flag[i]);
+			printf("infile == %s %d\n", parser->infile.infile[i],
+				parser->infile.flag[i]);
 			i++;
 		}
 		i = 0;

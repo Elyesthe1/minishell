@@ -16,7 +16,8 @@ void	remove_from_env(t_env **env, char *env_name)
 
 	prev_node = NULL;
 	env_node = *env;
-	while (env_node && env_node->next && ft_strcmp(env_node->name, env_name) != 0)
+	while (env_node && env_node->next && ft_strcmp(env_node->name,
+			env_name) != 0)
 	{
 		prev_node = env_node;
 		env_node = env_node->next;
@@ -43,7 +44,6 @@ int	built_unset(char **args, t_env **env)
 			++i;
 			continue ;
 		}
-		printf("in env: %s\n", args[i]);
 		remove_from_env(env, args[i]);
 		++i;
 	}

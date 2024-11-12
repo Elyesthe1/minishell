@@ -25,6 +25,15 @@ char	*get_directory_path(t_env **env, char *directory_path)
 	return (directory_path);
 }
 
+void	execute_error(char *directory_path, char *strerr)
+{
+	ft_putstr_fd("cd: ", STDERR_FILENO);
+	ft_putstr_fd(directory_path, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putstr_fd(strerr, STDERR_FILENO);
+	ft_putstr_fd("\n", STDERR_FILENO);
+}
+
 int	execute_cd(char *directory_path, t_env **env)
 {
 	char	*old_pwd;
@@ -36,11 +45,7 @@ int	execute_cd(char *directory_path, t_env **env)
 	old_pwd = getcwd(NULL, 0);
 	if (chdir(directory_path) != 0)
 	{
-		ft_putstr_fd("cd: ", STDERR_FILENO);
-		ft_putstr_fd(directory_path, STDERR_FILENO);
-		ft_putstr_fd(": ", STDERR_FILENO);
-		ft_putstr_fd(strerror(errno), STDERR_FILENO);
-		ft_putstr_fd("\n", STDERR_FILENO);
+		execute_error(directory_path, strerror(errno));
 		return (free(old_pwd), 1);
 	}
 	pwd = getcwd(NULL, 0);
@@ -62,6 +67,5 @@ int	built_cd(char **args, t_env **env)
 		ft_putstr_fd("cd: too many arguments\n", STDERR_FILENO);
 		return (1);
 	}
-
 	return (execute_cd(args[1], env));
 }

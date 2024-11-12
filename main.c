@@ -1,13 +1,14 @@
 #include "minishell.h"
 
-int	status_code;
+int	g_status_code;
+
 int	main(int ac, char **av, char **env)
 {
 	t_lexer	*lexer;
 	t_env	*ev;
 
 	(void)av;
-	status_code = 0;
+	g_status_code = 0;
 	if (ac != 1)
 	{
 		write(2, "no arguments are required\n", 27);

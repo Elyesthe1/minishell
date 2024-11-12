@@ -1,8 +1,8 @@
 #include "../minishell.h"
 
-int args_size(char **args)
+int	args_size(char **args)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (args && args[i])

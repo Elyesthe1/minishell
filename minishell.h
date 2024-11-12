@@ -2,18 +2,18 @@
 # define MINISHELL_H
 
 # include <errno.h>
+# include <fcntl.h>
+# include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
 # include <stdbool.h>
+# include <stddef.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include <stddef.h>
 # include <sys/wait.h>
-# include <limits.h>
+# include <unistd.h>
 
 // 0 si pas un tokens
 // < == 1 infile
@@ -22,7 +22,7 @@
 // << == 4 infile
 // | == 5
 
-extern int	status_code;
+extern int			g_status_code;
 // int signal;
 // CTRL-C == 0
 // CTRL-D == 1
@@ -73,23 +73,23 @@ typedef struct s_pids
 {
 	pid_t			pid;
 	struct s_pids	*next;
-}	t_pids;
- 
+}					t_pids;
+
 void				lst_printf(t_lexer *lexer, t_parser *parser);
 //
 void				ft_lstadd_backcmd(t_parser **lst, t_parser *new);
 t_parser			*ft_lstnewcmd(t_lexer *lexer);
-int	ft_isalnum(int n);
+int					ft_isalnum(int n);
 void				alloc(t_parser **parser, int infile, int outfile,
 						t_lexer *lexer);
-int valid_dollar(char c);
+int					valid_dollar(char c);
 
-char	*var_name(char *line);
-int bigline(char *line, t_env **env);
-void remp(char **s, int index[2], char *line, t_env **env);
-void var_replace2(int index[2], char **s, char **line);
-void var_replace1(int quote[2], int i);
-int	ft_isdigit(int n);
+char				*var_name(char *line);
+int					bigline(char *line, t_env **env);
+void				remp(char **s, int index[2], char *line, t_env **env);
+void				var_replace2(int index[2], char **s, char **line);
+void				var_replace1(int quote[2], int i);
+int					ft_isdigit(int n);
 void				lst_free_parser(t_parser **parser);
 t_parser			*ft_lstlastcmd(t_parser *lst);
 void				alloc1(t_lexer *lexer, t_parser **parser);
@@ -173,13 +173,20 @@ void				wait_all_pids(t_pids *pids);
 int					here_doc(char *limiter);
 char				*ft_strjoin_free(char *s1, char const *s2);
 int					is_builtin(char *cmd_name);
-int					execute_builtin(char *cmd_name, char **args, t_env **env);
-t_env       		*get_env_node(t_env **env, char *env_name, int n);
+int					exec_built(char **args, t_env **env);
+t_env				*get_env_node(t_env **env, char *env_name, int n);
 int					execute_outside_fork(char *cmd_name, char **args);
 int					ft_isint(char *str);
 int					ft_atoi(const char *str);
 void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char *s, int fd);
 int					args_size(char **args);
+char				*ft_strchr(const char *s, int c);
+void				export_to_env(t_env **env, char **env_name,
+						char **env_value);
+void				manage_export(char **args, t_env **env);
+void				create_pipe(int	pipefd[2], t_parser **parser);
+void				close_free_fd(t_parser **parser);
+void				close_next_fd(t_parser **parser);
 
 #endif
