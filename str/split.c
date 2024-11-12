@@ -1,5 +1,15 @@
 #include "../minishell.h"
 
+int	args_size(char **args)
+{
+	int	i;
+
+	i = 1;
+	while (args && args[i])
+		++i;
+	return (i - 1);
+}
+
 int	ft_split_len(char const *s, char c)
 {
 	size_t	i;

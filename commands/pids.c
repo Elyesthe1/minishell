@@ -35,7 +35,6 @@ void	wait_all_pids(t_pids *pids)
 	}
 }
 
-
 void	free_all_pids(t_pids **pids)
 {
 	t_pids	*pid_node;

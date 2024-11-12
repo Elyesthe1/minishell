@@ -6,8 +6,8 @@ char	*create_export_line(t_env *env_node)
 	char	*str;
 
 	str = malloc(sizeof(char) * (ft_strlen("declare -x ")
-				+ ft_strlen(env_node->name)
-				+ ft_strlen(env_node->value) + 5));
+				+ ft_strlen(env_node->name) + ft_strlen(env_node->value)
+				+ 5));
 	if (!str)
 		return (NULL);
 	ft_strcpy(str, "declare -x ");
@@ -28,16 +28,10 @@ char	*env_to_export_fmt(t_env **env)
 	export_str = NULL;
 	while (env_node)
 	{
-		str = malloc(sizeof(char) * (ft_strlen("declare -x ") + ft_strlen(env_node->name) + ft_strlen(env_node->value) + 5));
+		str = create_export_line(env_node);
 		if (!str)
 			return (NULL);
-		ft_strcpy(str, "declare -x ");
-		ft_strcpy(&str[ft_strlen(str)], env_node->name);
-		ft_strcpy(&str[ft_strlen(str)], "=\"");
-		ft_strcpy(&str[ft_strlen(str)], env_node->value);
-		ft_strcpy(&str[ft_strlen(str)], "\"\n");
-		// printf("%s \n", str);
-		export_str = ft_strjoin(export_str, str);
+		export_str = ft_strjoin_free(export_str, str);
 		if (!export_str)
 			return (free(str), NULL);
 		free(str);
@@ -53,14 +47,14 @@ void	add_to_env(t_env **env, char *env_name, char *env_value)
 	char	*str;
 	t_env	*env_node;
 
-	str = malloc(sizeof(char) * (ft_strlen(env_name)
-				+ ft_strlen(env_value) + 2));
+	str = malloc(sizeof(char) * (ft_strlen(env_name) + ft_strlen(env_value)
+				+ 2));
 	if (!str)
 		return ;
 	ft_strcpy(str, env_name);
 	ft_strcpy(&str[ft_strlen(str)], "=");
 	ft_strcpy(&str[ft_strlen(str)], env_value);
-	env_node = ft_lstnewenv((void *) str);
+	env_node = ft_lstnewenv((void *)str);
 	if (!env_node)
 	{
 		free(str);
@@ -78,8 +72,8 @@ void	change_env_value(t_env **env, char *env_name, char *env_value)
 	env_node = *env;
 	while (env_node && ft_strcmp(env_node->name, env_name) != 0)
 		env_node = env_node->next;
-	str = malloc(sizeof(char) * (ft_strlen(env_name)
-				+ ft_strlen(env_value) + 2));
+	str = malloc(sizeof(char) * (ft_strlen(env_name) + ft_strlen(env_value)
+				+ 2));
 	if (!str)
 		return ;
 	ft_strcpy(str, env_name);
@@ -93,20 +87,16 @@ void	change_env_value(t_env **env, char *env_name, char *env_value)
 	env_node->value = get_env_value(str);
 }
 
-// char	*str;
-// str = env_to_export_fmt(env);
-// printf("%s", str);
-// free(str);
-void	built_export(t_env **env)
+void	built_export(char **args, t_env **env)
 {
-	if (!exists_in_env(env, "TEST"))
+	char	*str;
+
+	if (!args[1])
 	{
-		printf("ADD_TO_ENV\n");
-		add_to_env(env, "TEST", "TEST123");
+		str = env_to_export_fmt(env);
+		printf("%s", str);
+		free(str);
+		return ;
 	}
-	else
-	{
-		printf("CHANGE_ENV_VALUE\n");
-		change_env_value(env, "TEST", "XDCHANGED");
-	}
+	manage_export(args, env);
 }

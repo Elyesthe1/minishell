@@ -8,6 +8,8 @@ char	*get_env_name(char *str)
 	i = 0;
 	while (str[i] && str[i] != '=')
 		++i;
+	if (i == 0)
+		return (NULL);
 	name = malloc(sizeof(char) * (i + 1));
 	if (!name)
 		return (NULL);
@@ -31,6 +33,8 @@ char	*get_env_value(char *str)
 	j = 0;
 	while (str[i] && str[i] != '=')
 		++i;
+	if (!str[i])
+		return (ft_strdup(""));
 	++i;
 	value = malloc(sizeof(char) * (ft_strlen(&str[i]) + 1));
 	if (!value)
@@ -68,7 +72,7 @@ t_env	*get_env_node(t_env **env, char *env_name, int n)
 		if (ft_strcmp(env_node->name, env_name) == 0)
 		{
 			if (n == 0)
-				free(env_name);
+				ft_free(env_name);
 			return (env_node);
 		}
 		env_node = env_node->next;
@@ -78,13 +82,14 @@ t_env	*get_env_node(t_env **env, char *env_name, int n)
 	return (NULL);
 }
 
-char		**get_env_path(t_env *env)
+char	**get_env_path(t_env *env)
 {
 	t_env	*path_node;
 
 	if (!env || !exists_in_env(&env, "PATH"))
 		return (NULL);
-	
 	path_node = get_env_node(&env, "PATH", 1);
+	if (!path_node)
+		return (NULL);
 	return (ft_split(path_node->value, ':'));
 }

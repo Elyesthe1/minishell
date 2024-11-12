@@ -58,12 +58,13 @@ char	*get_command_path(char *command_name, t_env *env)
 
 int	replace_command_name_by_path(char **str, t_env *env)
 {
-	char *command_path;
+	char	*command_path;
 
 	command_path = get_command_path(*str, env);
 	if (!command_path)
 	{
-		printf("%s: command not found\n", *str);
+		ft_putstr_fd(*str, STDERR_FILENO);
+		ft_putstr_fd(": command not found\n", STDERR_FILENO);
 		exit(1);
 		return (-1);
 	}

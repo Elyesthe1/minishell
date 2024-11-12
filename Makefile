@@ -32,6 +32,11 @@ SRCS = main.c\
 	   commands/here_doc.c\
 	   expander.c\
 	   utils4.c\
+	   ft_atoi.c\
+	   str/put.c\
+	   str/chr.c\
+	   builtins/export_utils.c\
+	   commands/executor_utils.c
 
 CC = cc
 RM = rm -f
