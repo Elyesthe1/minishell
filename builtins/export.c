@@ -1,6 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/12 18:53:50 by erahal            #+#    #+#             */
+/*   Updated: 2024/11/12 18:54:03 by erahal           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-// MAYBE ESCAPE " IN STR FOR IT TO BE LIKE BASH
 char	*create_export_line(t_env *env_node)
 {
 	char	*str;

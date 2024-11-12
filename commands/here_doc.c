@@ -1,14 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   here_doc.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/12 18:54:38 by erahal            #+#    #+#             */
+/*   Updated: 2024/11/12 18:54:39 by erahal           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 extern int	g_status_code;
 
-int print_error()
+int	print_error(void)
 {
 	write(2, "error: warning: here-document stoped\n", 38);
 	return (1);
 }
 
-int here_doc1(char *line, int pipe[2])
+int	here_doc1(char *line, int pipe[2])
 {
 	signal(SIGINT, &signal_handler);
 	free(line);
@@ -16,7 +28,7 @@ int here_doc1(char *line, int pipe[2])
 	return (pipe[0]);
 }
 
-void signal_handler_heredoc(int signal)
+void	signal_handler_heredoc(int signal)
 {
 	if (signal == SIGINT)
 	{
@@ -29,8 +41,8 @@ void signal_handler_heredoc(int signal)
 
 int	here_doc(char *limiter, t_env **env, char *line)
 {
-	int fd;
-	int		hd_pipes[2];
+	int	fd;
+	int	hd_pipes[2];
 
 	fd = dup(0);
 	pipe(hd_pipes);
@@ -43,10 +55,10 @@ int	here_doc(char *limiter, t_env **env, char *line)
 		{
 			dup2(fd, STDIN_FILENO);
 			g_status_code = 0;
-			break;
+			break ;
 		}
 		if (line == NULL && print_error())
-			break;
+			break ;
 		if (ft_strcmp(line, limiter) == 0)
 			break ;
 		line = ft_strjoin_free(line, "\n");

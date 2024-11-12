@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signal.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/12 18:57:12 by erahal            #+#    #+#             */
+/*   Updated: 2024/11/12 18:57:24 by erahal           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	ctrl_d(char *prompt, char *line)
@@ -20,7 +32,7 @@ void	signal_handler(int signal)
 	}
 }
 
-void	set_signal_action()
+void	set_signal_action(void)
 {
 	signal(SIGINT, &signal_handler);
 	signal(SIGQUIT, SIG_IGN);

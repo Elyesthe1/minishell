@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unset.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/12 18:53:53 by erahal            #+#    #+#             */
+/*   Updated: 2024/11/12 18:53:58 by erahal           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	free_env_node(t_env *env_node)
@@ -8,7 +20,6 @@ void	free_env_node(t_env *env_node)
 	free(env_node);
 }
 
-// MODIFY LATER TO ACCEPT ENV NAME
 void	remove_from_env(t_env **env, char *env_name)
 {
 	t_env	*prev_node;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   prompt.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/12 18:56:12 by erahal            #+#    #+#             */
+/*   Updated: 2024/11/12 19:17:31 by erahal           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 extern int	g_status_code;
@@ -80,7 +92,8 @@ void	prompt_start(t_lexer **lexer, t_env **env)
 		if (line == NULL)
 			ctrl_d(prompt, line);
 		add_history(line);
-		line = expander(&line, env);
+		if (ft_strchr(line, '$'))
+			line = expander(&line, env);
 		if (lexer_config(lexer, line, &parser))
 			executor(env, parser);
 		free_all(prompt, line, lexer, &parser);

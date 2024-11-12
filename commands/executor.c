@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   executor.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/12 18:54:27 by erahal            #+#    #+#             */
+/*   Updated: 2024/11/12 18:54:33 by erahal           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-int	access_all_infile(t_infile *infile)
+int	access_all_infile(t_infile *infile, t_env **env)
 {
 	int	i;
 	int	tmp_fd;
@@ -11,7 +23,7 @@ int	access_all_infile(t_infile *infile)
 	while (infile->infile[i])
 	{
 		if (infile->flag[i] == 4)
-			tmp_fd = here_doc(infile->infile[i]);
+			tmp_fd = here_doc(infile->infile[i], env, NULL);
 		else if (infile->flag[i] == 1)
 			tmp_fd = open(infile->infile[i], O_RDONLY);
 		if (tmp_fd == -1)
@@ -70,9 +82,6 @@ void	dup2_fd(int *in, int *out)
 	}
 }
 
-// pid == -1 = fail
-// pid == 0 = child process
-// else pid = parent process
 int	execute_command(t_env **env, t_parser **parser, t_pids **pids)
 {
 	pid_t	pid;
@@ -112,7 +121,7 @@ int	executor(t_env **env, t_parser *parser)
 	pids = NULL;
 	while (parser)
 	{
-		if (access_all_infile(&parser->infile) == 0
+		if (access_all_infile(&parser->infile, env) == 0
 			&& create_outfile(&parser->outfile) == 0)
 		{
 			if (parser->next && parser->outfile.fd == NULL)

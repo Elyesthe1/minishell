@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/12 18:56:38 by erahal            #+#    #+#             */
+/*   Updated: 2024/11/12 18:56:39 by erahal           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -86,7 +98,7 @@ int					valid_dollar(char c);
 int					free_zero(char *l);
 void				last_status(char **s, int index[2]);
 int					exit_status(void);
-void				remove_from_env(char *env_name, t_env **env);
+void				remove_from_env( t_env **env, char *env_name);
 
 char				*var_name(char *line);
 int					bigline(char *line, t_env **env);
