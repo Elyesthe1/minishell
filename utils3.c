@@ -37,7 +37,7 @@ int	exit_status(void)
 	char	*itoa;
 	int		i;
 
-	itoa = ft_itoa(status_code);
+	itoa = ft_itoa(g_status_code);
 	i = ft_strlen(itoa);
 	free(itoa);
 	return (i);

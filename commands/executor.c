@@ -57,7 +57,7 @@ int	access_all_infile(t_infile *infile, t_env **env)
 	while (infile->infile[i])
 	{
 		if (infile->flag[i] == 4)
-			tmp_fd = here_doc(infile->infile[i], env);
+			tmp_fd = here_doc(infile->infile[i], env, NULL);
 		else if (infile->flag[i] == 1)
 			tmp_fd = open(infile->infile[i], O_RDONLY);
 
@@ -172,7 +172,7 @@ int execute_command(t_env **env, t_parser **parser, t_pids **pids)
 }
 
 // make it so create_outfile uses the good flag and same for access_all_infile
-// MAKE IT SO STATUS_CODE WORKS WITH FILE OPENING
+// MAKE IT SO g_status_code WORKS WITH FILE OPENING
 int	executor(t_env **env, t_parser *parser)
 {
 	int		pipefd[2];

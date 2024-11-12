@@ -6,7 +6,7 @@ void	last_status(char **s, int index[2])
 	char	*itoa;
 
 	a = 0;
-	itoa = ft_itoa(status_code);
+	itoa = ft_itoa(g_status_code);
 	while (itoa[a])
 	{
 		(*s)[index[1]] = itoa[a];

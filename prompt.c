@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-extern int	status_code;
+extern int	g_status_code;
 
 void	init(int index[2], int quote[2], int *heredoc)
 {
@@ -10,6 +10,7 @@ void	init(int index[2], int quote[2], int *heredoc)
 	quote[1] = 0;
 	*heredoc = 0;
 }
+
 char	*expander(char **line, t_env **env)
 {
 	int		quote[2];
@@ -80,9 +81,8 @@ void	prompt_start(t_lexer **lexer, t_env **env)
 			ctrl_d(prompt, line);
 		add_history(line);
 		line = expander(&line, env);
-		lexer_config(lexer, line, &parser);
-		// lst_printf(*lexer, parser);
-		executor(env, parser);
+		if (lexer_config(lexer, line, &parser))
+			executor(env, parser);
 		free_all(prompt, line, lexer, &parser);
 	}
 	rl_clear_history();

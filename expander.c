@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-extern int	status_code;
+extern int	g_status_code;
 
 char	*var_name(char *line)
 {

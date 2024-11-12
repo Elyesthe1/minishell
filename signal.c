@@ -20,7 +20,7 @@ void	signal_handler(int signal)
 	}
 }
 
-void	set_signal_action(void)
+void	set_signal_action()
 {
 	signal(SIGINT, &signal_handler);
 	signal(SIGQUIT, SIG_IGN);
