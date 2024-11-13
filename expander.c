@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:55:36 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/12 19:15:24 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/13 15:19:32 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,8 @@ void	var_replace2(int index[2], char **s, char **line, int *heredoc)
 
 	z = 0;
 	(*s)[index[1]] = (*line)[index[0]];
-	printf("%c\n",(*s)[index[1]]);
-	printf("%c\n",(*line)[index[0]]);
-
 	index[0]++;
 	index[1]++;
-	// printf("%c\n",(*s)[index[1]]);
 	if (is_ws((*s)[index[1]]) && z == 1)
 	{
 		*heredoc = 0;

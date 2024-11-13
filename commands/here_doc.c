@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:54:38 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/12 18:54:39 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/13 18:58:12 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,24 @@ extern int	g_status_code;
 int	print_error(void)
 {
 	write(2, "error: warning: here-document stoped\n", 38);
+	g_status_code = 0;
 	return (1);
 }
 
-int	here_doc1(char *line, int pipe[2])
+int	here_doc1(char *line, int pipe[2], t_parser **parser)
 {
 	signal(SIGINT, &signal_handler);
 	free(line);
 	close(pipe[1]);
+	if (g_status_code == 130)
+	{
+		close(pipe[0]);
+		while (*parser)
+		{
+			*parser = (*parser)->next;
+		}
+		return (-2);
+	}
 	return (pipe[0]);
 }
 
@@ -39,7 +49,7 @@ void	signal_handler_heredoc(int signal)
 	}
 }
 
-int	here_doc(char *limiter, t_env **env, char *line)
+int	here_doc(char *limiter, t_env **env, char *line, t_parser **parser)
 {
 	int	fd;
 	int	hd_pipes[2];
@@ -54,7 +64,7 @@ int	here_doc(char *limiter, t_env **env, char *line)
 		if (line == NULL && g_status_code == -99)
 		{
 			dup2(fd, STDIN_FILENO);
-			g_status_code = 0;
+			g_status_code = 130;
 			break ;
 		}
 		if (line == NULL && print_error())
@@ -65,5 +75,5 @@ int	here_doc(char *limiter, t_env **env, char *line)
 		line = expander(&line, env);
 		write(hd_pipes[1], line, ft_strlen(line));
 	}
-	return (here_doc1(line, hd_pipes));
+	return (here_doc1(line, hd_pipes, parser));
 }

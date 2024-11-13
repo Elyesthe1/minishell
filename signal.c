@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:57:12 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/12 18:57:24 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/13 17:18:56 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	ctrl_d(char *prompt, char *line)
 
 void	signal_handler(int signal)
 {
+	// (void)signal;
 	if (signal == SIGINT)
 	{
 		write(1, "\n", 1);

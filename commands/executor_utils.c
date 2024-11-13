@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:54:25 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/12 18:54:26 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/13 16:25:55 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,15 @@
 void	create_pipe(int pipefd[2], t_parser **parser)
 {
 	pipe(pipefd);
-	(*parser)->outfile.fd = malloc(sizeof(int));
-	*(*parser)->outfile.fd = pipefd[1];
+	if ((*parser)->outfile.fd == NULL)
+	{
+		(*parser)->outfile.fd = malloc(sizeof(int));
+		*(*parser)->outfile.fd = pipefd[1];
+	} 
+	else 
+	{
+		close(pipefd[1]);
+	}
 	(*parser)->next->infile.fd = malloc(sizeof(int));
 	*(*parser)->next->infile.fd = pipefd[0];
 }

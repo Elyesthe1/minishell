@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:56:38 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/12 18:56:39 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/13 19:05:19 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ int					ft_strlen(const char *s);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 void				cmd_handler(char *cmd_name, t_env **env);
 int					built_exit(char **args);
-void				built_pwd(void);
+void				built_pwd(t_env **env);
 void				built_env(t_env **env);
 int					built_echo(char **args);
 int					built_unset(char **args, t_env **env);
@@ -195,8 +195,8 @@ int					get_env_size(t_env *env);
 int					replace_command_name_by_path(char **str, t_env *env);
 void				add_pid(t_pids **pids, pid_t pid);
 void				free_all_pids(t_pids **pids);
-void				wait_all_pids(t_pids *pids);
-int					here_doc(char *limiter, t_env **env, char *line);
+void				wait_all_pids(t_pids **pids);
+int					here_doc(char *limiter, t_env **env, char *line, t_parser **parser);
 char				*ft_strjoin_free(char *s1, char const *s2);
 int					is_builtin(char *cmd_name);
 void				execute_builtin(char *cmd_name, char **args, t_env **env);

@@ -1,0 +1,43 @@
+env -i
+env -i env print (null) si pas d’env > ok mais ajouter PWD manuellement si pas d'env
+exit 260
+
+echo -nnnnnnnnn -n > ok
+echo -nnnnnnnna -nnnnnnn > ok
+
+set le status code si exit/builtins fail
+
+/bin/ls fichiernull mets pas le bon exitcode: OK
+
+ctrl + \ doit exit cat
+
+modulo le exit: ok
+
+export doit trier par alphabet 
+message de débug export 
+ cd dans un dossier et ensuite supprimer ce dossier et cd .. fais crash 
+ quand on stop le here_doc changer le code d’exit
+
+echo bonjour > test | cat fonctionne pas
+< test < invalid < test ls 
+
+pwd fail quand on remove le path actuel
+
+enlever les fprintf pour debug
+
+
+<< xD | cat: doesnt stop cat error in files
+
+
+maybe rework pwd by storing cwd in a struct etc
+
+
+FAIRE UNE STRUCT GLOBAL POUR GERER PWD & CD
+CHANGER STRUCT PID EN STRUCT COMMAND ET AJOUTER BUILTIN POUR LES EXIT CODE ZZZ
+
+<< xD | echo 'aaa' > stop executing when pressing ctrl c
+
+
+echo "lol" | exit | echo "xD" | exit | exit > DONT EXIT xd
+SI  UN PIPE EXISTE EXECUTE LES BUILTINS DANS UN FORK
+
