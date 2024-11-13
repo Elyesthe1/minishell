@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:53:48 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/12 18:53:50 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/13 15:15:04 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,9 @@ void	manage_export(char **args, t_env **env)
 void	export_to_env(t_env **env, char **env_name, char **env_value)
 {
 	if (!exists_in_env(env, *env_name))
-	{
-		fprintf(stderr, "ADD_TO_ENV\n");
 		add_to_env(env, *env_name, *env_value);
-	}
 	else
-	{
-		fprintf(stderr, "CHANGE_ENV_VALUE\n");
 		change_env_value(env, *env_name, *env_value);
-	}
 	free(*env_name);
 	free(*env_value);
 }

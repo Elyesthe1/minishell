@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:53:45 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/12 18:53:46 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/13 15:15:14 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	built_env(t_env **env)
 	char	*str;
 
 	str = env_lst_to_str(env);
-	printf("%s", str);
+	if (!str)
+		return ;
+	ft_putstr_fd(str, STDOUT_FILENO);
 	free(str);
 }
