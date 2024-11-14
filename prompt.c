@@ -6,7 +6,7 @@
 /*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:56:12 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/12 19:17:31 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/14 14:27:52 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,9 @@ void	init(int index[2], int quote[2], int *heredoc)
 	*heredoc = 0;
 }
 
-char	*expander(char **line, t_env **env)
+char	*expander(char **line, t_env **env, int heredoc)
 {
 	int		quote[2];
-	int		heredoc;
 	char	*s;
 	int		index[2];
 
@@ -93,7 +92,7 @@ void	prompt_start(t_lexer **lexer, t_env **env)
 			ctrl_d(prompt, line);
 		add_history(line);
 		if (ft_strchr(line, '$'))
-			line = expander(&line, env);
+			line = expander(&line, env, 0);
 		if (lexer_config(lexer, line, &parser))
 			executor(env, parser);
 		free_all(prompt, line, lexer, &parser);

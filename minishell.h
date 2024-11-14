@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:56:38 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/13 19:05:19 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/14 14:28:14 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void				ctrl_d(char *prompt, char *line);
 void				free_all(char *line, char *prompt, t_lexer **lexer,
 						t_parser **parser);
 int					is_token(char c);
-char				*expander(char **line, t_env **env);
+char				*expander(char **line, t_env **env, int heredoc);
 
 t_lexer				*ft_lstnewt(int content);
 char				*ft_strdup(char *s);

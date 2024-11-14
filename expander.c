@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:55:36 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/14 13:45:18 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/14 14:44:41 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,19 +90,24 @@ void	remp(char **s, int index[2], char *line, t_env **env)
 
 void	var_replace2(int index[2], char **s, char **line, int *heredoc)
 {
-	static int	z;
-
-	z = 0;
 	(*s)[index[1]] = (*line)[index[0]];
 	index[0]++;
 	index[1]++;
-	if (is_ws((*s)[index[1]]) && z == 1)
+	if (*heredoc)
 	{
-		*heredoc = 0;
-		z = 0;
+		while ((*line)[index[0]] != '$')
+		{
+			(*s)[index[1]] = (*line)[index[0]];
+			index[0]++;
+			index[1]++;
+		}
+		while ((*line)[index[0]] && !is_ws((*line)[index[0]]))
+		{
+			(*s)[index[1]] = (*line)[index[0]];
+			index[0]++;
+			index[1]++;
+		}
 	}
-	if (!is_ws((*s)[index[1]]))
-		z = 1;
 }
 
 void	var_replace1(int quote[2], int i)
