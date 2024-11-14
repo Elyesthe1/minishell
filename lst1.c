@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst1.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:55:52 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/12 18:55:53 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/14 13:47:58 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 void	lst_free_parser(t_parser **parser)
 {
 	t_parser	*temp;
-	int			i;
 
-	i = 0;
 	while ((*parser) != NULL)
 	{
 		temp = (*parser)->next;

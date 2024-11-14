@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_quote.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:56:08 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/12 18:56:09 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/14 13:47:03 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,7 @@ int	quote_checker1(char *line, int quote[2])
 int	quote_checker(char *line)
 {
 	int	quote[2];
-	int	i;
 
-	i = 0;
 	quote[0] = 0;
 	quote[1] = 0;
 	if (quote_checker1(line, quote) == 1)

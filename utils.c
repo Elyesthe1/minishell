@@ -6,7 +6,7 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:56:14 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/13 17:07:28 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/14 13:44:58 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,7 @@ char	*ft_joinstrcpy(char *s1, char *s2, char *s3, int n)
 char	*ft_strjoin_prompt(char *s1, char *s2, int n)
 {
 	char	*str;
-	int		i;
-	int		a;
 
-	i = 0;
-	a = 0;
 	if (!s1 && !s2)
 		return (ft_strdup(""));
 	if (!s1)

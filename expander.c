@@ -6,7 +6,7 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:55:36 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/13 15:19:32 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/14 13:45:18 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	remp(char **s, int index[2], char *line, t_env **env)
 
 void	var_replace2(int index[2], char **s, char **line, int *heredoc)
 {
-	int static	z;
+	static int	z;
 
 	z = 0;
 	(*s)[index[1]] = (*line)[index[0]];
