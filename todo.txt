@@ -5,18 +5,18 @@ exit 260
 echo -nnnnnnnnn -n > ok
 echo -nnnnnnnna -nnnnnnn > ok
 
-set le status code si exit/builtins fail
+set le status code si exit/builtins fail > should be ok a recheck
 
 /bin/ls fichiernull mets pas le bon exitcode: OK
 
-ctrl + \ doit exit cat
+ctrl + \ doit exit cat > ok
 
 modulo le exit: ok
 
 export doit trier par alphabet 
 message de débug export 
 cd dans un dossier et ensuite supprimer ce dossier et cd .. fais crash 
-quand on stop le here_doc changer le code d’exit
+quand on stop le here_doc changer le code d’exit > ok
 
 echo bonjour > test | cat fonctionne pas: ok
 < test < invalid < test ls
@@ -26,7 +26,7 @@ pwd fail quand on remove le path actuel
 enlever les fprintf pour debug
 
 
-<< xD | cat: doesnt stop cat error in files
+<< xD | cat: doesnt stop cat error in files > should be ok
 
 
 maybe rework pwd by storing cwd in a struct etc
