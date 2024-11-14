@@ -6,7 +6,7 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:54:41 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/13 19:06:38 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/14 18:03:16 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	signal_hxDDD(int signal)
 	}
 	if (signal == SIGQUIT)
 	{
-		ft_putstr_fd("Quit (core dumped)\n", STDOUT_FILENO);
+		write(STDOUT_FILENO, "Quit (core dumped)\n", 20);
 	}
 }
 // CHECK IF A CHILD WAS KILLED BY A SIGNAL AND IF SO PRINT (COREDUMP)
@@ -66,6 +66,18 @@ void	free_all_pids(t_pids **pids)
 	*pids = NULL;
 }
 
+int		get_global_code(int status_code)
+{
+	if (WIFSIGNALED(status_code))
+	{
+		if (WTERMSIG(status_code) == SIGINT)
+			return (130);
+		else if (WTERMSIG(status_code) == SIGQUIT)
+			return (131);
+	}
+	return ((WEXITSTATUS(status_code)) % 256);
+}
+
 void	wait_all_pids(t_pids **pids)
 {
 	int	status_code;
@@ -81,12 +93,11 @@ void	wait_all_pids(t_pids **pids)
 		else
 		{
 			waitpid(pid_node->pid, &status_code, 0);
-			
-			g_status_code = (WEXITSTATUS(status_code)) % 256;
+			g_status_code = get_global_code(status_code);
 		}
 		pid_node = pid_node->next;
 	}
 	signal(SIGINT, &signal_handler);
-	signal(SIGQUIT, &signal_handler);
+	signal(SIGQUIT, SIG_IGN);
 	free_all_pids(pids);
 }

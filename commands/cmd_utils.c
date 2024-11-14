@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:54:23 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/12 18:54:24 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/14 17:19:30 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,17 @@ char	*get_command_path(char *command_name, t_env *env)
 	return (command_path);
 }
 
+void	not_found_err(char *name)
+{
+	char	*str;
+
+	str = NULL;
+	str = ft_strjoin_free(str, name);
+	str = ft_strjoin_free(str, ": command not found\n");
+	write(STDERR_FILENO, str, ft_strlen(str));
+	free(str);
+}
+
 int	replace_command_name_by_path(char **str, t_env *env)
 {
 	char	*command_path;
@@ -75,9 +86,8 @@ int	replace_command_name_by_path(char **str, t_env *env)
 	command_path = get_command_path(*str, env);
 	if (!command_path)
 	{
-		ft_putstr_fd(*str, STDERR_FILENO);
-		ft_putstr_fd(": command not found\n", STDERR_FILENO);
-		exit(1);
+		not_found_err(*str);
+		exit(127);
 		return (-1);
 	}
 	free(*str);

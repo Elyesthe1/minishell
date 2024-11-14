@@ -6,7 +6,7 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:53:51 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/13 18:40:44 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/14 16:55:56 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,15 @@ int get_env_pwd()
 	return (0);
 }
 
-void	built_pwd(t_env **env)
+int	built_pwd(t_env **env)
 {
 	(void)env;
 	if (get_cwd() == 0)
-		return ;
+		return (0);
 	if (get_pwd_env(env) == 0)
-		return ;
+		return (0);
 	if (get_env_pwd() == 0)
-		return ;
-	printf("pwd failed\n");
+		return (0);
+	write(STDERR_FILENO, "pwd failed\n", 12);
+	return (1);	
 }

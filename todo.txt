@@ -15,11 +15,11 @@ modulo le exit: ok
 
 export doit trier par alphabet 
 message de débug export 
- cd dans un dossier et ensuite supprimer ce dossier et cd .. fais crash 
- quand on stop le here_doc changer le code d’exit
+cd dans un dossier et ensuite supprimer ce dossier et cd .. fais crash 
+quand on stop le here_doc changer le code d’exit
 
-echo bonjour > test | cat fonctionne pas
-< test < invalid < test ls 
+echo bonjour > test | cat fonctionne pas: ok
+< test < invalid < test ls
 
 pwd fail quand on remove le path actuel
 
@@ -38,6 +38,14 @@ CHANGER STRUCT PID EN STRUCT COMMAND ET AJOUTER BUILTIN POUR LES EXIT CODE ZZZ
 << xD | echo 'aaa' > stop executing when pressing ctrl c
 
 
-echo "lol" | exit | echo "xD" | exit | exit > DONT EXIT xd
-SI  UN PIPE EXISTE EXECUTE LES BUILTINS DANS UN FORK
+echo "lol" | exit | echo "xD" | exit | exit > DONT EXIT xd > ok
+SI  UN PIPE EXISTE EXECUTE LES BUILTINS DANS UN FORK > ok
 
+SI LE NOMBRE DE PIPE = 0 ALORS EXECUTER LES BUILTINS EN DEHORS DUN FORK > OK
+exit | exit > shouldnt print exit > ok
+
+
+< adasdasda cat | sleep 5 | ls > /root/addsadsa > should have the same exit code as bash
+
+
+exit abc | exit abc > print fails

@@ -6,7 +6,7 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:54:35 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/13 16:53:22 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/14 15:41:25 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ int	is_builtin(char *cmd_name)
 	return (false);
 }
 
-int	execute_outside_fork(char *cmd_name, char **args)
+int	execute_outside_fork(char *cmd_name, char **args, int nb_of_pipes)
 {
+	if (nb_of_pipes > 0)
+		return (false);
 	if (ft_strcmp(cmd_name, "exit") == 0)
 		return (true);
 	else if (ft_strcmp(cmd_name, "unset") == 0)
@@ -48,24 +50,46 @@ int	execute_outside_fork(char *cmd_name, char **args)
 	return (false);
 }
 
+int	exec_outside_built(char **args, t_env **env)
+{
+	char	*cmd_name;
+
+	cmd_name = args[0];
+	if (ft_strcmp(cmd_name, "exit") == 0)
+		g_status_code = built_exit(args, 1);
+	else if (ft_strcmp(cmd_name, "pwd") == 0)
+		g_status_code = built_pwd(env);
+	else if (ft_strcmp(cmd_name, "env") == 0)
+		g_status_code = built_env(env);
+	else if (ft_strcmp(cmd_name, "echo") == 0)
+		g_status_code = built_echo(args);
+	else if (ft_strcmp(cmd_name, "unset") == 0)
+		g_status_code = built_unset(args, env);
+	else if (ft_strcmp(cmd_name, "export") == 0)
+		g_status_code = built_export(args, env);
+	else if (ft_strcmp(cmd_name, "cd") == 0)
+		g_status_code = built_cd(args, env);
+	return (0);
+}
+
 int	exec_built(char **args, t_env **env)
 {
 	char	*cmd_name;
 
 	cmd_name = args[0];
 	if (ft_strcmp(cmd_name, "exit") == 0)
-		built_exit(args);
+		return (built_exit(args, 0));
 	else if (ft_strcmp(cmd_name, "pwd") == 0)
-		built_pwd(env);
+		return (built_pwd(env));
 	else if (ft_strcmp(cmd_name, "env") == 0)
-		built_env(env);
+		return (built_env(env));
 	else if (ft_strcmp(cmd_name, "echo") == 0)
-		built_echo(args);
+		return (built_echo(args));
 	else if (ft_strcmp(cmd_name, "unset") == 0)
-		built_unset(args, env);
+		return (built_unset(args, env));
 	else if (ft_strcmp(cmd_name, "export") == 0)
-		built_export(args, env);
+		return (built_export(args, env));
 	else if (ft_strcmp(cmd_name, "cd") == 0)
-		built_cd(args, env);
+		return (built_cd(args, env));
 	return (0);
 }

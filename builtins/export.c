@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:53:50 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/12 18:54:03 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/14 17:11:50 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	change_env_value(t_env **env, char *env_name, char *env_value)
 	env_node->value = get_env_value(str);
 }
 
-void	built_export(char **args, t_env **env)
+int	built_export(char **args, t_env **env)
 {
 	char	*str;
 
@@ -107,7 +107,7 @@ void	built_export(char **args, t_env **env)
 		str = env_to_export_fmt(env);
 		printf("%s", str);
 		free(str);
-		return ;
+		return (0);
 	}
-	manage_export(args, env);
+	return (manage_export(args, env));
 }
