@@ -6,7 +6,7 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:54:27 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/14 19:00:16 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/14 19:42:16 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,28 +123,13 @@ int	execute_command(t_env **env, t_parser **parser, t_pids **pids, int nb_of_pip
 	return (close_free_fd(parser), add_pid(pids, pid), 0);
 }
 
-int get_number_of_pipes(t_parser *parser)
+int	executor(t_env **env, t_parser *parser, int n_pipes)
 {
-	int	i;
-
-	i = 0;
-	while (parser)
-	{
-		++i;
-		parser = parser->next;
-	}
-	return (i - 1);
-}
-
-int	executor(t_env **env, t_parser *parser)
-{
-	int		nb_of_pipes;
 	int		pipefd[2];
 	t_pids	*pids;
 
 	if (!parser)
 		return (0);
-	nb_of_pipes = get_number_of_pipes(parser);
 	pids = NULL;
 	while (parser)
 	{
@@ -153,7 +138,7 @@ int	executor(t_env **env, t_parser *parser)
 		{
 			if (parser->next)
 				create_pipe(pipefd, &parser);
-			execute_command(env, &parser, &pids, nb_of_pipes);
+			execute_command(env, &parser, &pids, n_pipes);
 		}
 		if (parser && parser->infile.fd)
 		{

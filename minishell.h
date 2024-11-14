@@ -6,7 +6,7 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:56:38 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/14 17:10:28 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/14 19:41:35 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct s_pids
 	pid_t			pid;
 	struct s_pids	*next;
 }					t_pids;
+
 
 void				lst_printf(t_lexer *lexer, t_parser *parser);
 //
@@ -182,7 +183,7 @@ int					built_cd(char **args, t_env **env);
 void				add_to_env(t_env **env, char *env_name, char *env_value);
 void				change_env_value(t_env **env, char *env_name,
 						char *env_value);
-int					executor(t_env **env, t_parser *parser);
+int					executor(t_env **env, t_parser *parser, int n_pipes);
 char				*get_command_path(char *command_name, t_env *env);
 char				*construct_command_path(char *path, char *command_name);
 char				**ft_split(char const *s, char c);

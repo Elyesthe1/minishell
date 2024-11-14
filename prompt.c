@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:56:12 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/12 19:17:31 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/14 19:42:09 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,19 @@ char	*prompt_config(void)
 	return (ft_strjoin_prompt(s, " ", 0));
 }
 
+int get_number_of_pipes(t_parser *parser)
+{
+	int	i;
+
+	i = 0;
+	while (parser)
+	{
+		++i;
+		parser = parser->next;
+	}
+	return (i - 1);
+}
+
 void	prompt_start(t_lexer **lexer, t_env **env)
 {
 	char		*line;
@@ -95,7 +108,7 @@ void	prompt_start(t_lexer **lexer, t_env **env)
 		if (ft_strchr(line, '$'))
 			line = expander(&line, env);
 		if (lexer_config(lexer, line, &parser))
-			executor(env, parser);
+			executor(env, parser, get_number_of_pipes(parser));
 		free_all(prompt, line, lexer, &parser);
 	}
 	rl_clear_history();
