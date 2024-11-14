@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:54:35 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/12 18:54:36 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/13 16:53:22 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	exec_built(char **args, t_env **env)
 	if (ft_strcmp(cmd_name, "exit") == 0)
 		built_exit(args);
 	else if (ft_strcmp(cmd_name, "pwd") == 0)
-		built_pwd();
+		built_pwd(env);
 	else if (ft_strcmp(cmd_name, "env") == 0)
 		built_env(env);
 	else if (ft_strcmp(cmd_name, "echo") == 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:56:16 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/12 18:57:03 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/14 13:47:18 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,7 @@ static char	*ft_strcpy_to_join(char *s1, char *s2, char *s3)
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*str;
-	int		i;
-	int		a;
 
-	i = 0;
-	a = 0;
 	if (!s1 && !s2)
 		return (ft_strdup(""));
 	if (!s1)

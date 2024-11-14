@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:53:42 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/12 18:54:13 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/13 18:34:22 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ int	execute_cd(char *directory_path, t_env **env)
 	if (!directory_path)
 		return (1);
 	old_pwd = getcwd(NULL, 0);
+	if (!old_pwd)
+		old_pwd = ft_strdup(getenv("PWD"));
+	// printf("old_pwd: %s\n", old_pwd);
 	if (chdir(directory_path) != 0)
 	{
 		execute_error(directory_path, strerror(errno));

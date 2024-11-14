@@ -40,7 +40,7 @@ SRCS = main.c\
 
 CC = cc
 RM = rm -f
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -g
 NAME = minishell
 OBJS = $(SRCS:.c=.o)
 

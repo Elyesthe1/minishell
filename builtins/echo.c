@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:53:43 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/12 18:53:44 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/13 19:42:48 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int is_n_arg(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] && (str[i] != '-' || (str[i] == '-' && !str[i + 1])))
+		return (0);
+	++i;
+	while (str[i])
+	{
+		if (str[i] != 'n')
+			return (0);
+		++i;
+	}
+	return (1);
+}
 
 int	built_echo(char **args)
 {
@@ -19,7 +36,7 @@ int	built_echo(char **args)
 
 	i = 1;
 	newline = 1;
-	if (args && args[i] && ft_strcmp(args[i], "-n") == 0)
+	while (args && args[i] && is_n_arg(args[i]))
 	{
 		newline = 0;
 		++i;

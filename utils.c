@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:56:14 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/12 18:56:15 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/14 13:44:58 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,17 +77,13 @@ char	*ft_joinstrcpy(char *s1, char *s2, char *s3, int n)
 char	*ft_strjoin_prompt(char *s1, char *s2, int n)
 {
 	char	*str;
-	int		i;
-	int		a;
 
-	i = 0;
-	a = 0;
 	if (!s1 && !s2)
 		return (ft_strdup(""));
 	if (!s1)
-		return (ft_strdup(s2));
+		return (s2);
 	if (!s2)
-		return (ft_strdup(s1));
+		return (s1);
 	str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1 + n));
 	if (!str)
 		return (NULL);

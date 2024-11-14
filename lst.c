@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:55:45 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/12 18:55:46 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/14 13:45:40 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,7 @@ t_lexer	*ft_lstnew(void *content)
 {
 	t_lexer	*new;
 	char	*s;
-	int		j;
 
-	j = 0;
 	s = (char *)content;
 	new = (t_lexer *)malloc(sizeof(t_lexer));
 	new->str = malloc(sizeof(char) * (ft_strlen_quote_parse(s) + 1));

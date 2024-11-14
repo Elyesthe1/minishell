@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:54:27 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/12 18:54:33 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/14 13:53:57 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	access_all_infile(t_infile *infile, t_env **env)
+int	access_all_infile(t_infile *infile, t_env **env, t_parser **parser)
 {
 	int	i;
 	int	tmp_fd;
@@ -23,11 +23,13 @@ int	access_all_infile(t_infile *infile, t_env **env)
 	while (infile->infile[i])
 	{
 		if (infile->flag[i] == 4)
-			tmp_fd = here_doc(infile->infile[i], env, NULL);
+			tmp_fd = here_doc(infile->infile[i], env, NULL, parser);
 		else if (infile->flag[i] == 1)
 			tmp_fd = open(infile->infile[i], O_RDONLY);
 		if (tmp_fd == -1)
 			return (perror(infile->infile[i]), -1);
+		else if (tmp_fd == -2)
+			return (-2);
 		if (infile->infile[i + 1])
 			close(tmp_fd);
 		++i;
@@ -82,13 +84,23 @@ void	dup2_fd(int *in, int *out)
 	}
 }
 
+void	signal_xd()
+{
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+}
+
 int	execute_command(t_env **env, t_parser **parser, t_pids **pids)
 {
 	pid_t	pid;
 	char	**envp;
-
+	
 	if (!(*parser)->str[0])
+	{
+		close_free_fd(parser);
 		return (-1);
+	}
+	// printf("executing command: %s\n", (*parser)->str[0]);
 	if (execute_outside_fork((*parser)->str[0], (*parser)->str))
 		return (close_free_fd(parser), exec_built((*parser)->str, env));
 	pid = fork();
@@ -96,6 +108,7 @@ int	execute_command(t_env **env, t_parser **parser, t_pids **pids)
 		return (perror("fork"), 1);
 	if (pid == 0)
 	{
+		signal_xd();
 		dup2_fd((*parser)->infile.fd, (*parser)->outfile.fd);
 		close_next_fd(parser);
 		if (!is_builtin((*parser)->str[0]))
@@ -121,21 +134,21 @@ int	executor(t_env **env, t_parser *parser)
 	pids = NULL;
 	while (parser)
 	{
-		if (access_all_infile(&parser->infile, env) == 0
+		if (access_all_infile(&parser->infile, env, &parser) == 0
 			&& create_outfile(&parser->outfile) == 0)
 		{
-			if (parser->next && parser->outfile.fd == NULL)
+			if (parser->next)
 				create_pipe(pipefd, &parser);
 			execute_command(env, &parser, &pids);
 		}
-		if (parser->infile.fd)
+		if (parser && parser->infile.fd)
 		{
 			free(parser->infile.fd);
 			parser->infile.fd = NULL;
 		}
-		parser = parser->next;
+		if (parser)
+			parser = parser->next;
 	}
-	wait_all_pids(pids);
-	free_all_pids(&pids);
+	wait_all_pids(&pids);
 	return (0);
 }

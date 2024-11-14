@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:53:47 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/12 19:19:32 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/14 13:46:42 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 int	built_exit(char **args)
 {
-	int	i;
-
-	i = 1;
 	if (!args || (args && !args[1]))
 	{
 		ft_putstr_fd("exit\n", STDOUT_FILENO);
