@@ -6,7 +6,7 @@
 /*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:55:36 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/14 14:44:41 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/14 15:00:43 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ void	var_replace2(int index[2], char **s, char **line, int *heredoc)
 			index[0]++;
 			index[1]++;
 		}
+		*heredoc = 0;
 	}
 }
 
