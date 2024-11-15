@@ -6,7 +6,7 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:53:43 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/14 16:49:57 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/15 16:08:46 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int is_n_arg(char *str)
 	int	i;
 
 	i = 0;
+	if (!str || !str[i])
+		return (0);
 	if (str[i] && (str[i] != '-' || (str[i] == '-' && !str[i + 1])))
 		return (0);
 	++i;
