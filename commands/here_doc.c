@@ -6,7 +6,7 @@
 /*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:54:38 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/14 14:28:30 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/15 13:53:56 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	here_doc(char *limiter, t_env **env, char *line, t_parser **parser)
 		if (ft_strcmp(line, limiter) == 0)
 			break ;
 		line = ft_strjoin_free(line, "\n");
-		line = expander(&line, env, 0);
+		line = expander(&line, env, 0, NULL);
 		write(hd_pipes[1], line, ft_strlen(line));
 	}
 	return (here_doc1(line, hd_pipes, parser));

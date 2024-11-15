@@ -6,7 +6,7 @@
 /*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:56:09 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/14 14:11:14 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/15 13:22:54 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	greed_line(int token, int *i)
 		*i += 1;
 }
 
-int	is_token(char c)
+int		is_token(char c)
 {
 	if (c == '<')
 		return (1);
@@ -59,7 +59,7 @@ int	is_valid_token(char *s)
 	token = is_token(s[0]);
 	if (token == 5)
 	{
-		if (is_token(s[1]) != 0 || is_valid_token1(s + 1) != 0)
+		if (is_token(s[1]) == 5 )
 			return (-5);
 		return (5);
 	}
