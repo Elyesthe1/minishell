@@ -6,7 +6,7 @@
 /*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:56:38 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/15 13:36:53 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/15 14:47:32 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@ int					built_pwd(t_env **env);
 int					built_env(t_env **env);
 int					built_echo(char **args);
 int					built_unset(char **args, t_env **env);
-void				built_export(char **args, t_env **env);
+int				built_export(char **args, t_env **env);
 void				prompt_start(t_lexer **lexer, t_env **env, char *av);
 int					ft_strcmp(const char *s1, const char *s2);
 char				*get_env_name(char *str);

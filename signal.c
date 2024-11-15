@@ -6,7 +6,7 @@
 /*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:57:12 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/14 14:46:47 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/15 15:45:00 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	ctrl_d(char *prompt, char *line)
   exit(g_status_code);
 }
 
-void	signal_handler(int signal)
+void	signal_handler(int s)
 {
-	if (signal == SIGINT)
+	if (s == SIGINT)
 	{
 		write(1, "\n", 1);
 		rl_on_new_line();

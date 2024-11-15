@@ -6,7 +6,7 @@
 /*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:56:18 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/12 18:56:53 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/15 15:58:08 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,11 @@ int	ft_isalnum(int n)
 int	token_print_error(int i)
 {
 	if (i == 0)
+	
 		write(2, "bash: syntax error\n", 20);
 	if (i == 1)
-		write(2, "bash: syntax error near unexpected token \\`|\'", 46);
+		write(2, "bash: syntax error near unexpected token `|\'\n", 46);
+	g_status_code = 2;
 	return (1);
 }
 
