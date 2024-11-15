@@ -6,7 +6,7 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:54:27 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/14 19:42:16 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/15 15:55:31 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,12 @@ int	access_all_infile(t_infile *infile, t_env **env, t_parser **parser)
 		if (infile->infile[i + 1])
 			close(tmp_fd);
 		++i;
+	}
+	if (infile->fd)
+	{
+		close(*infile->fd);
+		free(infile->fd);
+		infile->fd = NULL;
 	}
 	infile->fd = malloc(sizeof(int));
 	if (!infile->fd)
