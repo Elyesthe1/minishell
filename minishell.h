@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:56:38 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/13 19:05:19 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/15 13:36:53 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int					exit_status(void);
 void				remove_from_env( t_env **env, char *env_name);
 
 char				*var_name(char *line);
-int					bigline(char *line, t_env **env);
+int					bigline(char *line, t_env **env, char *av);
 void				remp(char **s, int index[2], char *line, t_env **env);
 void				var_replace2(int index[2], char **s, char **line,
 						int *heredoc);
@@ -110,7 +110,6 @@ int					ft_isdigit(int n);
 int					valid_dollar(char c);
 
 char				*var_name(char *line);
-int					bigline(char *line, t_env **env);
 void				remp(char **s, int index[2], char *line, t_env **env);
 void				var_replace1(int quote[2], int i);
 int					ft_isdigit(int n);
@@ -136,7 +135,7 @@ void				ctrl_d(char *prompt, char *line);
 void				free_all(char *line, char *prompt, t_lexer **lexer,
 						t_parser **parser);
 int					is_token(char c);
-char				*expander(char **line, t_env **env);
+char				*expander(char **line, t_env **env, int heredoc, char *av);
 
 t_lexer				*ft_lstnewt(int content);
 char				*ft_strdup(char *s);
@@ -169,7 +168,7 @@ void				built_env(t_env **env);
 int					built_echo(char **args);
 int					built_unset(char **args, t_env **env);
 void				built_export(char **args, t_env **env);
-void				prompt_start(t_lexer **lexer, t_env **env);
+void				prompt_start(t_lexer **lexer, t_env **env, char *av);
 int					ft_strcmp(const char *s1, const char *s2);
 char				*get_env_name(char *str);
 char				*get_env_value(char *str);
