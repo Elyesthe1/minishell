@@ -6,7 +6,7 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:53:42 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/14 16:49:42 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/15 19:02:33 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,22 +61,19 @@ int	execute_cd(char *directory_path, t_env **env)
 	if (!directory_path)
 		return (1);
 	old_pwd = getcwd(NULL, 0);
-	if (!old_pwd)
-		old_pwd = ft_strdup(getenv("PWD"));
-	// printf("old_pwd: %s\n", old_pwd);
 	if (chdir(directory_path) != 0)
 	{
 		execute_error(directory_path, strerror(errno));
 		return (free(old_pwd), 1);
 	}
 	pwd = getcwd(NULL, 0);
-	if (!exists_in_env(env, "OLDPWD"))
+	if (old_pwd && !exists_in_env(env, "OLDPWD"))
 		add_to_env(env, "OLDPWD", old_pwd);
-	else
+	else if (old_pwd)
 		change_env_value(env, "OLDPWD", old_pwd);
-	if (!exists_in_env(env, "PWD"))
+	if (pwd && !exists_in_env(env, "PWD"))
 		add_to_env(env, "PWD", pwd);
-	else
+	else if (pwd)
 		change_env_value(env, "PWD", pwd);
 	return (free(old_pwd), free(pwd), 0);
 }
