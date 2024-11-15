@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:55:36 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/14 13:45:18 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/15 13:38:40 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,18 @@ char	*var_name(char *line)
 	return (line);
 }
 
-int	bigline(char *l, t_env **env)
+void bigline1(int i[2], char *av, char c)
+{
+	if (c == '0')
+	{
+		i[0] += ft_strlen(av);
+		i[1]++;
+	}
+	else
+		i[1]++;
+}
+
+int	bigline(char *l, t_env **env, char *av)
 {
 	int		i[2];
 	t_env	*node;
@@ -48,7 +59,7 @@ int	bigline(char *l, t_env **env)
 			if (l[i[1]] == '?')
 				i[0] += exit_status();
 			if (ft_isdigit(l[i[1]]))
-				i[1]++;
+				bigline1(i, av, l[i[1]]);
 			else
 				while (l[i[1]] && (ft_isalnum(l[i[1]]) || l[i[1]] == '_'))
 					i[1]++;
@@ -90,19 +101,25 @@ void	remp(char **s, int index[2], char *line, t_env **env)
 
 void	var_replace2(int index[2], char **s, char **line, int *heredoc)
 {
-	static int	z;
-
-	z = 0;
 	(*s)[index[1]] = (*line)[index[0]];
 	index[0]++;
 	index[1]++;
-	if (is_ws((*s)[index[1]]) && z == 1)
+	if (*heredoc)
 	{
+		while ((*line)[index[0]] && (*line)[index[0]] != '$')
+		{
+			(*s)[index[1]] = (*line)[index[0]];
+			index[0]++;
+			index[1]++;
+		}
+		while ((*line)[index[0]] && !is_ws((*line)[index[0]]))
+		{
+			(*s)[index[1]] = (*line)[index[0]];
+			index[0]++;
+			index[1]++;
+		}
 		*heredoc = 0;
-		z = 0;
 	}
-	if (!is_ws((*s)[index[1]]))
-		z = 1;
 }
 
 void	var_replace1(int quote[2], int i)

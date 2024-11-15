@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:55:56 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/13 15:26:17 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/15 13:30:06 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int ac, char **av, char **env)
 	ev = NULL;
 	stock_env(env, &ev);
 	set_signal_action();
-	prompt_start(&lexer, &ev);
+	prompt_start(&lexer, &ev, av[0]);
 	lst_freeenv(&ev);
 	return (g_status_code);
 }

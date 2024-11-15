@@ -6,7 +6,7 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:56:12 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/14 19:42:09 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/15 13:57:28 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,29 @@ void	init(int index[2], int quote[2], int *heredoc)
 	*heredoc = 0;
 }
 
-char	*expander(char **line, t_env **env)
+void	remp2(char *av, char **s, int index[2])
+{
+	int	i;
+
+	i = 0;
+	index[0]++;
+	while (av[i])
+	{
+		(*s)[index[1]] = av[i];
+		index[1]++;
+		i++;
+	}
+	index[0]++;
+}
+
+char	*expander(char **line, t_env **env, int heredoc, char *av)
 {
 	int		quote[2];
-	int		heredoc;
 	char	*s;
 	int		index[2];
 
 	init(index, quote, &heredoc);
-	s = malloc(sizeof(char) * (bigline(ft_strdup((*line)), env) + 1));
+	s = malloc(sizeof(char) * (bigline(ft_strdup((*line)), env, av) + 1));
 	while ((*line)[index[0]])
 	{
 		if ((*line)[index[0]] == '\'' && quote[1] == 0)
@@ -42,6 +56,9 @@ char	*expander(char **line, t_env **env)
 			&& !in_quote(quote))
 			heredoc = 1;
 		if ((*line)[index[0]] == '$' && valid_dollar((*line)[index[0] + 1])
+			&& in_quote(quote) != 1 && (*line)[index[0] + 1] == '0')
+			remp2(av, &s, index);
+		else if ((*line)[index[0]] == '$' && valid_dollar((*line)[index[0] + 1])
 			&& in_quote(quote) != 1 && !heredoc)
 			remp(&s, index, *line, env);
 		else
@@ -91,7 +108,8 @@ int get_number_of_pipes(t_parser *parser)
 	return (i - 1);
 }
 
-void	prompt_start(t_lexer **lexer, t_env **env)
+
+void	prompt_start(t_lexer **lexer, t_env **env, char *av)
 {
 	char		*line;
 	char		*prompt;
@@ -106,7 +124,7 @@ void	prompt_start(t_lexer **lexer, t_env **env)
 			ctrl_d(prompt, line);
 		add_history(line);
 		if (ft_strchr(line, '$'))
-			line = expander(&line, env);
+			line = expander(&line, env, 0, av);
 		if (lexer_config(lexer, line, &parser))
 			executor(env, parser, get_number_of_pipes(parser));
 		free_all(prompt, line, lexer, &parser);
