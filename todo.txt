@@ -5,28 +5,28 @@ exit 260
 echo -nnnnnnnnn -n > ok
 echo -nnnnnnnna -nnnnnnn > ok
 
-set le status code si exit/builtins fail
+set le status code si exit/builtins fail > should be ok a recheck
 
 /bin/ls fichiernull mets pas le bon exitcode: OK
 
-ctrl + \ doit exit cat
+ctrl + \ doit exit cat > ok
 
 modulo le exit: ok
 
 export doit trier par alphabet 
 message de débug export 
- cd dans un dossier et ensuite supprimer ce dossier et cd .. fais crash 
- quand on stop le here_doc changer le code d’exit
+cd dans un dossier et ensuite supprimer ce dossier et cd .. fais crash 
+quand on stop le here_doc changer le code d’exit > ok
 
-echo bonjour > test | cat fonctionne pas
-< test < invalid < test ls 
+echo bonjour > test | cat fonctionne pas: ok
+< test < invalid < test ls
 
 pwd fail quand on remove le path actuel
 
 enlever les fprintf pour debug
 
 
-<< xD | cat: doesnt stop cat error in files
+<< xD | cat: doesnt stop cat error in files > should be ok
 
 
 maybe rework pwd by storing cwd in a struct etc
@@ -38,6 +38,14 @@ CHANGER STRUCT PID EN STRUCT COMMAND ET AJOUTER BUILTIN POUR LES EXIT CODE ZZZ
 << xD | echo 'aaa' > stop executing when pressing ctrl c
 
 
-echo "lol" | exit | echo "xD" | exit | exit > DONT EXIT xd
-SI  UN PIPE EXISTE EXECUTE LES BUILTINS DANS UN FORK
+echo "lol" | exit | echo "xD" | exit | exit > DONT EXIT xd > ok
+SI  UN PIPE EXISTE EXECUTE LES BUILTINS DANS UN FORK > ok
 
+SI LE NOMBRE DE PIPE = 0 ALORS EXECUTER LES BUILTINS EN DEHORS DUN FORK > OK
+exit | exit > shouldnt print exit > ok
+
+
+< adasdasda cat | sleep 5 | ls > /root/addsadsa > should have the same exit code as bash
+
+
+exit abc | exit abc > print fails

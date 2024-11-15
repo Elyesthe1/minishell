@@ -87,6 +87,7 @@ typedef struct s_pids
 	struct s_pids	*next;
 }					t_pids;
 
+
 void				lst_printf(t_lexer *lexer, t_parser *parser);
 //
 void				ft_lstadd_backcmd(t_parser **lst, t_parser *new);
@@ -162,15 +163,16 @@ int					lexer_config(t_lexer **lexer, char *line,
 int					ft_strlen(const char *s);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 void				cmd_handler(char *cmd_name, t_env **env);
-int					built_exit(char **args);
-void				built_pwd(t_env **env);
-void				built_env(t_env **env);
+int					built_exit(char **args, int ouside_fork);
+int					built_pwd(t_env **env);
+int					built_env(t_env **env);
 int					built_echo(char **args);
 int					built_unset(char **args, t_env **env);
 void				built_export(char **args, t_env **env);
 void				prompt_start(t_lexer **lexer, t_env **env, char *av);
 int					ft_strcmp(const char *s1, const char *s2);
 char				*get_env_name(char *str);
+int					exec_outside_built(char **args, t_env **env);
 char				*get_env_value(char *str);
 char				*ft_joinstrcpy(char *s1, char *s2, char *s3, int n);
 char				*ft_strcpy(char *dest, char *src);
@@ -180,7 +182,7 @@ int					built_cd(char **args, t_env **env);
 void				add_to_env(t_env **env, char *env_name, char *env_value);
 void				change_env_value(t_env **env, char *env_name,
 						char *env_value);
-int					executor(t_env **env, t_parser *parser);
+int					executor(t_env **env, t_parser *parser, int n_pipes);
 char				*get_command_path(char *command_name, t_env *env);
 char				*construct_command_path(char *path, char *command_name);
 char				**ft_split(char const *s, char c);
@@ -212,7 +214,7 @@ char				*ft_split_line(char *tab, char c);
 
 int					exec_built(char **args, t_env **env);
 t_env				*get_env_node(t_env **env, char *env_name, int n);
-int					execute_outside_fork(char *cmd_name, char **args);
+int					execute_outside_fork(char *cmd_name, char **args, int nb_of_pipes);
 int					ft_isint(char *str);
 int					ft_atoi(const char *str);
 void				ft_putchar_fd(char c, int fd);
@@ -221,7 +223,7 @@ int					args_size(char **args);
 char				*ft_strchr(const char *s, int c);
 void				export_to_env(t_env **env, char **env_name,
 						char **env_value);
-void				manage_export(char **args, t_env **env);
+int					manage_export(char **args, t_env **env);
 void				create_pipe(int pipefd[2], t_parser **parser);
 void				close_free_fd(t_parser **parser);
 void				close_next_fd(t_parser **parser);

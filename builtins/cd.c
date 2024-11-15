@@ -6,7 +6,7 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:53:42 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/13 18:34:22 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/14 16:49:42 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*get_directory_path(t_env **env, char *directory_path)
 	{
 		if (!exists_in_env(env, "HOME"))
 		{
-			ft_putstr_fd("cd: HOME not set\n", STDERR_FILENO);
+			write(STDERR_FILENO, "cd: HOME not set\n", ft_strlen("cd: HOME not set\n"));
 			return (NULL);
 		}
 		directory_path = get_env_node(env, "HOME", 1)->value;
@@ -27,7 +27,7 @@ char	*get_directory_path(t_env **env, char *directory_path)
 	{
 		if (!exists_in_env(env, "OLDPWD"))
 		{
-			ft_putstr_fd("cd: OLDPWD not set\n", STDERR_FILENO);
+			write(STDERR_FILENO, "cd: OLDPWD not set\n", ft_strlen("cd: OLDPWD not set\n"));
 			return (NULL);
 		}
 		directory_path = get_env_node(env, "OLDPWD", 1)->value;
@@ -38,11 +38,18 @@ char	*get_directory_path(t_env **env, char *directory_path)
 
 void	execute_error(char *directory_path, char *strerr)
 {
-	ft_putstr_fd("cd: ", STDERR_FILENO);
-	ft_putstr_fd(directory_path, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putstr_fd(strerr, STDERR_FILENO);
-	ft_putstr_fd("\n", STDERR_FILENO);
+	char	*str;
+
+	str = NULL;
+	str = ft_strjoin_free(str, "cd: ");
+	str = ft_strjoin_free(str, directory_path);
+	str = ft_strjoin_free(str, ": ");
+	str = ft_strjoin_free(str, strerr);
+	str = ft_strjoin_free(str, "\n");
+	if (!str)
+		return;
+	write(STDERR_FILENO, str, ft_strlen(str));
+	free(str);
 }
 
 int	execute_cd(char *directory_path, t_env **env)
@@ -78,7 +85,7 @@ int	built_cd(char **args, t_env **env)
 {
 	if (args_size(args) > 1)
 	{
-		ft_putstr_fd("cd: too many arguments\n", STDERR_FILENO);
+		write(STDERR_FILENO, "cd: too many arguments\n", ft_strlen("cd: too many arguments\n"));
 		return (1);
 	}
 	return (execute_cd(args[1], env));

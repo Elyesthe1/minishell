@@ -18,7 +18,7 @@ void	ctrl_d(char *prompt, char *line)
 	free(line);
 	rl_clear_history();
 	printf("exit\n");
-	exit(0);
+  exit(g_status_code);
 }
 
 void	signal_handler(int signal)
@@ -29,6 +29,7 @@ void	signal_handler(int signal)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
+		g_status_code = 130;
 	}
 }
 

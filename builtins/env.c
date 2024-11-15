@@ -6,7 +6,7 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:53:45 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/13 17:52:45 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/14 14:29:33 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,14 @@ char	*env_lst_to_str(t_env **env)
 	return (str);
 }
 
-void	built_env(t_env **env)
+int	built_env(t_env **env)
 {
 	char	*str;
 
 	str = env_lst_to_str(env);
 	if (!str)
-		return ;
+		return (0);
 	ft_putstr_fd(str, STDOUT_FILENO);
 	free(str);
+	return (0);
 }
