@@ -6,7 +6,7 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:54:27 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/16 15:37:06 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/16 15:38:12 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ void	dup2_fd(int *in, int *out)
 int	execute_command(t_env **env, t_parser **parser, t_pids **pids, int n_pipes)
 {
 	pid_t	pid;
-	char	**envp;
 
 	if (!(*parser)->str[0])
 	{
