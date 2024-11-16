@@ -6,7 +6,7 @@
 /*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:56:38 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/15 13:36:53 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/16 12:02:39 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ char				*ft_strdup(char *s);
 int					ft_free(char *s);
 int					lexer_config(t_lexer **lexer, char *line,
 						t_parser **parser);
+char	*expander1(char **s, int index[2], char **line);
 int					ft_strlen(const char *s);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 void				cmd_handler(char *cmd_name, t_env **env);
@@ -168,7 +169,8 @@ int					built_pwd(t_env **env);
 int					built_env(t_env **env);
 int					built_echo(char **args);
 int					built_unset(char **args, t_env **env);
-void				built_export(char **args, t_env **env);
+int				built_export(char **args, t_env **env);
+void	init(int index[2], int quote[2], int *heredoc);
 void				prompt_start(t_lexer **lexer, t_env **env, char *av);
 int					ft_strcmp(const char *s1, const char *s2);
 char				*get_env_name(char *str);
@@ -227,5 +229,7 @@ int					manage_export(char **args, t_env **env);
 void				create_pipe(int pipefd[2], t_parser **parser);
 void				close_free_fd(t_parser **parser);
 void				close_next_fd(t_parser **parser);
+void	bigline1(int i[2], char *av, char c);
+
 
 #endif

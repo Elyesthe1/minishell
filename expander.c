@@ -6,7 +6,7 @@
 /*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:55:36 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/15 13:38:40 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/16 12:02:25 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,6 @@ char	*var_name(char *line)
 		i++;
 	line[i] = '\0';
 	return (line);
-}
-
-void bigline1(int i[2], char *av, char c)
-{
-	if (c == '0')
-	{
-		i[0] += ft_strlen(av);
-		i[1]++;
-	}
-	else
-		i[1]++;
 }
 
 int	bigline(char *l, t_env **env, char *av)
