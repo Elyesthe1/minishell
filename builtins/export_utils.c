@@ -6,7 +6,7 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:53:48 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/13 15:15:04 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/16 15:26:13 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,19 @@
 
 void	export_identifier_error(char *str)
 {
-	ft_putstr_fd("export: ", STDERR_FILENO);
-	ft_putstr_fd(str, STDERR_FILENO);
-	ft_putstr_fd("not a valid identifier\n", STDERR_FILENO);
+	char	*err_str;
+
+	err_str = NULL;
+	err_str = ft_strjoin_free(err_str, "export: ");
+	err_str = ft_strjoin_free(err_str, str);
+	err_str = ft_strjoin_free(err_str, " not a valid identifier\n");
+	if (!err_str)
+		return ;
+	write(STDERR_FILENO, err_str, ft_strlen(err_str));
+	free(err_str);
 }
 
-void	manage_export(char **args, t_env **env)
+int	manage_export(char **args, t_env **env)
 {
 	int		i;
 	char	*env_name;
@@ -35,10 +42,15 @@ void	manage_export(char **args, t_env **env)
 			if (env_name)
 				export_to_env(env, &env_name, &env_value);
 			else
+			{
+				free(env_value);
 				export_identifier_error(args[i]);
+				return (1);
+			}
 		}
 		++i;
 	}
+	return (0);
 }
 
 void	export_to_env(t_env **env, char **env_name, char **env_value)

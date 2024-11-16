@@ -6,16 +6,16 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:53:51 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/13 18:40:44 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/16 15:26:46 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	get_cwd()
+int	get_cwd(void)
 {
 	char	*cwd;
-	
+
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
 		return (-1);
@@ -27,7 +27,7 @@ int	get_cwd()
 int	get_pwd_env(t_env **env)
 {
 	t_env	*env_node;
-	
+
 	if (!env)
 		return (-1);
 	env_node = get_env_node(env, "PWD", 1);
@@ -39,7 +39,7 @@ int	get_pwd_env(t_env **env)
 	return (0);
 }
 
-int get_env_pwd()
+int	get_env_pwd(void)
 {
 	char	*env_pwd;
 
@@ -50,14 +50,15 @@ int get_env_pwd()
 	return (0);
 }
 
-void	built_pwd(t_env **env)
+int	built_pwd(t_env **env)
 {
 	(void)env;
 	if (get_cwd() == 0)
-		return ;
+		return (0);
 	if (get_pwd_env(env) == 0)
-		return ;
+		return (0);
 	if (get_env_pwd() == 0)
-		return ;
-	printf("pwd failed\n");
+		return (0);
+	write(STDERR_FILENO, "pwd failed\n", 12);
+	return (1);
 }

@@ -37,10 +37,12 @@ SRCS = main.c\
 	   builtins/export_utils.c\
 	   expander.c\
 	   utils4.c\
+	   builtins/export_sort.c\
+	   utils5.c\
 
 CC = cc
 RM = rm -f
-FLAGS = -Wall -Wextra -g
+FLAGS = -Wall -Wextra -g -fsanitize=address
 NAME = minishell
 OBJS = $(SRCS:.c=.o)
 

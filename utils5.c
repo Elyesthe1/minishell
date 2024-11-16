@@ -1,36 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils5.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/12 18:55:56 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/15 13:30:06 by erahal           ###   ########.fr       */
+/*   Created: 2024/11/16 12:00:57 by erahal            #+#    #+#             */
+/*   Updated: 2024/11/16 12:02:29 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_status_code;
-
-int	main(int ac, char **av, char **env)
+void	init(int index[2], int quote[2], int *heredoc)
 {
-	t_lexer	*lexer;
-	t_env	*ev;
+	index[0] = 0;
+	index[1] = 0;
+	quote[0] = 0;
+	quote[1] = 0;
+	*heredoc = 0;
+}
 
-	(void)av;
-	g_status_code = 0;
-	if (ac != 1)
+char	*expander1(char **s, int index[2], char **line)
+{
+	(*s)[index[1]] = '\0';
+	free(*line);
+	return (*s);
+}
+
+void	bigline1(int i[2], char *av, char c)
+{
+	if (c == '0')
 	{
-		write(2, "no arguments are required\n", 27);
-		exit(1);
+		i[0] += ft_strlen(av);
+		i[1]++;
 	}
-	lexer = NULL;
-	ev = NULL;
-	stock_env(env, &ev);
-	set_signal_action();
-	prompt_start(&lexer, &ev, av[0]);
-	lst_freeenv(&ev);
-	return (g_status_code);
+	else
+		i[1]++;
 }

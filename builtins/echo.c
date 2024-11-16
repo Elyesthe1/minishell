@@ -6,17 +6,19 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:53:43 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/13 19:42:48 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/16 15:27:07 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int is_n_arg(char *str)
+int	is_n_arg(char *str)
 {
 	int	i;
 
 	i = 0;
+	if (!str || !str[i])
+		return (0);
 	if (str[i] && (str[i] != '-' || (str[i] == '-' && !str[i + 1])))
 		return (0);
 	++i;

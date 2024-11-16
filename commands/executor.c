@@ -6,7 +6,7 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:54:27 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/14 13:53:57 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/16 15:38:12 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ int	access_all_infile(t_infile *infile, t_env **env, t_parser **parser)
 		else if (infile->flag[i] == 1)
 			tmp_fd = open(infile->infile[i], O_RDONLY);
 		if (tmp_fd == -1)
-			return (perror(infile->infile[i]), -1);
+			return (perror(infile->infile[i]), g_status_code = 1, -1);
 		else if (tmp_fd == -2)
 			return (-2);
 		if (infile->infile[i + 1])
 			close(tmp_fd);
 		++i;
 	}
-	infile->fd = malloc(sizeof(int));
+	malloc_infile(infile);
 	if (!infile->fd)
 		return (close(tmp_fd), -1);
 	*infile->fd = tmp_fd;
@@ -58,7 +58,7 @@ int	create_outfile(t_outfile *outfile)
 			tmp_fd = open(outfile->outfile[i], O_APPEND | O_WRONLY | O_CREAT,
 					0644);
 		if (tmp_fd == -1)
-			return (perror(outfile->outfile[i]), -1);
+			return (perror(outfile->outfile[i]), g_status_code = 1, -1);
 		if (outfile->outfile[i + 1])
 			close(tmp_fd);
 		++i;
@@ -84,47 +84,35 @@ void	dup2_fd(int *in, int *out)
 	}
 }
 
-void	signal_xd()
-{
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
-}
-
-int	execute_command(t_env **env, t_parser **parser, t_pids **pids)
+int	execute_command(t_env **env, t_parser **parser, t_pids **pids, int n_pipes)
 {
 	pid_t	pid;
-	char	**envp;
-	
+
 	if (!(*parser)->str[0])
 	{
 		close_free_fd(parser);
 		return (-1);
 	}
-	// printf("executing command: %s\n", (*parser)->str[0]);
-	if (execute_outside_fork((*parser)->str[0], (*parser)->str))
-		return (close_free_fd(parser), exec_built((*parser)->str, env));
+	if (execute_outside_fork((*parser)->str[0], (*parser)->str, n_pipes))
+		return (close_free_fd(parser), exec_outside_built((*parser)->str, env));
 	pid = fork();
 	if (pid == -1)
 		return (perror("fork"), 1);
 	if (pid == 0)
 	{
-		signal_xd();
+		signal_default();
 		dup2_fd((*parser)->infile.fd, (*parser)->outfile.fd);
 		close_next_fd(parser);
 		if (!is_builtin((*parser)->str[0]))
-		{
-			replace_command_name_by_path(&(*parser)->str[0], *env);
-			envp = convert_env_to_envp(*env);
-			execve((*parser)->str[0], (*parser)->str, envp);
-		}
+			execve_cmd(parser, env);
 		else
-			exec_built((*parser)->str, env);
+			exit(exec_built((*parser)->str, env));
 		exit(0);
 	}
 	return (close_free_fd(parser), add_pid(pids, pid), 0);
 }
 
-int	executor(t_env **env, t_parser *parser)
+int	executor(t_env **env, t_parser *parser, int n_pipes)
 {
 	int		pipefd[2];
 	t_pids	*pids;
@@ -139,7 +127,7 @@ int	executor(t_env **env, t_parser *parser)
 		{
 			if (parser->next)
 				create_pipe(pipefd, &parser);
-			execute_command(env, &parser, &pids);
+			execute_command(env, &parser, &pids, n_pipes);
 		}
 		if (parser && parser->infile.fd)
 		{
