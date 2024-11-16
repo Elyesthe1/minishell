@@ -6,7 +6,7 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:56:38 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/15 15:54:17 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/15 19:38:26 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,5 +227,7 @@ int					manage_export(char **args, t_env **env);
 void				create_pipe(int pipefd[2], t_parser **parser);
 void				close_free_fd(t_parser **parser);
 void				close_next_fd(t_parser **parser);
+char				*create_export_line(t_env *env_node);
+char				**env_to_export_strs(t_env *env);
 
 #endif
