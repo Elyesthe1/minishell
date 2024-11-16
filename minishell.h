@@ -6,7 +6,7 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:56:38 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/16 14:59:34 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/16 15:36:15 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ typedef struct s_pids
 	struct s_pids	*next;
 }					t_pids;
 
-
 void				lst_printf(t_lexer *lexer, t_parser *parser);
 //
 void				ft_lstadd_backcmd(t_parser **lst, t_parser *new);
@@ -99,7 +98,7 @@ int					valid_dollar(char c);
 int					free_zero(char *l);
 void				last_status(char **s, int index[2]);
 int					exit_status(void);
-void				remove_from_env( t_env **env, char *env_name);
+void				remove_from_env(t_env **env, char *env_name);
 
 char				*var_name(char *line);
 int					bigline(char *line, t_env **env, char *av);
@@ -160,7 +159,7 @@ char				*ft_strdup(char *s);
 int					ft_free(char *s);
 int					lexer_config(t_lexer **lexer, char *line,
 						t_parser **parser);
-char	*expander1(char **s, int index[2], char **line);
+char				*expander1(char **s, int index[2], char **line);
 int					ft_strlen(const char *s);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 void				cmd_handler(char *cmd_name, t_env **env);
@@ -199,7 +198,8 @@ int					replace_command_name_by_path(char **str, t_env *env);
 void				add_pid(t_pids **pids, pid_t pid);
 void				free_all_pids(t_pids **pids);
 void				wait_all_pids(t_pids **pids);
-int					here_doc(char *limiter, t_env **env, char *line, t_parser **parser);
+int					here_doc(char *limiter, t_env **env, char *line,
+						t_parser **parser);
 char				*ft_strjoin_free(char *s1, char const *s2);
 int					is_builtin(char *cmd_name);
 void				execute_builtin(char *cmd_name, char **args, t_env **env);
@@ -216,7 +216,8 @@ char				*ft_split_line(char *tab, char c);
 
 int					exec_built(char **args, t_env **env);
 t_env				*get_env_node(t_env **env, char *env_name, int n);
-int					execute_outside_fork(char *cmd_name, char **args, int nb_of_pipes);
+int					execute_outside_fork(char *cmd_name, char **args,
+						int nb_of_pipes);
 int					ft_isint(char *str);
 int					ft_atoi(const char *str);
 void				ft_putchar_fd(char c, int fd);
@@ -231,7 +232,9 @@ void				close_free_fd(t_parser **parser);
 void				close_next_fd(t_parser **parser);
 char				*create_export_line(t_env *env_node);
 char				**env_to_export_strs(t_env *env);
-void	bigline1(int i[2], char *av, char c);
-
+void				bigline1(int i[2], char *av, char c);
+void				signal_default(void);
+void				malloc_infile(t_infile *infile);
+void				execve_cmd(t_parser **parser, t_env **env);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:53:42 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/15 19:02:33 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/16 15:26:03 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ char	*get_directory_path(t_env **env, char *directory_path)
 	{
 		if (!exists_in_env(env, "HOME"))
 		{
-			write(STDERR_FILENO, "cd: HOME not set\n", ft_strlen("cd: HOME not set\n"));
+			write(STDERR_FILENO, "cd: HOME not set\n",
+				ft_strlen("cd: HOME not set\n"));
 			return (NULL);
 		}
 		directory_path = get_env_node(env, "HOME", 1)->value;
@@ -27,7 +28,8 @@ char	*get_directory_path(t_env **env, char *directory_path)
 	{
 		if (!exists_in_env(env, "OLDPWD"))
 		{
-			write(STDERR_FILENO, "cd: OLDPWD not set\n", ft_strlen("cd: OLDPWD not set\n"));
+			write(STDERR_FILENO, "cd: OLDPWD not set\n",
+				ft_strlen("cd: OLDPWD not set\n"));
 			return (NULL);
 		}
 		directory_path = get_env_node(env, "OLDPWD", 1)->value;
@@ -47,7 +49,7 @@ void	execute_error(char *directory_path, char *strerr)
 	str = ft_strjoin_free(str, strerr);
 	str = ft_strjoin_free(str, "\n");
 	if (!str)
-		return;
+		return ;
 	write(STDERR_FILENO, str, ft_strlen(str));
 	free(str);
 }
@@ -82,7 +84,8 @@ int	built_cd(char **args, t_env **env)
 {
 	if (args_size(args) > 1)
 	{
-		write(STDERR_FILENO, "cd: too many arguments\n", ft_strlen("cd: too many arguments\n"));
+		write(STDERR_FILENO, "cd: too many arguments\n",
+			ft_strlen("cd: too many arguments\n"));
 		return (1);
 	}
 	return (execute_cd(args[1], env));

@@ -6,13 +6,13 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:53:43 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/15 16:08:46 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/16 15:27:07 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int is_n_arg(char *str)
+int	is_n_arg(char *str)
 {
 	int	i;
 

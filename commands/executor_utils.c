@@ -6,7 +6,7 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:54:25 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/13 16:25:55 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/16 15:36:59 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	create_pipe(int pipefd[2], t_parser **parser)
 	{
 		(*parser)->outfile.fd = malloc(sizeof(int));
 		*(*parser)->outfile.fd = pipefd[1];
-	} 
-	else 
+	}
+	else
 	{
 		close(pipefd[1]);
 	}
@@ -53,4 +53,25 @@ void	close_next_fd(t_parser **parser)
 		if ((*parser)->next->outfile.fd)
 			close(*(*parser)->next->outfile.fd);
 	}
+}
+
+void	malloc_infile(t_infile *infile)
+{
+	if (infile->fd)
+	{
+		close(*infile->fd);
+		free(infile->fd);
+		infile->fd = NULL;
+	}
+	infile->fd = malloc(sizeof(int));
+}
+
+void	execve_cmd(t_parser **parser, t_env **env)
+{
+	char	**envp;
+
+	envp = NULL;
+	replace_command_name_by_path(&(*parser)->str[0], *env);
+	envp = convert_env_to_envp(*env);
+	execve((*parser)->str[0], (*parser)->str, envp);
 }

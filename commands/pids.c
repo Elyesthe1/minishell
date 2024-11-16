@@ -6,7 +6,7 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:54:41 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/14 18:03:16 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/16 15:24:17 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,8 @@ void	add_pid(t_pids **pids, pid_t pid)
 	tmp->next = pid_node;
 }
 
-
-
-void	signal_hxDDD(int signal)
+void	signal_child(int signal)
 {
-	// (void)signal;
 	if (signal == SIGINT)
 	{
 		ft_putstr_fd("\n", STDOUT_FILENO);
@@ -49,7 +46,6 @@ void	signal_hxDDD(int signal)
 		write(STDOUT_FILENO, "Quit (core dumped)\n", 20);
 	}
 }
-// CHECK IF A CHILD WAS KILLED BY A SIGNAL AND IF SO PRINT (COREDUMP)
 
 void	free_all_pids(t_pids **pids)
 {
@@ -66,7 +62,7 @@ void	free_all_pids(t_pids **pids)
 	*pids = NULL;
 }
 
-int		get_global_code(int status_code)
+int	get_global_code(int status_code)
 {
 	if (WIFSIGNALED(status_code))
 	{
@@ -80,12 +76,12 @@ int		get_global_code(int status_code)
 
 void	wait_all_pids(t_pids **pids)
 {
-	int	status_code;
+	int		status_code;
 	t_pids	*pid_node;
 
 	pid_node = *pids;
-	signal(SIGINT, &signal_hxDDD);
-	signal(SIGQUIT, &signal_hxDDD);
+	signal(SIGINT, &signal_child);
+	signal(SIGQUIT, &signal_child);
 	while (pid_node)
 	{
 		if (pid_node->next)

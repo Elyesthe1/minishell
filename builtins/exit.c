@@ -6,7 +6,7 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:53:47 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/14 18:06:59 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/16 15:26:55 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	perror_msg(char **args, int outside_fork, int msg)
 	str = NULL;
 	if (outside_fork)
 		str = ft_strjoin_free(str, "exit\n");
-
 	if (msg == 1)
 	{
 		str = ft_strjoin_free(str, "exit: ");
@@ -29,7 +28,7 @@ void	perror_msg(char **args, int outside_fork, int msg)
 	else if (msg == 2)
 		str = ft_strjoin_free(str, "exit: too many arguments\n");
 	if (!str)
-		return;
+		return ;
 	write(STDERR_FILENO, str, ft_strlen(str));
 	free(str);
 }
