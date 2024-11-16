@@ -6,7 +6,7 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:56:38 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/16 15:36:15 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/16 15:46:54 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,7 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-// 0 si pas un tokens
-// < == 1 infile
-// > == 2 outfile
-// >> == 3 outfile
-// << == 4 infile
-// | == 5
-
 extern int			g_status_code;
-// int signal;
-// CTRL-C == 0
-// CTRL-D == 1
-// CTRL-\ == 2
 
 typedef struct s_tokens
 {
@@ -87,8 +76,6 @@ typedef struct s_pids
 	struct s_pids	*next;
 }					t_pids;
 
-void				lst_printf(t_lexer *lexer, t_parser *parser);
-//
 void				ft_lstadd_backcmd(t_parser **lst, t_parser *new);
 t_parser			*ft_lstnewcmd(t_lexer *lexer);
 int					ft_isalnum(int n);
