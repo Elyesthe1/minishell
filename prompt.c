@@ -3,25 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:56:12 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/15 13:57:28 by erahal           ###   ########.fr       */
+/*   Updated: 2024/11/16 12:02:59 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 extern int	g_status_code;
-
-void	init(int index[2], int quote[2], int *heredoc)
-{
-	index[0] = 0;
-	index[1] = 0;
-	quote[0] = 0;
-	quote[1] = 0;
-	*heredoc = 0;
-}
 
 void	remp2(char *av, char **s, int index[2])
 {
@@ -64,9 +55,7 @@ char	*expander(char **line, t_env **env, int heredoc, char *av)
 		else
 			var_replace2(index, &s, line, &heredoc);
 	}
-	s[index[1]] = '\0';
-	free(*line);
-	return (s);
+	return (expander1(&s, index, line));
 }
 
 char	*prompt_config(void)
@@ -95,7 +84,7 @@ char	*prompt_config(void)
 	return (ft_strjoin_prompt(s, " ", 0));
 }
 
-int get_number_of_pipes(t_parser *parser)
+int	get_number_of_pipes(t_parser *parser)
 {
 	int	i;
 
@@ -107,7 +96,6 @@ int get_number_of_pipes(t_parser *parser)
 	}
 	return (i - 1);
 }
-
 
 void	prompt_start(t_lexer **lexer, t_env **env, char *av)
 {

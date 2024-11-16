@@ -1,40 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   utils5.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erahal <erahal@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/12 18:57:12 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/16 12:01:47 by erahal           ###   ########.fr       */
+/*   Created: 2024/11/16 12:00:57 by erahal            #+#    #+#             */
+/*   Updated: 2024/11/16 12:02:29 by erahal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ctrl_d(char *prompt, char *line)
+void	init(int index[2], int quote[2], int *heredoc)
 {
-	free(prompt);
-	free(line);
-	rl_clear_history();
-	printf("exit\n");
-	exit(g_status_code);
+	index[0] = 0;
+	index[1] = 0;
+	quote[0] = 0;
+	quote[1] = 0;
+	*heredoc = 0;
 }
 
-void	signal_handler(int s)
+char	*expander1(char **s, int index[2], char **line)
 {
-	if (s == SIGINT)
+	(*s)[index[1]] = '\0';
+	free(*line);
+	return (*s);
+}
+
+void	bigline1(int i[2], char *av, char c)
+{
+	if (c == '0')
 	{
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-		g_status_code = 130;
+		i[0] += ft_strlen(av);
+		i[1]++;
 	}
-}
-
-void	set_signal_action(void)
-{
-	signal(SIGINT, &signal_handler);
-	signal(SIGQUIT, SIG_IGN);
+	else
+		i[1]++;
 }

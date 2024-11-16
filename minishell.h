@@ -6,7 +6,7 @@
 /*   By: tovetouc <tovetouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:56:38 by erahal            #+#    #+#             */
-/*   Updated: 2024/11/15 19:38:26 by tovetouc         ###   ########.fr       */
+/*   Updated: 2024/11/16 14:59:34 by tovetouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ char				*ft_strdup(char *s);
 int					ft_free(char *s);
 int					lexer_config(t_lexer **lexer, char *line,
 						t_parser **parser);
+char	*expander1(char **s, int index[2], char **line);
 int					ft_strlen(const char *s);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 void				cmd_handler(char *cmd_name, t_env **env);
@@ -169,6 +170,7 @@ int					built_env(t_env **env);
 int					built_echo(char **args);
 int					built_unset(char **args, t_env **env);
 int					built_export(char **args, t_env **env);
+void				init(int index[2], int quote[2], int *heredoc);
 void				prompt_start(t_lexer **lexer, t_env **env, char *av);
 int					ft_strcmp(const char *s1, const char *s2);
 char				*get_env_name(char *str);
@@ -229,5 +231,7 @@ void				close_free_fd(t_parser **parser);
 void				close_next_fd(t_parser **parser);
 char				*create_export_line(t_env *env_node);
 char				**env_to_export_strs(t_env *env);
+void	bigline1(int i[2], char *av, char c);
+
 
 #endif
