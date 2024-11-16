@@ -37,6 +37,7 @@ SRCS = main.c\
 	   builtins/export_utils.c\
 	   expander.c\
 	   utils4.c\
+	   utils5.c\
 
 CC = cc
 RM = rm -f
