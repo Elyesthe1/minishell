@@ -1,12 +1,12 @@
 SRCS = main.c\
-	   prompt.c\
-	   utils.c\
-	   utils1.c\
-	   lst.c\
+	   parsing/prompt.c\
+	   parsing/utils.c\
+	   parsing/utils1.c\
+	   parsing/lst.c\
 	   env/env1.c\
 	   env/env2.c\
-	   parser.c\
-	   parse_token.c\
+	   parsing/parser.c\
+	   parsing/parse_token.c\
 	   builtins/echo.c\
 	   builtins/env.c\
 	   builtins/exit.c\
@@ -17,28 +17,28 @@ SRCS = main.c\
 	   commands/handler.c\
 	   str/cmp.c\
 	   str/cpy.c\
-	   signal.c\
-	   parse_quote.c\
-	   utils3.c\
-	   utils2.c\
-	   lst2.c\
-	   lst1.c\
+	   parsing/signal.c\
+	   parsing/parse_quote.c\
+	   parsing/utils3.c\
+	   parsing/utils2.c\
+	   parsing/lst2.c\
+	   parsing/lst1.c\
 	   commands/executor.c\
 	   commands/cmd_utils.c\
 	   commands/executor_utils.c\
 	   str/split.c\
 	   str/put.c\
 	   str/chr.c\
-	   ft_atoi.c\
-	   mem.c\
+	   utils/ft_atoi.c\
+	   utils/mem.c\
 	   env/env3.c\
 	   commands/pids.c\
 	   commands/here_doc.c\
 	   builtins/export_utils.c\
-	   expander.c\
-	   utils4.c\
+	   parsing/expander.c\
+	   parsing/utils4.c\
 	   builtins/export_sort.c\
-	   utils5.c\
+	   parsing/utils5.c\
 
 CC = cc
 RM = rm -f
