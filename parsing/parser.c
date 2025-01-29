@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	how_much_cmd(t_lexer *lexer, t_parser **parser)
 {

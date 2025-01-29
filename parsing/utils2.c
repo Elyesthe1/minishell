@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	alloc(t_parser **parser, int infile, int outfile, t_lexer *lexer)
 {

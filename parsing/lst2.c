@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	fill4(t_lexer **lexer, t_parser **parser, int i[3])
 {
