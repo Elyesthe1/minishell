@@ -88,7 +88,7 @@ cd /tmp && ls -la | grep log > results.txt
 │                                         │
 │  ┌──────────┐    ┌────────────────────┐ │
 │  │  Lexer   │───▶│      Parser        │ │
-│  │(tokenize)│    │    (cmd list)      │ │
+│  │(tokenize)│    │    (linked list)   │ │
 │  └──────────┘    └────────┬───────────┘ │
 │                           │             │
 │                  ┌────────▼───────────┐ │
